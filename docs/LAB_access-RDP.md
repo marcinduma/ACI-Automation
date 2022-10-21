@@ -2,7 +2,7 @@
 
 ## 1. Lab access general description
 
-The lab has been built leveraging multiple cloud environments as following:
+The lab has been built leveraging multiple environments as following:
 
 - Amazon Web Services
 - Private intrastructure on-prem
@@ -10,41 +10,36 @@ The lab has been built leveraging multiple cloud environments as following:
 You will have access to Cisco Intersight GUI, where you will see  Kubernetes Clusters deployed On-Prem. In the end you will manage your application that will be deployed in 2 different environments. The infrastructure between On-prem and AWS is ready and functioning. In this lab you will see how to connect microservices together to make whole application work.
 Most of the tasks you will do from Linux Jumphost that is running on-premise. From there you will deploy components of your application in Kubernetes Cluster in AWS and on-prem.
 
-## 2. Cisco dCloud dashboard
+## 2. VPN connection to dCloud infrastructure
 
 The entire lab for the session is built using Cisco dCloud environment.
-Access to the Session will be provided by the proctor assigned to you.
+Details of the session are provided in POD assigned to you. You will find there "Connect VPN" link which allow you connection to dCloud session.
+When you decide to use BYOD, please connect to VPN using provided credentials.
 
-### Access session with webRDP
+### Access session with RDP
 
-Once logged to the dCloud session, you will see dashboard like on the following picture:
+Once logged to the dCloud session, you will be able to RDP Windows workstation ready to use for you
 
-<img src="https://raw.githubusercontent.com/marcinduma/WILCLD-2611/master/images/dCloud-dashboard.PNG" width = 800>
+Open RDP client and use credentials provided below:
 
-To open WebRDP follow the procedure from the figures:
+IP Address:
 
-1) Click on the blue triangle highlighted on figure below
+	198.18.133.10
 
-<img src="https://raw.githubusercontent.com/marcinduma/WILCLD-2611/master/images/dCloud-rdp-1.PNG" width = 800>
+Username:
+	
+	administrator
 
-2) Follow to "Remote Desktop" by using link in red frame on the figure:
+User password:
+	
+	C1sco12345
 
-<img src="https://raw.githubusercontent.com/marcinduma/WILCLD-2611/master/images/dCloud-rdp-2.PNG" width = 800>
-
-
-When you click on "Remote Desktop button, browser will open new TAB with access to Windows desktop. The webRDP has installed Chrome as web browser, from where you get access to Cisco Intersight page.
+When you login to Remote Desktop, you will find installed Chrome as web browser, from where you get access to Cisco Intersight page.
 To access CSR router and Linux jumphost, use Putty installed - shortcut is on Desktop.
-
-!!! info
-	Please do not use "Remote Desktop" for other devices from the list at **Network** tab. ONLY win2k16 can be accessed that way.
-
-!!! tip
-	When you use webRDP you are still able to copy/paste between your 'main PC' and webRDP interface. You can use Guacamole interface - explained in Appendix: Guacamole.
-
 
 ## 3. Accessing Linux Jumphost
 
-Open PuTTY client on webRDP taskbar.
+Open PuTTY client on RDP-workstation taskbar.
 
 PuTTY has pre-defined session to CSR router as well as to ubuntu-terminal. Use predefined ubuntu-terminal session by selecting it and click Open button.
 
@@ -61,7 +56,8 @@ User password:
 
 Cisco Intersight Platform manages Kuberenetes clusters in the private infrasturcture. You will have access to dedicated instance of Cisco Intersight, from which you will manage your own Kuberenetes Clusters used later on to deploy application.
 
-Please find login credentials and URL to your CCP instance below:
+Please find login credentials and URL to your IKS instance below:
+Please connect to Cisco Intersight from RDP session.
 
 URL:
 	
@@ -70,7 +66,8 @@ User name:
 	
 	holcld2611+pod'X'@gmail.com
 
-Where X will be provided by proctor	
+!!! tip
+	Intersight username you find in POD details at WILAssistant page.
 
 User password:
 	
@@ -81,7 +78,7 @@ User password:
 
 ## 5. Accessing Cisco Intersight Assist
 
-Cisco Intersight requires installation of local (on-prem) satelite system. Cisco Intersight Assist collect data from local vCenter and send it to Cisco Intersight PaaS in secure manner.
+Cisco Intersight requires installation of local (on-prem) satelite system. Cisco Intersight Assist collects data from local vCenter and send it to Cisco Intersight PaaS in secure manner.
 You can login to local Cisco Intersight Assist using credentials provided below:
 
 URL:
@@ -90,8 +87,6 @@ URL:
 User name:
 	
 	admin
-
-Where X will be provided by proctor	
 
 User password:
 	
@@ -102,7 +97,7 @@ User password:
 
 ## 5. Accessing CSR1kv Lab router
 
-Your session contain Cisco CSR1kv router. It is used to terminate Site-2-Site tunnels with AWS tenant. All configuration is ready and doesn't require any modifications.
+Your session contains Cisco CSR1kv router. It is used to terminate Site-2-Site tunnels with AWS tenant. All configurations are ready and doesn't require any modifications.
 
 Please find login credentials and IP address to your CSR1kv router below - use PuTTY predefined session:
 
@@ -133,4 +128,3 @@ User password:
 
 !!! warning
 	Do not delete configuration nor VM machines already existing on the vCenter.
-

@@ -524,10 +524,11 @@
 
 <h1 id="deploy-the-frontend-application-components-on-aws">Deploy the Frontend Application Components on AWS</h1>
 <p>In this section you would deploy the frontend components of the IoT Application on the Amazon Cloud. Following diagram shows the high-level architecture of these frontend application containers</p>
-<p><img alt="Rapi" src="https://raw.githubusercontent.com/marcinduma/HOLCLD-2101/master/images/frontend_app_architecture.png" /></p>
+<p><img alt="Rapi" src="https://raw.githubusercontent.com/marcinduma/WILCLD-2611/master/images/frontend_app_architecture.png" /></p>
 <h2 id="login-to-kubernetes-master-cli-shell">Login to Kubernetes Master CLI Shell:</h2>
-<p>SSH into Linux Jumphost using Putty (198.18.133.10) - use your credentials. Switch to context 'aws'.</p>
-<pre><code>kubectl config use-context aws
+<p>SSH into Linux Jumphost using Putty "ubuntu-terminal" (198.18.133.11) - use your credentials. Switch to context 'arn:aws:eks:us-east-1:782256189490:cluster/CLUS-EKS-X'.</p>
+<pre><code>kubectl config get-contexts
+kubectl config use-context &lt;AWS context-name from previous command output&gt;
 kubectl config get-contexts
 </code></pre>
 <h2 id="1-deploy-frontend-iot">1. Deploy frontend-iot:</h2>
@@ -538,7 +539,7 @@ kubectl config get-contexts
 <li>Kubernetes frontend-iot Load-Balancer AWS Service</li>
 </ol>
 <p>You will create kubernetes deployment for frontend app and expose it to the internet using Kubernetes Load Balancer Service as shown in the following diagram</p>
-<p><img alt="Rapi" src="https://raw.githubusercontent.com/marcinduma/HOLCLD-2101/master/images/deploy_frontend_srvr.png" /></p>
+<p><img alt="Rapi" src="https://raw.githubusercontent.com/marcinduma/WILCLD-2611/master/images/deploy_frontend_srvr.png" /></p>
 <h3 id="11-create-configmap">1.1 Create ConfigMap</h3>
 <p>Create now configmap which will be used by your FrontEnd deployment. Replace '<strong>BACKEND_HOST</strong>' and '<strong>BACKEND_PORT</strong>' in the configmap command (below) with value noted down in section 2.3 in chapter <em>Deploy REST API Agent on Kubernetes</em>.
 Following screenshot highlights the Port and Node IPs in the command outputs in on-prem cluster.</p>
@@ -546,12 +547,12 @@ Following screenshot highlights the Port and Node IPs in the command outputs in 
 <p class="admonition-title">Warning</p>
 <p>External IP addresses of your on-prem workers can vary from one visible on figure below.</p>
 </div>
-<p><img alt="Rapi" src="https://raw.githubusercontent.com/marcinduma/HOLCLD-2101/master/images/restapi-service-ip.png" /></p>
+<p><img alt="Rapi" src="https://raw.githubusercontent.com/marcinduma/WILCLD-2611/master/images/restapi-service-ip.png" /></p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>Note down the Node External IP Address of <strong>one of on-prem WORKER</strong> and NodePort Service Port Number.</p>
 </div>
-<p>ConfigMap create command:</p>
+<p>ConfigMap create command - Copy it to notepad FIRST, edit and paste to Terminal:</p>
 <pre><code>kubectl create configmap iot-frontend-config --from-literal=BACKEND_HOST=&lt;NODE_IP&gt; --from-literal=BACKEND_PORT=&lt;PORT&gt;
 </code></pre>
 <h3 id="12-create-new-deployment-iot-frontend">1.2 Create new deployment: iot-frontend</h3>
@@ -577,7 +578,7 @@ Monifest file is represented below:</p>
 <span class="w">    </span><span class="nt">spec</span><span class="p">:</span><span class="w"></span>
 <span class="w">      </span><span class="nt">containers</span><span class="p">:</span><span class="w"></span>
 <span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;frontend-server&quot;</span><span class="w"></span>
-<span class="w">        </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;eu.gcr.io/fwardz001-poc-ci1s/frontend_server:latest&quot;</span><span class="w"></span>
+<span class="w">        </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;eu.gcr.io/fwardz001-poc-ci1s/frontend_server:vegas2022-v5&quot;</span><span class="w"></span>
 <span class="w">        </span><span class="nt">env</span><span class="p">:</span><span class="w"></span>
 <span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;BACKEND_HOST&quot;</span><span class="w"></span>
 <span class="w">          </span><span class="nt">valueFrom</span><span class="p">:</span><span class="w"></span>
@@ -594,12 +595,12 @@ Monifest file is represented below:</p>
 <span class="nn">---</span><span class="w"></span>
 </code></pre></div>
 <p>Create deployment of frontend using command below:</p>
-<pre><code>kubectl create -f https://raw.githubusercontent.com/marcinduma/HOLCLD-2101/main/Kubernetes/Frontend/frontend_and_nginx_deployment.yaml
+<pre><code>kubectl create -f https://raw.githubusercontent.com/marcinduma/WILCLD-2611/main/Kubernetes/Frontend/frontend_and_nginx_deployment.yaml
 </code></pre>
 <p>Check deployment status and associated PODs:</p>
 <pre><code>kubectl get pods,deployment | egrep "NAME|iot-front"
 </code></pre>
-<p><img alt="Rapi" src="https://raw.githubusercontent.com/marcinduma/HOLCLD-2101/master/images/deploy_aws_front-deployment.png" /></p>
+<p><img alt="Rapi" src="https://raw.githubusercontent.com/marcinduma/WILCLD-2611/master/images/deploy_aws_front-deployment.png" /></p>
 <h2 id="2-expose-the-application-by-creating-kubernetes-service">2. Expose the Application by Creating Kubernetes Service:</h2>
 <p>Next step of our deployment is exposure of frontend web to the Internet. By using following manifest file, you will be able to create Service type LoadBalancer in AWS Kubernetes cluster.</p>
 <div class="highlight"><pre><span></span><code><span class="nn">---</span><span class="w"></span>
@@ -619,29 +620,28 @@ Monifest file is represented below:</p>
 <span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;LoadBalancer&quot;</span><span class="w"></span>
 </code></pre></div>
 <p>using the following command -</p>
-<pre><code>kubectl create -f https://raw.githubusercontent.com/marcinduma/HOLCLD-2101/main/Kubernetes/Frontend/frontend-iot-service.yml
+<pre><code>kubectl create -f https://raw.githubusercontent.com/marcinduma/WILCLD-2611/main/Kubernetes/Frontend/frontend-iot-service.yml
 </code></pre>
 <p>you get service created and exposed in TCP port 80.</p>
 <h3 id="21-check-status-of-newly-created-service">2.1 Check status of newly created service</h3>
 <p>Once service was created, run following command</p>
 <pre><code>kubectl get svc
 </code></pre>
-<p><img alt="Rapi" src="https://raw.githubusercontent.com/marcinduma/HOLCLD-2101/master/images/deploy_aws_frontend.png" /></p>
+<p><img alt="Rapi" src="https://raw.githubusercontent.com/marcinduma/WILCLD-2611/master/images/deploy_aws_frontend.png" /></p>
 <p>Copy service name from your output as marked by green frame on the screenshot above.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>Place the DNS name of service copied to your web browser. It may not work imediately. Please wait few minutes if frontend is not visible yet.
-If you use webRDP we recommend to copy URL from RDP to your main PC - use Guacamole interface - explained in Appendix: Guacamole.</p>
+<p>Place the DNS name of service copied to your web browser. It may not work imediately. Please wait few minutes if frontend is not visible yet.</p>
 </div>
 <h3 id="3-open-the-application-dashboard">3. Open the Application Dashboard:</h3>
 <ul>
 <li>
 <p><strong>3.1:</strong> Use “http” to open the Dashboard for URL captured in step 2.1. You should see the following webpage in the new tab of your browser. Click on the "Open Dashboard" button to open the application dashboard as shown in the following screenshot</p>
-<p><img alt="Rapi" src="https://raw.githubusercontent.com/marcinduma/HOLCLD-2101/master/images/deploy_aws_workload.png" /></p>
+<p><img alt="Rapi" src="https://raw.githubusercontent.com/marcinduma/WILCLD-2611/master/images/deploy_aws_workload.png" /></p>
 </li>
 <li>
 <p><strong>3.2:</strong> If you see the following web-page with charts filled with data, your application is working :-) Congratulations!!!</p>
-<p><img alt="Rapi" src="https://raw.githubusercontent.com/marcinduma/HOLCLD-2101/master/images/deploy_aws_workload_2.png" /></p>
+<p><img alt="Rapi" src="https://raw.githubusercontent.com/marcinduma/WILCLD-2611/master/images/deploy_aws_workload_2.png" /></p>
 </li>
 </ul>
 
