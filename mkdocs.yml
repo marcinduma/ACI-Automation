@@ -1,0 +1,21 @@
+site_name: ACI Automation Training
+site_description: Welcome to our ACI Automation Training with Practice Lab
+
+nav:
+  - Home: index.md
+  - Lab Access:
+    - Accessing the Lab Environment: LAB_access.md
+  - Day1 LAB sections:
+    - Automation basis with restAPI: restAPI.md
+    - Create customer use-cases with Postman: fw-use-cases-postman.md
+    - How to pull informations using restAPI: fw-monitor-aci.md
+  - Day2 LAB sections:
+    - Terraform setup: terraform-basis.md
+    - Customer use-cases with Terraform: fw-terraform-usecases.md
+  - Appendixes:
+    - dCloudGuacamole: guacamole.md
+theme:
+  name: material
+markdown_extensions:
+  - admonition
+  - pymdownx.superfences
