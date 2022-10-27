@@ -291,29 +291,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#4-accessing-cisco-intersight-platform" class="md-nav__link">
-    4. Accessing Cisco Intersight Platform
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#5-accessing-cisco-intersight-assist" class="md-nav__link">
-    5. Accessing Cisco Intersight Assist
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#5-accessing-csr1kv-lab-router" class="md-nav__link">
-    5. Accessing CSR1kv Lab router
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#6-accessing-vcenter-for-lab" class="md-nav__link">
-    6. Accessing vCenter for Lab
+  <a href="#4-accessing-vcenter-for-lab" class="md-nav__link">
+    4. Accessing vCenter for Lab
   </a>
   
 </li>
@@ -580,29 +559,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#4-accessing-cisco-intersight-platform" class="md-nav__link">
-    4. Accessing Cisco Intersight Platform
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#5-accessing-cisco-intersight-assist" class="md-nav__link">
-    5. Accessing Cisco Intersight Assist
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#5-accessing-csr1kv-lab-router" class="md-nav__link">
-    5. Accessing CSR1kv Lab router
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#6-accessing-vcenter-for-lab" class="md-nav__link">
-    6. Accessing vCenter for Lab
+  <a href="#4-accessing-vcenter-for-lab" class="md-nav__link">
+    4. Accessing vCenter for Lab
   </a>
   
 </li>
@@ -623,24 +581,21 @@
 
 <h1 id="connectivity-check">Connectivity Check</h1>
 <h2 id="1-lab-access-general-description">1. Lab access general description</h2>
-<p>The lab has been built leveraging multiple cloud environments as following:</p>
-<ul>
-<li>Amazon Web Services</li>
-<li>Private intrastructure on-prem</li>
-</ul>
-<p>You will have access to Cisco Intersight GUI, where you will see  Kubernetes Clusters deployed On-Prem. In the end you will manage your application that will be deployed in 2 different environments. The infrastructure between On-prem and AWS is ready and functioning. In this lab you will see how to connect microservices together to make whole application work.
-Most of the tasks you will do from Linux Jumphost that is running on-premise. From there you will deploy components of your application in Kubernetes Cluster in AWS and on-prem.</p>
+<p>The lab is based on dCloud session <em>Started with Cisco ACI 5.2 v1</em>:</p>
+<p>You will have access to Cisco dCloud User Interface, where you will be able to login to necessary resources. Each dCloud session contain Windows Workstation, Centos server tool and ACI Simulator. You will work on your dedicated session - details will be provided by instructor.
+During the training you will use only dCloud resources, no need to install additional applications at your PC.</p>
 <h2 id="2-cisco-dcloud-dashboard">2. Cisco dCloud dashboard</h2>
 <p>The entire lab for the session is built using Cisco dCloud environment.
 Access to the Session will be provided by the proctor assigned to you.</p>
+<p>You will get credentials for your individual session provided by teacher.</p>
 <h3 id="access-session-with-webrdp">Access session with webRDP</h3>
 <p>Once logged to the dCloud session, you will see dashboard like on the following picture:</p>
-<p><img src="https://raw.githubusercontent.com/marcinduma/WILCLD-2611/master/images/dCloud-dashboard.PNG" width = 800></p>
+<p><img src="https://raw.githubusercontent.com/marcinduma/ACI-Automation/master/images/dCloud-dashboard.PNG" width = 800></p>
 <p>To open WebRDP follow the procedure from the figures:</p>
 <p>1) Click on the blue triangle highlighted on figure below</p>
-<p><img src="https://raw.githubusercontent.com/marcinduma/WILCLD-2611/master/images/dCloud-rdp-1.PNG" width = 800></p>
+<p><img src="https://raw.githubusercontent.com/marcinduma/ACI-Automation/master/images/dCloud-rdp-1.PNG" width = 800></p>
 <p>2) Follow to "Remote Desktop" by using link in red frame on the figure:</p>
-<p><img src="https://raw.githubusercontent.com/marcinduma/WILCLD-2611/master/images/dCloud-rdp-2.PNG" width = 800></p>
+<p><img src="https://raw.githubusercontent.com/marcinduma/ACI-Automation/master/images/dCloud-rdp-2.PNG" width = 800></p>
 <p>When you click on "Remote Desktop button, browser will open new TAB with access to Windows desktop. The webRDP has installed Chrome as web browser, from where you get access to Cisco Intersight page.
 To access CSR router and Linux jumphost, use Putty installed - shortcut is on Desktop.</p>
 <div class="admonition info">
@@ -660,54 +615,7 @@ To access CSR router and Linux jumphost, use Putty installed - shortcut is on De
 <p>User password:</p>
 <pre><code>C1sco12345
 </code></pre>
-<h2 id="4-accessing-cisco-intersight-platform">4. Accessing Cisco Intersight Platform</h2>
-<p>Cisco Intersight Platform manages Kuberenetes clusters in the private infrasturcture. You will have access to dedicated instance of Cisco Intersight, from which you will manage your own Kuberenetes Clusters used later on to deploy application.</p>
-<p>Please find login credentials and URL to your CCP instance below:</p>
-<p>URL:</p>
-<pre><code>https://intersight.com/
-</code></pre>
-<p>User name:</p>
-<pre><code>holcld2611+pod'X'@gmail.com
-</code></pre>
-<p>Where X will be provided by proctor </p>
-<p>User password:</p>
-<pre><code>CiscoLive!2022
-</code></pre>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>You can explore Cisco Intersight through the GUI, but please do not delete content already created.</p>
-</div>
-<h2 id="5-accessing-cisco-intersight-assist">5. Accessing Cisco Intersight Assist</h2>
-<p>Cisco Intersight requires installation of local (on-prem) satelite system. Cisco Intersight Assist collect data from local vCenter and send it to Cisco Intersight PaaS in secure manner.
-You can login to local Cisco Intersight Assist using credentials provided below:</p>
-<p>URL:</p>
-<pre><code>https://iva.dcloud.cisco.com
-</code></pre>
-<p>User name:</p>
-<pre><code>admin
-</code></pre>
-<p>Where X will be provided by proctor </p>
-<p>User password:</p>
-<pre><code>C1sco12345
-</code></pre>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>You can explore Cisco Intersight Assist through the GUI, but please do not delete content already created.</p>
-</div>
-<h2 id="5-accessing-csr1kv-lab-router">5. Accessing CSR1kv Lab router</h2>
-<p>Your session contain Cisco CSR1kv router. It is used to terminate Site-2-Site tunnels with AWS tenant. All configuration is ready and doesn't require any modifications.</p>
-<p>Please find login credentials and IP address to your CSR1kv router below - use PuTTY predefined session:</p>
-<p>User name:</p>
-<pre><code>admin
-</code></pre>
-<p>User password:</p>
-<pre><code>C1sco12345
-</code></pre>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Do not delete configuration already existing on the router.</p>
-</div>
-<h2 id="6-accessing-vcenter-for-lab">6. Accessing vCenter for Lab</h2>
+<h2 id="4-accessing-vcenter-for-lab">4. Accessing vCenter for Lab</h2>
 <p>Whole setup is done on ESXi in Cisco dCloud environment. During the lab you don't need to perform actions on vCenter itself. However for case of troubleshooting or exploration, credentials to your vCenter below.</p>
 <p>URL:</p>
 <pre><code>https://vc1.dcloud.cisco.com/ui
