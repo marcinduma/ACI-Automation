@@ -20,17 +20,18 @@ You will get credentials for your individual session provided by teacher.
 Once logged to the dCloud session, you will see dashboard like on the following picture:
 
 
-<img src="https://raw.githubusercontent.com/marcinduma/ACI-Automation/master/images/dCloud-dashboard.PNG" width = 800>
+<img src="https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/images/dCloud-dashboard.PNG" width = 800>
+
 
 To open **webRDP* follow the procedure from the figures:
 
 1) Click on the blue triangle highlighted on figure below
 
-<img src="https://raw.githubusercontent.com/marcinduma/ACI-Automation/master/images/dCloud-rdp-1.PNG" width = 800>
+<img src="https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/images/dCloud-rdp-1.PNG" width = 800>
 
 2) Follow to "Remote Desktop" by using link in red frame on the figure:
 
-<img src="https://raw.githubusercontent.com/marcinduma/ACI-Automation/master/images/dCloud-rdp-2.PNG" width = 800>
+<img src="https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/images/dCloud-rdp-2.PNG" width = 800>
 
 
 When you click on "Remote Desktop" link, your web browser will open new TAB with access to Windows desktop. The webRDP has installed basic tools to operate with the LAB. Rest of them you will install yourself for better undestanding of prerequisites for Automation.

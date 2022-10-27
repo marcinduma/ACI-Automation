@@ -25,7 +25,7 @@ ACI Automation Lab is based on dCloud session publicly available. Session name *
 
 Below is the physical setup of our Virtual lab.
 
-<img src="https://raw.githubusercontent.com/marcinduma/ACI-Automation/master/images/Overal-ACI-Automation.png">
+<img src="https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/images/Overal-ACI-Automation.png">
 
 
 **<p style="text-align: center;">Enjoy!</p>**
