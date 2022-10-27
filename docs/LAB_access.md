@@ -22,7 +22,7 @@ Once logged to the dCloud session, you will see dashboard like on the following 
 
 <img src="https://raw.githubusercontent.com/marcinduma/ACI-Automation/master/images/dCloud-dashboard.PNG" width = 800>
 
-To open WebRDP follow the procedure from the figures:
+To open **webRDP* follow the procedure from the figures:
 
 1) Click on the blue triangle highlighted on figure below
 
@@ -33,47 +33,47 @@ To open WebRDP follow the procedure from the figures:
 <img src="https://raw.githubusercontent.com/marcinduma/ACI-Automation/master/images/dCloud-rdp-2.PNG" width = 800>
 
 
-When you click on "Remote Desktop button, browser will open new TAB with access to Windows desktop. The webRDP has installed Chrome as web browser, from where you get access to Cisco Intersight page.
-To access CSR router and Linux jumphost, use Putty installed - shortcut is on Desktop.
+When you click on "Remote Desktop" link, your web browser will open new TAB with access to Windows desktop. The webRDP has installed basic tools to operate with the LAB. Rest of them you will install yourself for better undestanding of prerequisites for Automation.
 
 !!! info
 	Please do not use "Remote Desktop" for other devices from the list at **Network** tab. ONLY win2k16 can be accessed that way.
 
 !!! tip
-	When you use webRDP you are still able to copy/paste between your 'main PC' and webRDP interface. You can use Guacamole interface - explained in Appendix: Guacamole.
+	When you use webRDP you are still able to copy/paste between your 'main PC' and webRDP interface. You can use *Guacamole interface* - explained in Appendix: Guacamole.
 
 
-## 3. Accessing Linux Jumphost
+## 3. Accessing Linux Machine
 
 Open PuTTY client on webRDP taskbar.
 
-PuTTY has pre-defined session to CSR router as well as to ubuntu-terminal. Use predefined ubuntu-terminal session by selecting it and click Open button.
+PuTTY has predefined session called **tool1** for centos-terminal. Open SSH session by selecting it and click Open button.
 
 Username:
 	
-	dcloud
+	root
 
 User password:
 	
 	C1sco12345
 
 
+## 4. Accessing ACI simulator
 
-## 4. Accessing vCenter for Lab
-
-Whole setup is done on ESXi in Cisco dCloud environment. During the lab you don't need to perform actions on vCenter itself. However for case of troubleshooting or exploration, credentials to your vCenter below.
+The LAB is based on ACI simulator installed for you. To login, please use CHROME at webRDP workstation. Once you click at Chrome icon in taskbar, you get APIC gui open. Login using credentials below
 
 URL:
 	
-	https://vc1.dcloud.cisco.com/ui
-User name:
+	https://apic1.dcloud.cisco.com/
+
+Username:
 	
-	administrator@vsphere.local
+	admin
+
 User password:
 	
-	C1sco12345!
+	C1sco12345
 
 
 !!! warning
-	Do not delete configuration nor VM machines already existing on the vCenter.
+	Do not delete any configuration already present at ANY device within the LAB topology.
 
