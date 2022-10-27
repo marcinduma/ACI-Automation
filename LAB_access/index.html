@@ -284,15 +284,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#3-accessing-linux-jumphost" class="md-nav__link">
-    3. Accessing Linux Jumphost
+  <a href="#3-accessing-linux-machine" class="md-nav__link">
+    3. Accessing Linux Machine
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#4-accessing-vcenter-for-lab" class="md-nav__link">
-    4. Accessing vCenter for Lab
+  <a href="#4-accessing-aci-simulator" class="md-nav__link">
+    4. Accessing ACI simulator
   </a>
   
 </li>
@@ -552,15 +552,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#3-accessing-linux-jumphost" class="md-nav__link">
-    3. Accessing Linux Jumphost
+  <a href="#3-accessing-linux-machine" class="md-nav__link">
+    3. Accessing Linux Machine
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#4-accessing-vcenter-for-lab" class="md-nav__link">
-    4. Accessing vCenter for Lab
+  <a href="#4-accessing-aci-simulator" class="md-nav__link">
+    4. Accessing ACI simulator
   </a>
   
 </li>
@@ -590,45 +590,44 @@ Access to the Session will be provided by the proctor assigned to you.</p>
 <p>You will get credentials for your individual session provided by teacher.</p>
 <h3 id="access-session-with-webrdp">Access session with webRDP</h3>
 <p>Once logged to the dCloud session, you will see dashboard like on the following picture:</p>
-<p><img src="https://raw.githubusercontent.com/marcinduma/ACI-Automation/master/images/dCloud-dashboard.PNG" width = 800></p>
-<p>To open WebRDP follow the procedure from the figures:</p>
+<p><img src="https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/images/dCloud-dashboard.PNG" width = 800></p>
+<p>To open *<em>webRDP</em> follow the procedure from the figures:</p>
 <p>1) Click on the blue triangle highlighted on figure below</p>
-<p><img src="https://raw.githubusercontent.com/marcinduma/ACI-Automation/master/images/dCloud-rdp-1.PNG" width = 800></p>
+<p><img src="https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/images/dCloud-rdp-1.PNG" width = 800></p>
 <p>2) Follow to "Remote Desktop" by using link in red frame on the figure:</p>
-<p><img src="https://raw.githubusercontent.com/marcinduma/ACI-Automation/master/images/dCloud-rdp-2.PNG" width = 800></p>
-<p>When you click on "Remote Desktop button, browser will open new TAB with access to Windows desktop. The webRDP has installed Chrome as web browser, from where you get access to Cisco Intersight page.
-To access CSR router and Linux jumphost, use Putty installed - shortcut is on Desktop.</p>
+<p><img src="https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/images/dCloud-rdp-2.PNG" width = 800></p>
+<p>When you click on "Remote Desktop" link, your web browser will open new TAB with access to Windows desktop. The webRDP has installed basic tools to operate with the LAB. Rest of them you will install yourself for better undestanding of prerequisites for Automation.</p>
 <div class="admonition info">
 <p class="admonition-title">Info</p>
 <p>Please do not use "Remote Desktop" for other devices from the list at <strong>Network</strong> tab. ONLY win2k16 can be accessed that way.</p>
 </div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>When you use webRDP you are still able to copy/paste between your 'main PC' and webRDP interface. You can use Guacamole interface - explained in Appendix: Guacamole.</p>
+<p>When you use webRDP you are still able to copy/paste between your 'main PC' and webRDP interface. You can use <em>Guacamole interface</em> - explained in Appendix: Guacamole.</p>
 </div>
-<h2 id="3-accessing-linux-jumphost">3. Accessing Linux Jumphost</h2>
+<h2 id="3-accessing-linux-machine">3. Accessing Linux Machine</h2>
 <p>Open PuTTY client on webRDP taskbar.</p>
-<p>PuTTY has pre-defined session to CSR router as well as to ubuntu-terminal. Use predefined ubuntu-terminal session by selecting it and click Open button.</p>
+<p>PuTTY has predefined session called <strong>tool1</strong> for centos-terminal. Open SSH session by selecting it and click Open button.</p>
 <p>Username:</p>
-<pre><code>dcloud
+<pre><code>root
 </code></pre>
 <p>User password:</p>
 <pre><code>C1sco12345
 </code></pre>
-<h2 id="4-accessing-vcenter-for-lab">4. Accessing vCenter for Lab</h2>
-<p>Whole setup is done on ESXi in Cisco dCloud environment. During the lab you don't need to perform actions on vCenter itself. However for case of troubleshooting or exploration, credentials to your vCenter below.</p>
+<h2 id="4-accessing-aci-simulator">4. Accessing ACI simulator</h2>
+<p>The LAB is based on ACI simulator installed for you. To login, please use CHROME at webRDP workstation. Once you click at Chrome icon in taskbar, you get APIC gui open. Login using credentials below</p>
 <p>URL:</p>
-<pre><code>https://vc1.dcloud.cisco.com/ui
+<pre><code>https://apic1.dcloud.cisco.com/
 </code></pre>
-<p>User name:</p>
-<pre><code>administrator@vsphere.local
+<p>Username:</p>
+<pre><code>admin
 </code></pre>
 <p>User password:</p>
-<pre><code>C1sco12345!
+<pre><code>C1sco12345
 </code></pre>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Do not delete configuration nor VM machines already existing on the vCenter.</p>
+<p>Do not delete any configuration already present at ANY device within the LAB topology.</p>
 </div>
 
               
