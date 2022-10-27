@@ -37,7 +37,7 @@ To open **webRDP* follow the procedure from the figures:
 When you click on "Remote Desktop" link, your web browser will open new TAB with access to Windows desktop. The webRDP has installed basic tools to operate with the LAB. Rest of them you will install yourself for better undestanding of prerequisites for Automation.
 
 !!! info
-	Please do not use "Remote Desktop" for other devices from the list at **Network** tab. ONLY win2k16 can be accessed that way.
+	Please do not use "Remote Desktop" for other devices from the list at **Network** tab. ONLY win-workstation can be accessed that way.
 
 !!! tip
 	When you use webRDP you are still able to copy/paste between your 'main PC' and webRDP interface. You can use *Guacamole interface* - explained in Appendix: Guacamole.
