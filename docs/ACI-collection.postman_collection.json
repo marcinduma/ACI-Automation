@@ -13,7 +13,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{ \"aaaUser\" : { \"attributes\": {\"name\":\"mduma\",\"pwd\":\"Polamanymravenec@k1983!\" } } } ",
+					"raw": "{ \"aaaUser\" : { \"attributes\": {\"name\":\"user\",\"pwd\":\"password\" } } } ",
 					"options": {
 						"raw": {
 							"language": "json"
