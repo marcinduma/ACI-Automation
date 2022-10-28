@@ -6,6 +6,7 @@ nav:
   - Lab Access:
     - Accessing the Lab Environment: LAB_access.md
   - Day1 LAB sections:
+    - Install and operate Postman: postman.md
     - Automation basis with restAPI: restAPI.md
     - Create customer use-cases with Postman: fw-use-cases-postman.md
     - How to pull informations using restAPI: fw-monitor-aci.md
