@@ -28,16 +28,16 @@ Let do it then for our scenario.
 
 Navigate to Environment section in Postman Dashboard as marked on figure below.
 
-<img src="https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/images/postman-env-1.PNG" width = 800>
+<img src="https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/images/postman-env-1.png" width = 800>
 
 In this place you can select existing Environment, edit/delete it or create new one. To review existing Environment use icon most on right in red marked section on Figure above. It will open section shown at next figure. Click **Add** to create new entry.
 
 
-<img src="https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/images/postman-env-2.PNG" width = 800>
+<img src="https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/images/postman-env-2.png" width = 800>
 
 Add button will move you to new Postman Tab
 
-<img src="https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/images/postman-env-3.PNG" width = 800>
+<img src="https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/images/postman-env-3.png" width = 800>
 
 1. Change name of your Environment to:
 
@@ -57,7 +57,7 @@ Add button will move you to new Postman Tab
 
 Now you have ready Environment you can choice from drop-down menu.
 
-<img src="https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/images/postman-env-4.PNG" width = 800>
+<img src="https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/images/postman-env-4.png" width = 800>
 
 You will use it for rest of **Day1** exercises.
 
@@ -65,7 +65,7 @@ You will use it for rest of **Day1** exercises.
 
 Click on Link **Create Collection** indicated in the figure below:
 
-<img src="https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/images/postman-coll-1.PNG" width = 800>
+<img src="https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/images/postman-coll-1.png" width = 800>
 
 Name your New Collection 
 
@@ -73,7 +73,7 @@ Name your New Collection
 
 Set Authorization type to *Basic Auth*. Once done, use **Ctrl+S** or Save button on dashboard - Floppy Disk icon.
 
-<img src="https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/images/postman-coll-2.PNG" width = 800>
+<img src="https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/images/postman-coll-2.png" width = 800>
 
 Do not type anything to "Username" and "Password". Those data will be pulled from your Environment - created in previous task.
 

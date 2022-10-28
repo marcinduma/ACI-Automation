@@ -6,7 +6,7 @@ In this lab section you will create and execute list of API calls to configure A
 
 Now is a time to work with our requests to GET or POST restAPI. You will define couple of them during the LAB. Figure below shows where to navigate to create new request in your collection.
 
-<img src="https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/images/postman-request-1.PNG" width = 800>
+<img src="https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/images/postman-request-1.png" width = 800>
 
 Every API command have predefined structure. Administrator needs to specify URI for correct object are you going to work with. Everything is described in details under the following link:
 [Cisco ACI API Configuration guide](https://www.cisco.com/c/en/us/td/docs/switches/datacenter/aci/apic/sw/2-x/rest_cfg/2_1_x/b_Cisco_APIC_REST_API_Configuration_Guide/b_Cisco_APIC_REST_API_Configuration_Guide_chapter_01.html){target=_blank}.
