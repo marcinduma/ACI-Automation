@@ -15,6 +15,7 @@ nav:
     - Customer use-cases with Terraform: terraform-usecases.md
   - Appendixes:
     - dCloudGuacamole: guacamole.md
+    - Resources: resources.md
 theme:
   name: material
 markdown_extensions:

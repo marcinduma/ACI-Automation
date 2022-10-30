@@ -16,14 +16,11 @@ Run same collection which in previous excercise:
 Run ACI dCloud - results should be **200 OK **.
 
 
-## 1. Use-Case no.1
+## Use-Case no.1
 
 Customer place network components in ACI shared tenant *common*. Custom tenants contain only EPGs, Domain associations and static-bindings for particular department.
 
 <img src="https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/images/use-case-1.png" width = 800>
-
-
-### 1.1 Use-case Tenant Custom
 
 Below you can find code for Tenant Custom in use case 1.
 
@@ -75,7 +72,7 @@ Below you can find code for Tenant Custom in use case 1.
 	}
 }
 ```
-Run the code with new CSV file which you will use for custom-tenant definition, together with static biding associated to EPGs **[download from here](https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/docs/var-data.csv){target=_blank}.**
+Run the code with new CSV file which you will use for custom-tenant definition, together with static biding associated to EPGs **[download from here](https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/docs/var-data-uc1.csv){target=_blank}.**
 
 ```json title="Tenant Custom Use-Case 1 static biding"
 {
@@ -123,15 +120,15 @@ Run the code with new CSV file which you will use for custom-tenant definition, 
 !!! Tip
 	Assumption that Access-Policies, meaning VLAN pool and Domain Association is done beforehand. Otherwise use other Postman Requests to create proper vlan mapping
 
-## 2 Use-Case no 2
+## Use-Case no.2
 
-Customer place network components in ACI shared tenant *common* as well as Custom-Tenant. Moreover custom tenants contain EPGs, Domain associations and static-bindings for particular department.
+Customer place network components in ACI shared tenant *common* as well as Custom Tenant. Moreover custom tenants contain EPGs, Domain associations and static-bindings for particular department.
 
 <img src="https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/images/use-case-2.png" width = 800>
 
-## 3 Use-Case no 3
+## Use-Case no.3
 
 
-Customer place network components in ACI shared tenant *common*. Custom tenants contain only EPGs, Domain associations and static-bindings for particular department.
+Customer place SHARED network component in ACI shared tenant *common*. Custom tenants contain dedicated VRF, BDs and EPGs, Domain associations and static-bindings for particular department. L3out configuration for routing with external networks.
 
 <img src="https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/images/use-case-3.png" width = 800>
