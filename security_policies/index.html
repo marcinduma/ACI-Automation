@@ -297,7 +297,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fw-use-cases-postman/" class="md-nav__link">
+      <a href="../use-cases-postman/" class="md-nav__link">
         Create customer use-cases with Postman
       </a>
     </li>
@@ -311,7 +311,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fw-monitor-aci/" class="md-nav__link">
+      <a href="../monitor-aci/" class="md-nav__link">
         How to pull informations using restAPI
       </a>
     </li>
@@ -373,7 +373,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fw-terraform-usecases/" class="md-nav__link">
+      <a href="../terraform-usecases/" class="md-nav__link">
         Customer use-cases with Terraform
       </a>
     </li>
@@ -423,6 +423,20 @@
     <li class="md-nav__item">
       <a href="../guacamole/" class="md-nav__link">
         dCloudGuacamole
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../resources/" class="md-nav__link">
+        Resources
       </a>
     </li>
   
@@ -502,7 +516,7 @@
 <p>By now you should have your Hybrid Cloud IoT Application working end to end. Let's apply some Kubernetes Network Policies to allow traffic from the frontend app to port '5050' only (REST API AGENT container accepts HTTP requests on port '5050').</p>
 <h2 id="1-apply-deny-all-network-policy">1. Apply Deny All Network Policy:</h2>
 <p>Following Kubernetes Network Policy yaml definition would block all the traffic coming towards REST API Agent -</p>
-<pre><code>apiVersion: networking.k8s.io/v1
+<div class="highlight"><pre><span></span><code>apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: deny-all-rest-api-agent
@@ -513,18 +527,18 @@ spec:
       tier: rest-api-agent
   policyTypes:
   - Ingress
-</code></pre>
+</code></pre></div>
 <ul>
 <li>
 <p>1.0: Prerequisite - set <code>kubectl</code> context to <code>on-prem-1</code> and make sure that your default namespace is set to your student ID.</p>
-<pre><code>kubectl config use-context admin@on-prem-backend
+<div class="highlight"><pre><span></span><code>kubectl config use-context admin@on-prem-backend
 kubectl config get-contexts
-</code></pre>
+</code></pre></div>
 </li>
 <li>
 <p>1.1: Execute the following command on Kubernetes master node to apply this Network Policy on your REST API Agent -</p>
-<pre><code>kubectl create -f https://raw.githubusercontent.com/marcinduma/HOLCLD-2101/main/Kubernetes/Backend/Network_Policies/deny_all_rest_api_agent.yaml
-</code></pre>
+<div class="highlight"><pre><span></span><code>kubectl create -f https://raw.githubusercontent.com/marcinduma/HOLCLD-2101/main/Kubernetes/Backend/Network_Policies/deny_all_rest_api_agent.yaml
+</code></pre></div>
 </li>
 <li>
 <p>1.2: Now try to referesh your Frontend App webpage. It should stop working.</p>
@@ -532,7 +546,7 @@ kubectl config get-contexts
 </ul>
 <h2 id="2-apply-permit-port-5111-network-policy">2. Apply Permit Port 5111 Network Policy:</h2>
 <p>Following Kubernetes Network Policy yaml definition would allow the traffic on port 5111 to REST API Agent -</p>
-<pre><code>apiVersion: networking.k8s.io/v1
+<div class="highlight"><pre><span></span><code>apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: permit-port-5111-rest-api-agent
@@ -548,12 +562,12 @@ spec:
     ports:
     - protocol: TCP
       port: 5111
-</code></pre>
+</code></pre></div>
 <ul>
 <li>
 <p>2.1: Execute the following command on Kubernetes master node to apply this Network Policy on your REST API Agent -</p>
-<pre><code>kubectl create -f https://raw.githubusercontent.com/marcinduma/HOLCLD-2101/main/Kubernetes/Backend/Network_Policies/permit_port_5111_rest_api_agent.yaml
-</code></pre>
+<div class="highlight"><pre><span></span><code>kubectl create -f https://raw.githubusercontent.com/marcinduma/HOLCLD-2101/main/Kubernetes/Backend/Network_Policies/permit_port_5111_rest_api_agent.yaml
+</code></pre></div>
 </li>
 <li>
 <p>2.2: Now try to referesh your Frontend App webpage. <strong>Does it work? Why?</strong></p>
@@ -561,7 +575,7 @@ spec:
 </ul>
 <h2 id="3-apply-permit-port-5050-network-policy">3. Apply Permit Port 5050 Network Policy:</h2>
 <p>Following Kubernetes Network Policy yaml definition would allow the traffic on port 5050 to REST API Agent -</p>
-<pre><code>apiVersion: networking.k8s.io/v1
+<div class="highlight"><pre><span></span><code>apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: permit-port-5050-rest-api-agent
@@ -577,12 +591,12 @@ spec:
     ports:
     - protocol: TCP
       port: 5050
-</code></pre>
+</code></pre></div>
 <ul>
 <li>
 <p>3.1: Execute the following command on Kubernetes master node to apply this Network Policy on your REST API Agent -</p>
-<pre><code>kubectl create -f https://raw.githubusercontent.com/marcinduma/HOLCLD-2101/main/Kubernetes/Backend/Network_Policies/permit_port_5050_rest_api_agent.yaml
-</code></pre>
+<div class="highlight"><pre><span></span><code>kubectl create -f https://raw.githubusercontent.com/marcinduma/HOLCLD-2101/main/Kubernetes/Backend/Network_Policies/permit_port_5050_rest_api_agent.yaml
+</code></pre></div>
 </li>
 <li>
 <p>3.2: Now try to referesh your Frontend App webpage. <strong>Does it work? Why?</strong></p>
@@ -595,18 +609,18 @@ spec:
 <ul>
 <li>
 <p>Display Kubernetes Network Policies -</p>
-<pre><code>kubectl get NetworkPolicies
-</code></pre>
+<div class="highlight"><pre><span></span><code>kubectl get NetworkPolicies
+</code></pre></div>
 </li>
 <li>
 <p>Display Network Policy Details -</p>
-<pre><code>kubectl describe NetworkPolicy &lt;Network Policy Name&gt;
-</code></pre>
+<div class="highlight"><pre><span></span><code>kubectl describe NetworkPolicy &lt;Network Policy Name&gt;
+</code></pre></div>
 </li>
 <li>
 <p>Delete Network Policy -</p>
-<pre><code>kubectl delete NetworkPolicy &lt;Network Policy Name&gt;
-</code></pre>
+<div class="highlight"><pre><span></span><code>kubectl delete NetworkPolicy &lt;Network Policy Name&gt;
+</code></pre></div>
 </li>
 </ul>
 
