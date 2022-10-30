@@ -297,7 +297,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fw-use-cases-postman/" class="md-nav__link">
+      <a href="../use-cases-postman/" class="md-nav__link">
         Create customer use-cases with Postman
       </a>
     </li>
@@ -311,7 +311,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fw-monitor-aci/" class="md-nav__link">
+      <a href="../monitor-aci/" class="md-nav__link">
         How to pull informations using restAPI
       </a>
     </li>
@@ -373,7 +373,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fw-terraform-usecases/" class="md-nav__link">
+      <a href="../terraform-usecases/" class="md-nav__link">
         Customer use-cases with Terraform
       </a>
     </li>
@@ -423,6 +423,20 @@
     <li class="md-nav__item">
       <a href="../guacamole/" class="md-nav__link">
         dCloudGuacamole
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../resources/" class="md-nav__link">
+        Resources
       </a>
     </li>
   
@@ -541,10 +555,10 @@
 <p><img alt="Rapi" src="https://raw.githubusercontent.com/marcinduma/WILCLD-2611/master/images/frontend_app_architecture.png" /></p>
 <h2 id="login-to-kubernetes-master-cli-shell">Login to Kubernetes Master CLI Shell:</h2>
 <p>SSH into Linux Jumphost using Putty "ubuntu-terminal" (198.18.133.11) - use your credentials. Switch to context 'arn:aws:eks:us-east-1:782256189490:cluster/CLUS-EKS-X'.</p>
-<pre><code>kubectl config get-contexts
+<div class="highlight"><pre><span></span><code>kubectl config get-contexts
 kubectl config use-context &lt;AWS context-name from previous command output&gt;
 kubectl config get-contexts
-</code></pre>
+</code></pre></div>
 <h2 id="1-deploy-frontend-iot">1. Deploy frontend-iot:</h2>
 <p>Frontend is nginx web server connected to frontend-server which connect to REST-API Agent over already created Site-2-Site connection. In this section you will configure:</p>
 <ol>
@@ -567,80 +581,80 @@ Following screenshot highlights the Port and Node IPs in the command outputs in 
 <p>Note down the Node External IP Address of <strong>one of on-prem WORKER</strong> and NodePort Service Port Number.</p>
 </div>
 <p>ConfigMap create command - Copy it to notepad FIRST, edit and paste to Terminal:</p>
-<pre><code>kubectl create configmap iot-frontend-config --from-literal=BACKEND_HOST=&lt;NODE_IP&gt; --from-literal=BACKEND_PORT=&lt;PORT&gt;
-</code></pre>
+<div class="highlight"><pre><span></span><code>kubectl create configmap iot-frontend-config --from-literal=BACKEND_HOST=&lt;NODE_IP&gt; --from-literal=BACKEND_PORT=&lt;PORT&gt;
+</code></pre></div>
 <h3 id="12-create-new-deployment-iot-frontend">1.2 Create new deployment: iot-frontend</h3>
 <p>Now is time to deploy our web frontend. Deployment contain two containers in one POD. The frontend server uses existing Site-2-Site connection to on-prem to access data which will be presented in GUI.
 Monifest file is represented below:</p>
-<div class="highlight"><pre><span></span><code><span class="nn">---</span><span class="w"></span>
-<span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;extensions/v1beta1&quot;</span><span class="w"></span>
-<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Deployment&quot;</span><span class="w"></span>
-<span class="nt">metadata</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;iot-frontend&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;default&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="nt">labels</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;iot-frontend&quot;</span><span class="w"></span>
-<span class="nt">spec</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">replicas</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span><span class="w"></span>
-<span class="w">  </span><span class="nt">selector</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">matchLabels</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;iot-frontend&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="nt">template</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">metadata</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="nt">labels</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;iot-frontend&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="nt">spec</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="nt">containers</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;frontend-server&quot;</span><span class="w"></span>
-<span class="w">        </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;eu.gcr.io/fwardz001-poc-ci1s/frontend_server:vegas2022-v5&quot;</span><span class="w"></span>
-<span class="w">        </span><span class="nt">env</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;BACKEND_HOST&quot;</span><span class="w"></span>
-<span class="w">          </span><span class="nt">valueFrom</span><span class="p">:</span><span class="w"></span>
-<span class="w">            </span><span class="nt">configMapKeyRef</span><span class="p">:</span><span class="w"></span>
-<span class="w">              </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;BACKEND_HOST&quot;</span><span class="w"></span>
-<span class="w">              </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;iot-frontend-config&quot;</span><span class="w"></span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;BACKEND_PORT&quot;</span><span class="w"></span>
-<span class="w">          </span><span class="nt">valueFrom</span><span class="p">:</span><span class="w"></span>
-<span class="w">            </span><span class="nt">configMapKeyRef</span><span class="p">:</span><span class="w"></span>
-<span class="w">              </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;BACKEND_PORT&quot;</span><span class="w"></span>
-<span class="w">              </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;iot-frontend-config&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;nginx-srvr&quot;</span><span class="w"></span>
-<span class="w">        </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;eu.gcr.io/fwardz001-poc-ci1s/nginx_srvr:latest&quot;</span><span class="w"></span>
-<span class="nn">---</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nn">---</span><span class="w"></span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;extensions/v1beta1&quot;</span><span class="w"></span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Deployment&quot;</span><span class="w"></span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="nt">metadata</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;iot-frontend&quot;</span><span class="w"></span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;default&quot;</span><span class="w"></span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">  </span><span class="nt">labels</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;iot-frontend&quot;</span><span class="w"></span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="nt">spec</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">  </span><span class="nt">replicas</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span><span class="w"></span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">  </span><span class="nt">selector</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">    </span><span class="nt">matchLabels</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">      </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;iot-frontend&quot;</span><span class="w"></span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">  </span><span class="nt">template</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">    </span><span class="nt">metadata</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">      </span><span class="nt">labels</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="w">        </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;iot-frontend&quot;</span><span class="w"></span>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="w">    </span><span class="nt">spec</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="w">      </span><span class="nt">containers</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;frontend-server&quot;</span><span class="w"></span>
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="w">        </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;eu.gcr.io/fwardz001-poc-ci1s/frontend_server:vegas2022-v5&quot;</span><span class="w"></span>
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="w">        </span><span class="nt">env</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;BACKEND_HOST&quot;</span><span class="w"></span>
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="w">          </span><span class="nt">valueFrom</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a><span class="w">            </span><span class="nt">configMapKeyRef</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a><span class="w">              </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;BACKEND_HOST&quot;</span><span class="w"></span>
+<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a><span class="w">              </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;iot-frontend-config&quot;</span><span class="w"></span>
+<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;BACKEND_PORT&quot;</span><span class="w"></span>
+<a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a><span class="w">          </span><span class="nt">valueFrom</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a><span class="w">            </span><span class="nt">configMapKeyRef</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a><span class="w">              </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;BACKEND_PORT&quot;</span><span class="w"></span>
+<a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a><span class="w">              </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;iot-frontend-config&quot;</span><span class="w"></span>
+<a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;nginx-srvr&quot;</span><span class="w"></span>
+<a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a><span class="w">        </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;eu.gcr.io/fwardz001-poc-ci1s/nginx_srvr:latest&quot;</span><span class="w"></span>
+<a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a><span class="nn">---</span><span class="w"></span>
 </code></pre></div>
 <p>Create deployment of frontend using command below:</p>
-<pre><code>kubectl create -f https://raw.githubusercontent.com/marcinduma/WILCLD-2611/main/Kubernetes/Frontend/frontend_and_nginx_deployment.yaml
-</code></pre>
+<div class="highlight"><pre><span></span><code>kubectl create -f https://raw.githubusercontent.com/marcinduma/WILCLD-2611/main/Kubernetes/Frontend/frontend_and_nginx_deployment.yaml
+</code></pre></div>
 <p>Check deployment status and associated PODs:</p>
-<pre><code>kubectl get pods,deployment | egrep "NAME|iot-front"
-</code></pre>
+<div class="highlight"><pre><span></span><code>kubectl get pods,deployment | egrep &quot;NAME|iot-front&quot;
+</code></pre></div>
 <p><img alt="Rapi" src="https://raw.githubusercontent.com/marcinduma/WILCLD-2611/master/images/deploy_aws_front-deployment.png" /></p>
 <h2 id="2-expose-the-application-by-creating-kubernetes-service">2. Expose the Application by Creating Kubernetes Service:</h2>
 <p>Next step of our deployment is exposure of frontend web to the Internet. By using following manifest file, you will be able to create Service type LoadBalancer in AWS Kubernetes cluster.</p>
-<div class="highlight"><pre><span></span><code><span class="nn">---</span><span class="w"></span>
-<span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span><span class="w"></span>
-<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Service</span><span class="w"></span>
-<span class="nt">metadata</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">frontend-iot-service</span><span class="w"></span>
-<span class="w">  </span><span class="nt">labels</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">iot-frontend</span><span class="w"></span>
-<span class="nt">spec</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">ports</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">TCP</span><span class="w"></span>
-<span class="w">      </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">80</span><span class="w"></span>
-<span class="w">      </span><span class="nt">targetPort</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">80</span><span class="w"></span>
-<span class="w">  </span><span class="nt">selector</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">iot-frontend</span><span class="w"></span>
-<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;LoadBalancer&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nn">---</span><span class="w"></span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span><span class="w"></span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Service</span><span class="w"></span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="nt">metadata</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">frontend-iot-service</span><span class="w"></span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">  </span><span class="nt">labels</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">iot-frontend</span><span class="w"></span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="nt">spec</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">  </span><span class="nt">ports</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">TCP</span><span class="w"></span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">      </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">80</span><span class="w"></span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">      </span><span class="nt">targetPort</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">80</span><span class="w"></span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">  </span><span class="nt">selector</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">iot-frontend</span><span class="w"></span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;LoadBalancer&quot;</span><span class="w"></span>
 </code></pre></div>
 <p>using the following command -</p>
-<pre><code>kubectl create -f https://raw.githubusercontent.com/marcinduma/WILCLD-2611/main/Kubernetes/Frontend/frontend-iot-service.yml
-</code></pre>
+<div class="highlight"><pre><span></span><code>kubectl create -f https://raw.githubusercontent.com/marcinduma/WILCLD-2611/main/Kubernetes/Frontend/frontend-iot-service.yml
+</code></pre></div>
 <p>you get service created and exposed in TCP port 80.</p>
 <h3 id="21-check-status-of-newly-created-service">2.1 Check status of newly created service</h3>
 <p>Once service was created, run following command</p>
-<pre><code>kubectl get svc
-</code></pre>
+<div class="highlight"><pre><span></span><code>kubectl get svc
+</code></pre></div>
 <p><img alt="Rapi" src="https://raw.githubusercontent.com/marcinduma/WILCLD-2611/master/images/deploy_aws_frontend.png" /></p>
 <p>Copy service name from your output as marked by green frame on the screenshot above.</p>
 <div class="admonition tip">

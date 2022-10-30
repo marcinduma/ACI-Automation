@@ -297,7 +297,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fw-use-cases-postman/" class="md-nav__link">
+      <a href="../use-cases-postman/" class="md-nav__link">
         Create customer use-cases with Postman
       </a>
     </li>
@@ -311,7 +311,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fw-monitor-aci/" class="md-nav__link">
+      <a href="../monitor-aci/" class="md-nav__link">
         How to pull informations using restAPI
       </a>
     </li>
@@ -373,7 +373,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fw-terraform-usecases/" class="md-nav__link">
+      <a href="../terraform-usecases/" class="md-nav__link">
         Customer use-cases with Terraform
       </a>
     </li>
@@ -429,6 +429,20 @@
 
             
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../resources/" class="md-nav__link">
+        Resources
+      </a>
+    </li>
+  
+
+            
+          
         </ul>
       </nav>
     </li>
@@ -471,24 +485,24 @@
 <p>Your Hybrid Cloud App's backend compoents (MariaDB, MQTT DB Agent, and REST API agent) should be up and running. Now let's explore some low level details to understand the application containers and kubernetes better.</p>
 <p><strong>Task 0:</strong> Tasks in this section will be executed in Kubernetes on-premise. Change kubectl context to the correct one.</p>
 <p>Execute command below on linux jumphost:</p>
-<pre><code>    kubectl config use-context admin@CLUS-IKS-1
-</code></pre>
+<div class="highlight"><pre><span></span><code>    kubectl config use-context admin@CLUS-IKS-1
+</code></pre></div>
 <p><strong>Task 1:</strong> Find the size of the 'Persistent Volume Claim' used for MariaDB database?</p>
 <p>To check 'CAPACITY' value of PVC execute this command on linux jumphost:</p>
-<pre><code>    kubectl get pvc mariadb-pv-claim
-</code></pre>
+<div class="highlight"><pre><span></span><code>    kubectl get pvc mariadb-pv-claim
+</code></pre></div>
 <p><strong>Task 2:</strong> Login to the MariaDB database and explore the data tables. </p>
 <ol>
 <li>
 <p>Find the pod name for 'MariaDB' using the kubectl command </p>
-<pre><code>kubectl get pods
-</code></pre>
+<div class="highlight"><pre><span></span><code>kubectl get pods
+</code></pre></div>
 <p>and locate the pod name starting with 'iot-backend-mariadb-'.</p>
 </li>
 <li>
 <p>Login to the MariaDB container using the kubectl command</p>
-<pre><code>kubectl exec -it &lt;pod name&gt; -- /bin/bash
-</code></pre>
+<div class="highlight"><pre><span></span><code>kubectl exec -it &lt;pod name&gt; -- /bin/bash
+</code></pre></div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>(replace the <strong>&lt;pod name></strong> in command above with correct value).</p>
@@ -496,60 +510,60 @@
 </li>
 <li>
 <p>Inside the container execute</p>
-<pre><code>ss -tulpn
-</code></pre>
+<div class="highlight"><pre><span></span><code>ss -tulpn
+</code></pre></div>
 <p>and check the port MariaDB is listing to for incoming connections.</p>
 </li>
 <li>
 <p>You can also check the version of MariaDB using the shell command:</p>
-<pre><code>mysql --version
-</code></pre>
+<div class="highlight"><pre><span></span><code>mysql --version
+</code></pre></div>
 </li>
 <li>
 <p>Now connect to the MariaDB from the container shell and check Databases and Tables.
 Use </p>
-<pre><code>mysql -u root -pcisco123
-</code></pre>
+<div class="highlight"><pre><span></span><code>mysql -u root -pcisco123
+</code></pre></div>
 <p>command to login to MaraDB.</p>
 </li>
 <li>
 <p>On mariaDB shell, use</p>
-<pre><code>show databases;
-</code></pre>
+<div class="highlight"><pre><span></span><code>show databases;
+</code></pre></div>
 <p>command to list all the databases. Look for '<strong>sensor_db</strong>' in the output (this is the database where we are storing the sensor data).</p>
 </li>
 <li>
 <p>Switch to sensor_db using the command</p>
-<pre><code>use sensor_db;
-</code></pre>
+<div class="highlight"><pre><span></span><code>use sensor_db;
+</code></pre></div>
 <p>and list all the tables in this database using the command</p>
-<pre><code>show tables;
-</code></pre>
+<div class="highlight"><pre><span></span><code>show tables;
+</code></pre></div>
 <p>You should see only one table with the name <strong>'sensor_data'</strong>;</p>
 </li>
 <li>
 <p>Try to list the data from this table using the SQL statement</p>
-<pre><code>select * from sensor_data;
-</code></pre>
+<div class="highlight"><pre><span></span><code>select * from sensor_data;
+</code></pre></div>
 </li>
 <li>
 <p>Now check the record count in this table using the sql statement:</p>
-<pre><code>select count(*) from sensor_data;
-</code></pre>
+<div class="highlight"><pre><span></span><code>select count(*) from sensor_data;
+</code></pre></div>
 </li>
 <li>
 <p>Repeat the SQL from step 8 several times and check if the record count is increasing (each sensor would send the data after every 10 seconds). </p>
 </li>
 <li>
 <p>Use </p>
-<pre><code>exit
-</code></pre>
+<div class="highlight"><pre><span></span><code>exit
+</code></pre></div>
 <p>command at MariaDB prompt to exit the DB shell.</p>
 </li>
 <li>
 <p>Use</p>
-<pre><code>exit
-</code></pre>
+<div class="highlight"><pre><span></span><code>exit
+</code></pre></div>
 <p>command again to exit 'iot-backend-mariadb' container shell.</p>
 </li>
 </ol>
@@ -557,14 +571,14 @@ Use </p>
 <ol>
 <li>
 <p>Find the pod name for 'REST API Agent' using the kubectl command</p>
-<pre><code>kubectl get pods
-</code></pre>
+<div class="highlight"><pre><span></span><code>kubectl get pods
+</code></pre></div>
 <p>and locate the pod name starting with 'iot-backend-rest-api-agent-' (you may see more than one pod for this service, pick any one).</p>
 </li>
 <li>
 <p>login to the REST API Agent container using the kubectl command</p>
-<pre><code>kubectl exec -it &lt;pod name&gt; -- /bin/ash
-</code></pre>
+<div class="highlight"><pre><span></span><code>kubectl exec -it &lt;pod name&gt; -- /bin/ash
+</code></pre></div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>(replace the <strong>&lt;pod name></strong> in command above with correct value).</p>
@@ -572,14 +586,14 @@ Use </p>
 </li>
 <li>
 <p>Execute</p>
-<pre><code>netstat -an
-</code></pre>
+<div class="highlight"><pre><span></span><code>netstat -an
+</code></pre></div>
 <p>command on the container shell and check the output. This container listens on port '5050' for incoming REST connections and connects with MariaDB using port '3306' (Connection to DB will timeout in case there are no requests coming in).</p>
 </li>
 <li>
 <p>Use</p>
-<pre><code>exit
-</code></pre>
+<div class="highlight"><pre><span></span><code>exit
+</code></pre></div>
 <p>command to come out of the container shell.</p>
 </li>
 </ol>
@@ -587,14 +601,14 @@ Use </p>
 <ol>
 <li>
 <p>Find the pod name for 'REST API Agent' using the kubectl command</p>
-<pre><code>kubectl get pods
-</code></pre>
+<div class="highlight"><pre><span></span><code>kubectl get pods
+</code></pre></div>
 <p>and locate the pod name starting with 'iot-backend-rest-api-agent-' (you may see more than one pod for this service, pick any one).</p>
 </li>
 <li>
 <p>Check the logs using the kubectl command</p>
-<pre><code>kubectl logs &lt;pod name&gt;
-</code></pre>
+<div class="highlight"><pre><span></span><code>kubectl logs &lt;pod name&gt;
+</code></pre></div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>(replace the <strong>&lt;pod name></strong> in command above with correct value).</p>
@@ -606,31 +620,31 @@ Use </p>
 <li>Right click on top of your putty window and click on "Duplicate Session" (You should have two putty windows side by side logged into same linux jumphost).</li>
 <li>
 <p>In the first putty window (logged into linux jumphost) execute the command</p>
-<pre><code>kubectl get nodes -o wide
-</code></pre>
+<div class="highlight"><pre><span></span><code>kubectl get nodes -o wide
+</code></pre></div>
 <p>and note down the Kubernetes master node's external IP address.</p>
 </li>
 <li>
 <p>Open a web browser on your machine and access the following url</p>
-<pre><code>http://&lt;kubernetes node's external ip&gt;:&lt;port&gt;/temperature
-</code></pre>
+<div class="highlight"><pre><span></span><code>http://&lt;kubernetes node&#39;s external ip&gt;:&lt;port&gt;/temperature
+</code></pre></div>
 </li>
 <li>
 <p>In the first putty window, run</p>
-<pre><code>kubectl get pods
-</code></pre>
+<div class="highlight"><pre><span></span><code>kubectl get pods
+</code></pre></div>
 <p>on the linux jumphost. In the output you should see 2 pods for 'iot-backend-rest-api-agent'.</p>
 </li>
 <li>
 <p>In the first putty window, run the command</p>
-<pre><code>watch kubectl logs &lt;first pod name&gt;
-</code></pre>
+<div class="highlight"><pre><span></span><code>watch kubectl logs &lt;first pod name&gt;
+</code></pre></div>
 <p>(Use the first 'iot-backend-rest-api-agent' pod out of 2 pods that you saw in the output of the command executed in step#5).</p>
 </li>
 <li>
 <p>In the Second putty window, display the logs for second 'iot-backend-rest-api-agent' pod using the command</p>
-<pre><code>watch kubectl logs &lt;second pod name&gt;
-</code></pre>
+<div class="highlight"><pre><span></span><code>watch kubectl logs &lt;second pod name&gt;
+</code></pre></div>
 </li>
 <li>
 <p>Refresh or reload the web page with the url you used in step 4. </p>

@@ -305,29 +305,36 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-istallation-of-postman-in-your-workstation" class="md-nav__link">
-    1. Istallation of Postman in your workstation
+  <a href="#1-install-postman-in-your-workstation" class="md-nav__link">
+    1. Install Postman in your workstation
   </a>
   
-    <nav class="md-nav" aria-label="1. Istallation of Postman in your workstation">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-initial-setup-of-postman" class="md-nav__link">
+    2 Initial setup of Postman
+  </a>
+  
+    <nav class="md-nav" aria-label="2 Initial setup of Postman">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#11-sub-section" class="md-nav__link">
-    1.1 sub-section
+  <a href="#21-create-environment-for-our-dcloud-lab" class="md-nav__link">
+    2.1 Create Environment for our dCloud lab
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-create-new-collection" class="md-nav__link">
+    2.2 Create New Collection
   </a>
   
 </li>
         
       </ul>
     </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2-second-section" class="md-nav__link">
-    2. Second section
-  </a>
   
 </li>
       
@@ -360,7 +367,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fw-use-cases-postman/" class="md-nav__link">
+      <a href="../use-cases-postman/" class="md-nav__link">
         Create customer use-cases with Postman
       </a>
     </li>
@@ -374,7 +381,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fw-monitor-aci/" class="md-nav__link">
+      <a href="../monitor-aci/" class="md-nav__link">
         How to pull informations using restAPI
       </a>
     </li>
@@ -436,7 +443,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fw-terraform-usecases/" class="md-nav__link">
+      <a href="../terraform-usecases/" class="md-nav__link">
         Customer use-cases with Terraform
       </a>
     </li>
@@ -492,6 +499,20 @@
 
             
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../resources/" class="md-nav__link">
+        Resources
+      </a>
+    </li>
+  
+
+            
+          
         </ul>
       </nav>
     </li>
@@ -525,29 +546,36 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-istallation-of-postman-in-your-workstation" class="md-nav__link">
-    1. Istallation of Postman in your workstation
+  <a href="#1-install-postman-in-your-workstation" class="md-nav__link">
+    1. Install Postman in your workstation
   </a>
   
-    <nav class="md-nav" aria-label="1. Istallation of Postman in your workstation">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-initial-setup-of-postman" class="md-nav__link">
+    2 Initial setup of Postman
+  </a>
+  
+    <nav class="md-nav" aria-label="2 Initial setup of Postman">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#11-sub-section" class="md-nav__link">
-    1.1 sub-section
+  <a href="#21-create-environment-for-our-dcloud-lab" class="md-nav__link">
+    2.1 Create Environment for our dCloud lab
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-create-new-collection" class="md-nav__link">
+    2.2 Create New Collection
   </a>
   
 </li>
         
       </ul>
     </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2-second-section" class="md-nav__link">
-    2. Second section
-  </a>
   
 </li>
       
@@ -567,17 +595,65 @@
 
 <h1 id="install-and-operate-postman">Install and Operate Postman</h1>
 <p>Postman is an API platform for building and using APIs. Postman simplifies each step of the API lifecycle and streamlines collaboration so you can create better APIs—faster.</p>
-<h2 id="1-istallation-of-postman-in-your-workstation">1. Istallation of Postman in your workstation</h2>
-<p>First step to do in our dCloud lab in download and installation of Postman. Login to your dCloud workstation and from the Chrome connect to:</p>
-<pre><code>https://www.postman.com/downloads/
-</code></pre>
+<h2 id="1-install-postman-in-your-workstation">1. Install Postman in your workstation</h2>
+<p>First step to do in our dCloud lab is download and install of Postman. Login to your dCloud workstation and from the Chrome connect to:</p>
+<div class="highlight"><pre><span></span><code>https://www.postman.com/downloads/
+</code></pre></div>
 <p>Select Windows 64-bit to download the installation file.</p>
 <p><img src="https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/images/postman-download.PNG" width = 800></p>
 <p>Download the file to local folder of your choice.
-Start installation - it will automatically install.</p>
-<p>You have installed and run Postman in <em>Scratch Pad</em> version. If you would like to use workspace, it is required to setup Free account. It will keep your Postman Collections in cloud, helps to collaborate and backup work you do.</p>
-<h3 id="11-sub-section">1.1 sub-section</h3>
-<h2 id="2-second-section">2. Second section</h2>
+Start installation - it will automatically install and open application.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You installed and run Postman in <em>Scratch Pad</em> version. If you would like to use workspace version, it is required to setup Free account. It will keep your Postman Collections in cloud, helps to collaborate and backup work you do.</p>
+</div>
+<h2 id="2-initial-setup-of-postman">2 Initial setup of Postman</h2>
+<p>Once the Postman is up and running you should create few things. First, setup your <strong>Environment</strong> data. Environment definition can be reused later, it is also good way to keep secured sensitive data like credentials. Second, create your <strong>Request Collection</strong> or import one from .json file.</p>
+<h4 id="21-create-environment-for-our-dcloud-lab">2.1 Create Environment for our dCloud lab</h4>
+<p>Environment definition is a place where you can store information about IP address of APIC and credentials. Once you run your restAPI queries, Postman will automatically use variables defined here.
+Lets do it then for our scenario.</p>
+<p>Navigate to Environment section in Postman Dashboard as marked on figure below.</p>
+<p><img src="https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/images/postman-env-1.png" width = 800></p>
+<p>In this place you can select existing Environment, edit/delete it or create new one. To review existing Environment use icon most on right in red marked section on Figure above. It will open section shown at next figure. Click <strong>Add</strong> to create new entry.</p>
+<p><img src="https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/images/postman-env-2.png" width = 800></p>
+<p><em>Add</em> button will move you to new Postman Tab</p>
+<p><img src="https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/images/postman-env-3.png" width = 800></p>
+<ol>
+<li>
+<p>Change name of your Environment to:</p>
+<div class="highlight"><pre><span></span><code>ACI-dcloud
+</code></pre></div>
+</li>
+<li>
+<p>Configure VARIABLES:</p>
+<div class="highlight"><pre><span></span><code>apic, user, password
+</code></pre></div>
+</li>
+<li>
+<p>INITIAL VALUES:</p>
+<div class="highlight"><pre><span></span><code>198.18.133.200, admin, C1sco12345
+</code></pre></div>
+</li>
+<li>
+<p>Change Type of data for password to <strong>secret</strong></p>
+</li>
+<li>
+<p>Save it.</p>
+</li>
+</ol>
+<p>Now you have ready Environment you can choice from drop-down menu.</p>
+<p><img src="https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/images/postman-env-4.png" width = 800></p>
+<p>You will use it for rest of <strong>Day1</strong> exercises.</p>
+<h3 id="22-create-new-collection">2.2 Create New Collection</h3>
+<p>Click on Link <strong>Create Collection</strong> indicated in the figure below:</p>
+<p><img src="https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/images/postman-coll-1.png" width = 800></p>
+<p>Name your New Collection </p>
+<div class="highlight"><pre><span></span><code>    ACI dCloud
+</code></pre></div>
+<p>Set Authorization type to <em>Basic Auth</em>. Once done, use <strong>Ctrl+S</strong> or Save button on dashboard - Floppy Disk icon.</p>
+<p><img src="https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/images/postman-coll-2.png" width = 800></p>
+<p>Do not type anything to "Username" and "Password". Those data will be pulled from your Environment - created in previous task.</p>
+<p>Now you have Environment and Collection ready. We can start working with our restAPI requests.</p>
 
               
             </article>

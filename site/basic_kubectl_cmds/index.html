@@ -297,7 +297,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fw-use-cases-postman/" class="md-nav__link">
+      <a href="../use-cases-postman/" class="md-nav__link">
         Create customer use-cases with Postman
       </a>
     </li>
@@ -311,7 +311,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fw-monitor-aci/" class="md-nav__link">
+      <a href="../monitor-aci/" class="md-nav__link">
         How to pull informations using restAPI
       </a>
     </li>
@@ -373,7 +373,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fw-terraform-usecases/" class="md-nav__link">
+      <a href="../terraform-usecases/" class="md-nav__link">
         Customer use-cases with Terraform
       </a>
     </li>
@@ -423,6 +423,20 @@
     <li class="md-nav__item">
       <a href="../guacamole/" class="md-nav__link">
         dCloudGuacamole
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../resources/" class="md-nav__link">
+        Resources
       </a>
     </li>
   
@@ -526,28 +540,28 @@
 <ul>
 <li>
 <p><strong>Create Deployment</strong> Use the following command to create a deployment using a yaml file -</p>
-<pre><code>kubectl create -f &lt;yaml file path&gt;
-</code></pre>
+<div class="highlight"><pre><span></span><code>kubectl create -f &lt;yaml file path&gt;
+</code></pre></div>
 </li>
 <li>
 <p><strong>List Deployments:</strong> Use the following command to list all kubernetes deployments -</p>
-<pre><code>kubectl get deployments
-</code></pre>
+<div class="highlight"><pre><span></span><code>kubectl get deployments
+</code></pre></div>
 </li>
 <li>
 <p><strong>Deployment Details:</strong> Use the following command to display the details of deployment - </p>
-<pre><code>kubectl describe deployment
-</code></pre>
+<div class="highlight"><pre><span></span><code>kubectl describe deployment
+</code></pre></div>
 </li>
 <li>
 <p><strong>Scale Deployment:</strong> Use the following command to scale (up/down) a kubernetes deployment -</p>
-<pre><code>kubectl scale deployments/&lt;deployment_name&gt; --replicas=&lt;number of replicas&gt;
-</code></pre>
+<div class="highlight"><pre><span></span><code>kubectl scale deployments/&lt;deployment_name&gt; --replicas=&lt;number of replicas&gt;
+</code></pre></div>
 </li>
 <li>
 <p><strong>Delete Deployment:</strong> Use the following command to delete a deployment -</p>
-<pre><code>kubectl delete deployment &lt;deployment_name&gt;
-</code></pre>
+<div class="highlight"><pre><span></span><code>kubectl delete deployment &lt;deployment_name&gt;
+</code></pre></div>
 </li>
 </ul>
 <h3 id="kubernetes-pods">Kubernetes Pods:</h3>
@@ -555,26 +569,26 @@
 <ul>
 <li>
 <p><strong>List Pods:</strong> Use the following command to list all the pods:</p>
-<pre><code>kubectl get pods
-</code></pre>
+<div class="highlight"><pre><span></span><code>kubectl get pods
+</code></pre></div>
 <p>or use wide option to see more details -</p>
-<pre><code>kubectl get pods -o wide
-</code></pre>
+<div class="highlight"><pre><span></span><code>kubectl get pods -o wide
+</code></pre></div>
 </li>
 <li>
 <p><strong>List Pods Filter:</strong> You can filter the pods using the labels used in deployment -</p>
-<pre><code>kubectl get pods -l &lt;label_name&gt;=&lt;label_value&gt;
-</code></pre>
+<div class="highlight"><pre><span></span><code>kubectl get pods -l &lt;label_name&gt;=&lt;label_value&gt;
+</code></pre></div>
 </li>
 <li>
 <p><strong>Pod Details:</strong> Use the following command to see the containers and used images for pods -</p>
-<pre><code>kubectl describe pods
-</code></pre>
+<div class="highlight"><pre><span></span><code>kubectl describe pods
+</code></pre></div>
 </li>
 <li>
 <p><strong>Pod Logs:</strong> Use the following command to check the pod logs -</p>
-<pre><code>kubectl logs &lt;pod_name&gt;
-</code></pre>
+<div class="highlight"><pre><span></span><code>kubectl logs &lt;pod_name&gt;
+</code></pre></div>
 </li>
 </ul>
 <h3 id="kubernetes-services">Kubernetes Services:</h3>
@@ -582,36 +596,36 @@
 <ul>
 <li>
 <p><strong>List Service:</strong> Use the following command to list the current Services -</p>
-<pre><code>kubectl get services
-</code></pre>
+<div class="highlight"><pre><span></span><code>kubectl get services
+</code></pre></div>
 <p>You can filter the services using the labels used in deployment -</p>
-<pre><code>kubectl get services -l &lt;label_name&gt;=&lt;label_value&gt;
-</code></pre>
+<div class="highlight"><pre><span></span><code>kubectl get services -l &lt;label_name&gt;=&lt;label_value&gt;
+</code></pre></div>
 </li>
 <li>
 <p><strong>Create Service:</strong> Use the following command to create a new service -</p>
-<pre><code>kubectl expose deployment/&lt;deployment_name&gt; --type="NodePort" --port &lt;port&gt;
-</code></pre>
+<div class="highlight"><pre><span></span><code>kubectl expose deployment/&lt;deployment_name&gt; --type=&quot;NodePort&quot; --port &lt;port&gt;
+</code></pre></div>
 </li>
 <li>
 <p><strong>Service Details:</strong> Use the following command to find out what port was opened externally (by the NodePort option) -</p>
-<pre><code>kubectl describe services/&lt;service_name&gt;
-</code></pre>
+<div class="highlight"><pre><span></span><code>kubectl describe services/&lt;service_name&gt;
+</code></pre></div>
 </li>
 <li>
 <p><strong>Delete Service:</strong> Use the following command to delete a service -</p>
-<pre><code>kubectl delete service/&lt;service_name&gt;
-</code></pre>
+<div class="highlight"><pre><span></span><code>kubectl delete service/&lt;service_name&gt;
+</code></pre></div>
 <p>or</p>
-<pre><code>kubectl delete service -l &lt;label_name&gt;=&lt;label_value&gt;
-</code></pre>
+<div class="highlight"><pre><span></span><code>kubectl delete service -l &lt;label_name&gt;=&lt;label_value&gt;
+</code></pre></div>
 </li>
 <li>
 <p><strong>Parse Service Node Port:</strong> Use the following script to filterout the node-port of a service (change the service name) -</p>
-<pre><code>export NODE_PORT=$(kubectl get services/&lt;service-name&gt; -o go-template='{{(index .spec.ports 0).nodePort}}')
+<div class="highlight"><pre><span></span><code>export NODE_PORT=$(kubectl get services/&lt;service-name&gt; -o go-template=&#39;{{(index .spec.ports 0).nodePort}}&#39;)
 
 echo NODE_PORT=$NODE_PORT
-</code></pre>
+</code></pre></div>
 </li>
 </ul>
 <h3 id="kubernetes-secrets">Kubernetes Secrets:</h3>
@@ -619,36 +633,36 @@ echo NODE_PORT=$NODE_PORT
 <ul>
 <li>
 <p><strong>List Secrets:</strong> Use the following command to list all secrets</p>
-<pre><code>kubectl get secrets
-</code></pre>
+<div class="highlight"><pre><span></span><code>kubectl get secrets
+</code></pre></div>
 </li>
 <li>
 <p><strong>Secret Details:</strong> Use the following command to list the secret details - </p>
-<pre><code>kubectl describe secrets/&lt;secret_name&gt;
-</code></pre>
+<div class="highlight"><pre><span></span><code>kubectl describe secrets/&lt;secret_name&gt;
+</code></pre></div>
 </li>
 <li>
 <p><strong>Create Secret:</strong> Use the following command to create secret -</p>
-<pre><code>kubectl create secret generic &lt;secret_name&gt; --from-literal=&lt;key_name&gt;=&lt;key_value&gt;
-</code></pre>
+<div class="highlight"><pre><span></span><code>kubectl create secret generic &lt;secret_name&gt; --from-literal=&lt;key_name&gt;=&lt;key_value&gt;
+</code></pre></div>
 </li>
 <li>
 <p><strong>Delete Secret:</strong> use the following command to delete a secret - </p>
-<pre><code>kubectl delete secret &lt;secret_name&gt;
-</code></pre>
+<div class="highlight"><pre><span></span><code>kubectl delete secret &lt;secret_name&gt;
+</code></pre></div>
 </li>
 </ul>
 <h3 id="interacting-with-pod-containers">Interacting with Pod Containers</h3>
 <ul>
 <li>
 <p><strong>List Env Variables:</strong> Use the following command to list the environment variables -</p>
-<pre><code>kubectl exec &lt;pod_name&gt; env
-</code></pre>
+<div class="highlight"><pre><span></span><code>kubectl exec &lt;pod_name&gt; env
+</code></pre></div>
 </li>
 <li>
 <p><strong>Access Container Shell:</strong> Use the following command to access bash shell in a container - </p>
-<pre><code>kubectl exec -ti &lt;pod_name&gt; bash
-</code></pre>
+<div class="highlight"><pre><span></span><code>kubectl exec -ti &lt;pod_name&gt; bash
+</code></pre></div>
 <p><strong>Note:</strong> To close your container connection type '<strong>exit</strong>'.</p>
 </li>
 </ul>
