@@ -4,7 +4,7 @@ Postman is an API platform for building and using APIs. Postman simplifies each 
 
 ## 1. Install Postman in your workstation
 
-First step to do in our dCloud lab in download and installation of Postman. Login to your dCloud workstation and from the Chrome connect to:
+First step to do in our dCloud lab is download and install of Postman. Login to your dCloud workstation and from the Chrome connect to:
 
 	https://www.postman.com/downloads/
 
@@ -13,18 +13,19 @@ Select Windows 64-bit to download the installation file.
 <img src="https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/images/postman-download.PNG" width = 800>
 
 Download the file to local folder of your choice.
-Start installation - it will automatically install.
+Start installation - it will automatically install and open application.
 
-You have installed and runing Postman in *Scratch Pad* version. If you would like to use workspace version, it is required to setup Free account. It will keep your Postman Collections in cloud, helps to collaborate and backup work you do.
+!!! Note
+	You installed and run Postman in *Scratch Pad* version. If you would like to use workspace version, it is required to setup Free account. It will keep your Postman Collections in cloud, helps to collaborate and backup work you do.
 
 ## 2 Initial setup of Postman
 
-Once the Postman is up and running you should create few things. First, setup your environment data. Environment definition can be reused later, it is also good way to keep secured sensitive data like credentials. Second, create your Tasks Collection or import one from .json file.
+Once the Postman is up and running you should create few things. First, setup your **Environment** data. Environment definition can be reused later, it is also good way to keep secured sensitive data like credentials. Second, create your **Request Collection** or import one from .json file.
 
 #### 2.1 Create Environment for our dCloud lab
 
 Environment definition is a place where you can store information about IP address of APIC and credentials. Once you run your restAPI queries, Postman will automatically use variables defined here.
-Let do it then for our scenario.
+Lets do it then for our scenario.
 
 Navigate to Environment section in Postman Dashboard as marked on figure below.
 
@@ -35,7 +36,7 @@ In this place you can select existing Environment, edit/delete it or create new 
 
 <img src="https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/images/postman-env-2.png" width = 800>
 
-Add button will move you to new Postman Tab
+*Add* button will move you to new Postman Tab
 
 <img src="https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/images/postman-env-3.png" width = 800>
 

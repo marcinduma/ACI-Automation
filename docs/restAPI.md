@@ -1,6 +1,6 @@
 # Cisco ACI rest API
 
-In this lab section you will create and execute list of API calls to configure ACI managed objects as well as read data from existing polices and devices. After this section you will feel comfortable with runing simple automation tasks and build your own tasks for further customizations. You will be familiar with Postman dashboard and general idea of runing request individualy or as a collection defined. 
+In this lab section you will create and execute list of API calls to configure ACI managed objects as well as read data from existing polices and devices. After this section you should feel comfortable with runing simple automation tasks and build your own tasks for further customizations. You will be familiar with Postman dashboard and general idea of runing request individualy or as a collection defined. 
 
 ## 1 Define restAPI calls under Collection
 
@@ -39,10 +39,13 @@ In New Request section specify:
 
 		https://{{apic}}/api/aaaLogin.json
 
+!!!Note
+	Please notice that it's first place you use your Environment Variable = apic. In JSON definition every variable is closed by **{{ }}**.
+
 4) Move to **Body** section for further work with your request
 
 
-Once you open Body section, you need to select type of data to be **RAW** and coding to **json**.
+Once you open Body section, you need to select type of data to be **raw** and coding to **JSON**.
 
 <img src="https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/images/postman-aaalogin-2.png" width = 800>
 
@@ -85,6 +88,20 @@ Write them down to notepad.
 
 <img src="https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/images/postman-aaalogin-5.png" width = 800>
 
+
+### Register your ACI Fabric Switches in APIC
+
+Lab is clear and leaf/spines requires registration. You can automate it using Postman.
+
+Configure new Postman POST Request with code **[downloaded from here](https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/docs/fabricinfra.json){target=_blank}**
+
+use URI:
+
+		https://{{apic}}/api/node/class/fabricNode.json
+
+Contact Instructor in case of issues.
+
+
 ### 1.2 Get Information About a Node
 
 POST is not only one request type. You can configure your ACI fabric, but you can use restAPI to pull data you are interest to analyse. This excercise is about writing a **GET** Request under already created ACI collection. As an example you will pull information about Leaf node-101 system in *json*.
@@ -107,7 +124,7 @@ Save new Request and Click **Send** .
 	
 
 
-In te Body responce you can verify topsystem information about Leaf in your Fabric.
+In the Body responce you can verify topsystem information about Leaf in your Fabric.
 You can pull data about AccessPolices, Interfaces as well as Logical construct - Tenant, EPGs, VRFs etc. The idea is always same - specify correct URL. Another test will be quering information about APIC node and current firmware version running on it.
 
 
@@ -142,7 +159,7 @@ Use URI to POST:
 
 		https://{{apic}}/api/node/mo/uni.json
 
-```json title="LACP Policy"
+```json title="LACP_ACTIVE"
 {
   "lacpLagPol": {
     "attributes": {
@@ -172,7 +189,7 @@ Use URI to POST:
 }
 ```
 
-```json title="SPEED-Link"
+```json title="LINK-10G"
 {
 	"fabricHIfPol": {
 		"attributes": {
@@ -252,7 +269,7 @@ payload
 
 Now it's time to build a request from data captured. You will use that request in the future for adding more vlan pools.
 
-First, copy URL and place it in Postman URL. Replace apic1.dcloud.cisco.com with our variable {{apic}}. Next replace vlanpool name in [] brakets. 
+First, copy URL and place it in Postman URL. Replace apic1.dcloud.cisco.com with our variable {{apic}}. Next replace vlanpool name in [ ] brakets. 
 New URI looks like that:
 
 		https://{{apic}}/api/node/mo/uni/infra/vlanns-[{{vlanpoolname}}]-static.json
@@ -286,7 +303,7 @@ New URI looks like that:
 ```
 Variables *{{vlanpoolname}}, {{vlanstart}}, {{vlanend}}* you can replace by hardcoded values in your code, or define values in Environment. Later today you will see the powerfull of variables using csv file for input data.
 
-Same approach please use in Domain and AAEP creation - Go to GUI, do Domain - PHY-DOM, associate with **vlan-pool** and AAEP - dcloud-AAEP. Observe API Inspectore, capture the code and build those two requests in Postman.
+Same approach please use in Domain and AAEP creation - Go to GUI, do Domain - PHY-DOM, associate with **vlan-pool** and AAEP - dcloud-AAEP. Observe API Inspector, capture the code and build those two requests in Postman.
 
 URI for AAEP Function:
 
@@ -489,7 +506,7 @@ This section contain JSON codes necessary to create Tenant objects.
 
 #### 3.1.1 Tenant and VRF
 
-Code below can be used to create new VRF in existing Tenant.
+Code below can be used to create new Tenant and VRF.
 
 		https://{{apic}}/api/node/mo/uni.json
 
@@ -603,6 +620,9 @@ In case you need to add BD without IP address and unicast routing disabled, use 
 
 Component which contain all EPGs in the Tenant.
 
+		https://{{apic}}/api/node/mo/uni.json
+
+
 ```json title="Application Profile from CSV"
 {
 	"fvAp": {
@@ -618,6 +638,9 @@ Component which contain all EPGs in the Tenant.
 
 
 #### 3.1.4 EPGs in existing tenant/appprofiles and associated with domain
+
+		https://{{apic}}/api/node/mo/uni.json
+
 
 ```json title="Create EPG under existing application profile from CSV"
 {
@@ -654,9 +677,9 @@ Component which contain all EPGs in the Tenant.
 
 ## 4 Use CSV file for input data
 
-Now is time to re-use work you did during all excercises. Untill now you run every request for static data, only once. Adding 100 Bridge-Domains, by changing "Variables" within the code would be problematic. Postman is giving an option to use external variable file to execute created requests in the collection.
+You are about to re-use work you did during all excercises. Untill now you run every request for static data, only once. Adding 100 Bridge-Domains, by changing "Variables" within the code would be problematic. Postman is giving an option to use external variable file to execute created requests in the collection.
 
-By running two requests from your Collection and using CSV file from location ==**[FILE CSV TO DOWNLOAD](https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/docs/tenant-create.csv){target=_blank}**== you will add new Tenant with one VRF, Applicatioin Profile, 22 Bridge-Domains and 22 EPGs associated to Physical Domain created before. All of this will be done in one Postman collection Run.
+By running five requests from your Collection and using CSV file from location ==**[FILE CSV TO DOWNLOAD](https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/docs/tenant-create.csv){target=_blank}**== you will add new Tenant with one VRF, Applicatioin Profile, 22 Bridge-Domains and 22 EPGs associated to Physical Domain created before. All of this will be done in one Postman collection Run.
 
 ## 4.1 Run Collection requests
 
@@ -665,6 +688,7 @@ Follow the instruction from the figure below:
 <img src="https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/images/postman-coll-run-1.png" width = 800>
 
 1)	Click on dots icon at your ACI dCloud collection folder
+
 2)	Select **Run Collection**
 
 You will be moved to new dashboard, where you will select Requests and input file.
@@ -695,7 +719,7 @@ When you successfully execute your collection, in Summary at the screen you will
 
 <img src="https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/images/postman-coll-run-6.png" width = 800>
 
-When Request was accepted by APIC, result will be **200 OK**. Every Iteration contain all five seleceted request. You see that one of them is getting **400 Bad Request** - "Bridge Domain L3 from CSV". Reason for that, is missing children attribute **fvSubnet** for all L2 bridge-domain in our CSV file.
+When Request was accepted by APIC, result will be **200 OK**. Every Iteration contain all five seleceted requests. You probably noticed that one of them is getting **400 Bad Request** - "Bridge Domain L3 from CSV". Reason for that, is missing children attribute **fvSubnet** for all L2 bridge-domain in our CSV file.
 
 Now connect to APIC GUI and verify if tenant exists, check dashboard status.
 
@@ -705,4 +729,4 @@ You successfully Created New Tenant with 22 EPGs and 22 BDs.
 
 Please, edit CSV file in notepad++ editor at your dCloud workstation, replace Tenantname with new and run your Postman Collection once again.
 
-**Do you understand now powerfull of automation?**
+**<p align=center>Do you understand now power of simple automation?</p>**
