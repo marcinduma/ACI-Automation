@@ -487,23 +487,32 @@ Tenant-1 will be created with all structure shown in figure above.
 
 This section contain JSON codes necessary to create Tenant objects.
 
-#### 3.1.1 VRF in existing tenant
+#### 3.1.1 Tenant and VRF
 
 Code below can be used to create new VRF in existing Tenant.
 
 		https://{{apic}}/api/node/mo/uni.json
 
-```json title="VRF"
+```json title="Tenant and VRF from CSV"
 {
-  "fvCtx": {
-    "attributes": {
-      "dn": "uni/tn-{{tenantname}}/ctx-{{vrfname}}",
-      "name": "{{vrfname}}",
-      "rn": "{{vrfname}}",
-      "status": "created"
-    },
-    "children": []
-  }
+	"fvTenant": {
+		"attributes": {
+			"annotation": "",
+			"descr": "",
+			"dn": "uni/tn-{{tenantname}}",
+			"name": "{{tenantname}}"
+		},
+		"children": [
+			{
+				"fvCtx": {
+					"attributes": {
+						"name": "{{vrfname}}"
+					},
+					"children": []
+				}
+			}
+		]
+	}
 }
 ```
 
@@ -513,7 +522,42 @@ Code below can be used to create new Bridge-Domain in existing Tenant.
 
 		https://{{apic}}/api/node/mo/uni.json
 
-```json title="Bridge-Domain L2" hl_lines="15-18"
+```json title="Bridge-domain L3 from CSV"
+{
+	"fvBD": {
+		"attributes": {
+			"name": "{{bdname}}",
+			"dn": "uni/tn-{{tenantname}}/BD-{{bdname}}",
+			"rn": "BD-{{bdname}}",
+			"type": "regular"
+		},
+		"children": [
+			{
+				"fvSubnet": {
+					"attributes": {
+						"ip": "{{ipaddress}}",
+						"ipDPLearning": "enabled",
+						"scope": "private"
+					}
+				}
+			},
+			{
+				"fvRsCtx": {
+					"attributes": {
+						"tnFvCtxName": "{{vrfname}}"
+					}
+				}
+			}
+		]
+	}
+}
+```
+
+In case you need to add BD without IP address and unicast routing disabled, use code below.
+
+		https://{{apic}}/api/node/mo/uni.json
+
+```json title="Bridge-domain L2 from CSV" hl_lines="15-18"
 {
 	"fvTenant": {
 		"attributes": {
@@ -555,9 +599,27 @@ Code below can be used to create new Bridge-Domain in existing Tenant.
 ```
 ==**Highlighted**== rows are specific for L2 Bridge-Domain.
 
-#### 3.1.3 EPGs in existing tenant/appprofiles
+#### 3.1.3 Application Profile
 
-```json title="EPG"
+Component which contain all EPGs in the Tenant.
+
+```json title="Application Profile from CSV"
+{
+	"fvAp": {
+		"attributes": {
+			"dn": "uni/tn-{{tenantname}}/ap-{{ap}}",
+			"name": "{{ap}}",
+			"rn": "ap-{{ap}}",
+			"status": "created"
+		}
+	}
+}
+```
+
+
+#### 3.1.4 EPGs in existing tenant/appprofiles and associated with domain
+
+```json title="Create EPG under existing application profile from CSV"
 {
   "fvAEPg": {
     "attributes": {
@@ -594,12 +656,53 @@ Code below can be used to create new Bridge-Domain in existing Tenant.
 
 Now is time to re-use work you did during all excercises. Untill now you run every request for static data, only once. Adding 100 Bridge-Domains, by changing "Variables" within the code would be problematic. Postman is giving an option to use external variable file to execute created requests in the collection.
 
-By running two requests from your Collection and using CSV file from location ==**[FILE CSV TO DOWNLOAD](https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/docs/tenant-create.csv){target=_blank}**== you will add new Tenant with one VRF, 22 Bridge-Domains and 22 EPGs associated to Physical Domain created before.
+By running two requests from your Collection and using CSV file from location ==**[FILE CSV TO DOWNLOAD](https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/docs/tenant-create.csv){target=_blank}**== you will add new Tenant with one VRF, Applicatioin Profile, 22 Bridge-Domains and 22 EPGs associated to Physical Domain created before. All of this will be done in one Postman collection Run.
 
-DOPISAC JAK SCIAGNAC PLIK, JAK URUCHOMIC COLLECTION DO UZYCIA CSV.
+## 4.1 Run Collection requests
 
-## 4 Read Data
+Follow the instruction from the figure below:
 
-1 uzycie VLANpoolu? ktore VLANy są uzywane z pooli?
-2 ktore interfejsy sa wolne?
-3 cos jeszcze?
+<img src="https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/images/postman-coll-run-1.png" width = 800>
+
+1)	Click on dots icon at your ACI dCloud collection folder
+2)	Select **Run Collection**
+
+You will be moved to new dashboard, where you will select Requests and input file.
+
+<img src="https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/images/postman-coll-run-2.png" width = 800>
+
+Deselect All, and then Select only needed requests:
+
+<img src="https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/images/postman-coll-run-3.png" width = 800>
+
+
+When you select Requests, go to Data **"Select File"** and choice downloaded CSV file - *tenant-create.csv*.
+
+<img src="https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/images/postman-coll-run-4.png" width = 800>
+
+Confirm that your file is selected as on the figure above. You can confirm amount of iterations in the top field *Iterations*.
+
+!!! Note
+	Do not forget to authenticate your Postman session using ACI Login request. I recommend to do it out of collection Run -- beforehand.
+	
+Click ** Run ACI dCloud ** Blue button.
+
+<img src="https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/images/postman-coll-run-5.png" width = 800>
+
+## 4.2 Verification after runing the collection
+
+When you successfully execute your collection, in Summary at the screen you will see results of every Iteration.
+
+<img src="https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/images/postman-coll-run-6.png" width = 800>
+
+When Request was accepted by APIC, result will be **200 OK**. Every Iteration contain all five seleceted request. You see that one of them is getting **400 Bad Request** - "Bridge Domain L3 from CSV". Reason for that, is missing children attribute **fvSubnet** for all L2 bridge-domain in our CSV file.
+
+Now connect to APIC GUI and verify if tenant exists, check dashboard status.
+
+<img src="https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/images/postman-coll-run-7.png" width = 800>
+
+You successfully Created New Tenant with 22 EPGs and 22 BDs.
+
+Please, edit CSV file in notepad++ editor at your dCloud workstation, replace Tenantname with new and run your Postman Collection once again.
+
+**Do you understand now powerfull of automation?**
