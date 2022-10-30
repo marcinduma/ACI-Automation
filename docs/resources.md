@@ -32,4 +32,4 @@ In this section you can find necessary files used during the Lab to download.
 
 [ACI-dcloud Environment](https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/docs/ACI-dcloud.postman_environment.json){target=_blank}
 
-[ACI dCloud Collection]("https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/docs/ACI dCloud.postman_collection.json"){target=_blank}
+[ACI dCloud Collection](https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/docs/ACIdCloud.postman_collection.json){target=_blank}
