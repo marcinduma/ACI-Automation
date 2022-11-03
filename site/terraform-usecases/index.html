@@ -909,7 +909,7 @@ In also includes instruction on how to use this provider. After clicking on "Use
 </code></pre></div>
 <h3 id="32-optional-switch-registration">3.2 (Optional) Switch registration</h3>
 <p>At this point leaf and spine switches should be registered in the lab using Postman the day before.
-Registration of switch is possible to be done using resource <em>aci_fabric_node_member</em>. Documentation of this resource is present in the official <a href="https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/fabric_node_member">Terraform Registry documentation</a>.
+Registration of switch is possible to be done using resource <em>aci_fabric_node_member</em>. Documentation of this resource is present in the official <a href="https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/fabric_node_member" target="_blank">Terraform Registry documentation</a>.
 - In the Example Usage section you can find example code to register new node
 - In the Argument Reference you will see possible arguments/parameters that can be used for switch registration with indication if argument is required or optional and additional information about it
 - In the Attribute Reference you will see what is the attribute that this resource exports, and in case of ACI resources it will be always <code>id</code> set to the DN of the VLAN Pool.
@@ -977,9 +977,9 @@ In our LAB some of the policies already exist from the day before and Postman co
 <a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="p">}</span><span class="w"></span>
 </code></pre></div>
 <p>The documentation for each of the resources can be found in Terraform Registry:</p>
-<p><a href="https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/lacp_policy">aci_lacp_policy resource</a></p>
-<p><a href="https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/lldp_interface_policy">aci_lldp_interface_policy resource</a></p>
-<p><a href="https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/fabric_if_pol">aci_fabric_if_pol resource</a></p>
+<p><a href="https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/lacp_policy" target="_blank">aci_lacp_policy resource</a></p>
+<p><a href="https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/lldp_interface_policy" target="_blank">aci_lldp_interface_policy resource</a></p>
+<p><a href="https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/fabric_if_pol" target="_blank">aci_fabric_if_pol resource</a></p>
 <h3 id="42-run-terraform-plan-apply">4.2 Run Terraform Plan &amp; Apply</h3>
 <p>At this point we have our first three resources in the configuration so it's time to deploy them on our APIC. To do so we will follow the Terraform workload init -&gt; plan -&gt; apply. In previous step, after configuring ACI provider you should have already done <code>terraform init</code>, so it is <strong>not</strong> needed to run it again now, as it would not bring any change.</p>
 <p>Our first step to deploy config is to run <code>terraform plan</code> command in the terminal window. The output will show us what changes Terraform needs to do on the fabric, to bring it to the required configuration. The output should look similar to the following:</p>
@@ -1137,12 +1137,12 @@ Between AAEP and Domains there is also relationship. AEP needs to be related to 
 <a id="__codelineno-12-15" name="__codelineno-12-15" href="#__codelineno-12-15"></a>}
 </code></pre></div>
 <p>Documentation of resources:</p>
-<p><a href="https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/vlan_pool">aci_vlan_pool resource</a></p>
-<p><a href="https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/ranges">aci_ranges resource</a></p>
-<p><a href="https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/physical_domain">aci_physical_domain resource</a></p>
-<p><a href="https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/l3_domain_profile">aci_l3_domain_profile resource</a></p>
-<p><a href="https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/attachable_access_entity_profile">aci_attachable_access_entity_profile resource</a></p>
-<p><a href="https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/aaep_to_domain">aci_aaep_to_domain resource</a></p>
+<p><a href="https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/vlan_pool" target="_blank">aci_vlan_pool resource</a></p>
+<p><a href="https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/ranges" target="_blank">aci_ranges resource</a></p>
+<p><a href="https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/physical_domain" target="_blank">aci_physical_domain resource</a></p>
+<p><a href="https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/l3_domain_profile" target="_blank">aci_l3_domain_profile resource</a></p>
+<p><a href="https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/attachable_access_entity_profile" target="_blank">aci_attachable_access_entity_profile resource</a></p>
+<p><a href="https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/aaep_to_domain" target="_blank">aci_aaep_to_domain resource</a></p>
 <h3 id="44-interface-policy-group">4.4 Interface Policy group</h3>
 <p>Let's now create two Interface Policy Groups, one for server (L2) and another one for router (L3) and use all created policies:</p>
 <ul>
@@ -1169,8 +1169,8 @@ Between AAEP and Domains there is also relationship. AEP needs to be related to 
 <a id="__codelineno-13-17" name="__codelineno-13-17" href="#__codelineno-13-17"></a>}
 </code></pre></div>
 <p>Documentation of resources:</p>
-<p><a href="https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/leaf_access_bundle_policy_group">aci_leaf_access_bundle_policy_group resource</a></p>
-<p><a href="https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/leaf_access_port_policy_group">aci_leaf_access_port_policy_group resource</a></p>
+<p><a href="https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/leaf_access_bundle_policy_group" target="_blank">aci_leaf_access_bundle_policy_group resource</a></p>
+<p><a href="https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/leaf_access_port_policy_group" target="_blank">aci_leaf_access_port_policy_group resource</a></p>
 <h3 id="45-switch-interface-profiles">4.5 Switch &amp; Interface Profiles</h3>
 <p>Let's assign our created interface policy groups to the newly created switch and interface profiles. We will create:</p>
 <ul>
@@ -1352,13 +1352,13 @@ Please, download a terraform file from <mark><strong><a href="https://raw.github
 <a id="__codelineno-19-50" name="__codelineno-19-50" href="#__codelineno-19-50"></a>}
 </code></pre></div>
 <p>Documentation of resources:</p>
-<p><a href="https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/tenant">aci_tenant resource</a></p>
-<p><a href="https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/bridge_domain">aci_bridge_domain</a></p>
-<p><a href="https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/subnet">aci_subnet resource</a></p>
-<p><a href="https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/application_profile">aci_application_profile</a></p>
-<p><a href="https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/application_epg">aci_application_epg</a></p>
-<p><a href="https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/epg_to_domain">aci_epg_to_domain</a></p>
-<p><a href="https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/l3_outside">aci_l3_outside</a></p>
+<p><a href="https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/tenant" target="_blank">aci_tenant resource</a></p>
+<p><a href="https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/bridge_domain" target="_blank">aci_bridge_domain</a></p>
+<p><a href="https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/subnet" target="_blank">aci_subnet resource</a></p>
+<p><a href="https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/application_profile" target="_blank">aci_application_profile</a></p>
+<p><a href="https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/application_epg" target="_blank">aci_application_epg</a></p>
+<p><a href="https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/epg_to_domain" target="_blank">aci_epg_to_domain</a></p>
+<p><a href="https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/l3_outside" target="_blank">aci_l3_outside</a></p>
 
               
             </article>

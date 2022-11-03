@@ -114,7 +114,7 @@ Terraform has compared your real infrastructure against your configuration and f
 ### 3.2 (Optional) Switch registration
 
 At this point leaf and spine switches should be registered in the lab using Postman the day before.
-Registration of switch is possible to be done using resource *aci_fabric_node_member*. Documentation of this resource is present in the official [Terraform Registry documentation](https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/fabric_node_member).
+Registration of switch is possible to be done using resource *aci_fabric_node_member*. Documentation of this resource is present in the official [Terraform Registry documentation](https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/fabric_node_member){target=_blank}.
 - In the Example Usage section you can find example code to register new node
 - In the Argument Reference you will see possible arguments/parameters that can be used for switch registration with indication if argument is required or optional and additional information about it
 - In the Attribute Reference you will see what is the attribute that this resource exports, and in case of ACI resources it will be always `id` set to the DN of the VLAN Pool.
@@ -203,11 +203,11 @@ resource "aci_fabric_if_pol" "LINK-10G" {
 
 The documentation for each of the resources can be found in Terraform Registry:
 
-[aci_lacp_policy resource](https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/lacp_policy)
+[aci_lacp_policy resource](https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/lacp_policy){target=_blank}
 
-[aci_lldp_interface_policy resource](https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/lldp_interface_policy)
+[aci_lldp_interface_policy resource](https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/lldp_interface_policy){target=_blank}
 
-[aci_fabric_if_pol resource](https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/fabric_if_pol)
+[aci_fabric_if_pol resource](https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/fabric_if_pol){target=_blank}
 
 ### 4.2 Run Terraform Plan & Apply
 
@@ -390,17 +390,17 @@ resource "aci_attachable_access_entity_profile" "AEP_L3" {
 
 Documentation of resources:
 
-[aci_vlan_pool resource](https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/vlan_pool)
+[aci_vlan_pool resource](https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/vlan_pool){target=_blank}
 
-[aci_ranges resource](https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/ranges)
+[aci_ranges resource](https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/ranges){target=_blank}
 
-[aci_physical_domain resource](https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/physical_domain)
+[aci_physical_domain resource](https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/physical_domain){target=_blank}
 
-[aci_l3_domain_profile resource](https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/l3_domain_profile)
+[aci_l3_domain_profile resource](https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/l3_domain_profile){target=_blank}
 
-[aci_attachable_access_entity_profile resource](https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/attachable_access_entity_profile)
+[aci_attachable_access_entity_profile resource](https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/attachable_access_entity_profile){target=_blank}
 
-[aci_aaep_to_domain resource](https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/aaep_to_domain)
+[aci_aaep_to_domain resource](https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/aaep_to_domain){target=_blank}
 
 ### 4.4 Interface Policy group
 
@@ -433,9 +433,9 @@ resource "aci_leaf_access_bundle_policy_group" "IntPolGrp_Router1" {
 
 Documentation of resources:
 
-[aci_leaf_access_bundle_policy_group resource](https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/leaf_access_bundle_policy_group)
+[aci_leaf_access_bundle_policy_group resource](https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/leaf_access_bundle_policy_group){target=_blank}
 
-[aci_leaf_access_port_policy_group resource](https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/leaf_access_port_policy_group)
+[aci_leaf_access_port_policy_group resource](https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/leaf_access_port_policy_group){target=_blank}
 
 ### 4.5 Switch & Interface Profiles
 
@@ -652,16 +652,16 @@ resource "aci_l3_ext_subnet" "extepg-subnet" {
 
 Documentation of resources:
 
-[aci_tenant resource](https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/tenant)
+[aci_tenant resource](https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/tenant){target=_blank}
 
-[aci_bridge_domain](https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/bridge_domain)
+[aci_bridge_domain](https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/bridge_domain){target=_blank}
 
-[aci_subnet resource](https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/subnet)
+[aci_subnet resource](https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/subnet){target=_blank}
 
-[aci_application_profile](https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/application_profile)
+[aci_application_profile](https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/application_profile){target=_blank}
 
-[aci_application_epg](https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/application_epg)
+[aci_application_epg](https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/application_epg){target=_blank}
 
-[aci_epg_to_domain](https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/epg_to_domain)
+[aci_epg_to_domain](https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/epg_to_domain){target=_blank}
 
-[aci_l3_outside](https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/l3_outside)
+[aci_l3_outside](https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/l3_outside){target=_blank}
