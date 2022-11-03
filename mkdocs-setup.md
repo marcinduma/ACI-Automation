@@ -33,5 +33,3 @@ W tym samym root folderze gdzie odpalilas mkdocs serve
 potem juz tylko git push obu branchów - master i gh-deploy.
 
 Pozdrawiam :)
-
-

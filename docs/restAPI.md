@@ -1,6 +1,6 @@
 # Cisco ACI rest API
 
-In this lab section you will create and execute list of API calls to configure ACI managed objects as well as read data from existing polices and devices. After this section you should feel comfortable with running simple automation tasks and build your own tasks for further customizations. You will be familiar with Postman dashboard and general idea of running request individually or as a collection defined. 
+In this lab section you will create and execute list of API calls to configure ACI managed objects as well as read data from existing polices and devices. After this section you should feel comfortable with running simple automation tasks and build your own tasks for further customizations. You will be familiar with Postman dashboard and general idea of running request individually or as a collection defined.
 
 ## 1 Define restAPI calls under Collection
 
