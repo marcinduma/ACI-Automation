@@ -11,8 +11,11 @@ nav:
     - Create customer use-cases with Postman: use-cases-postman.md
     - How to pull informations using restAPI: monitor-aci.md
   - Day2 LAB sections:
-    - Terraform setup: terraform-basis.md
-    - Customer use-cases with Terraform: terraform-usecases.md
+    - Terraform setup: terraform-installation.md
+    - Terraform basic deployment: terraform-basis.md
+    - Terraform variables: terraform-vars.md
+    - Terraform modules: terraform-modules.md
+    - Terraform state: terraform-state.md
   - Appendixes:
     - dCloudGuacamole: guacamole.md
     - Resources: resources.md
@@ -31,6 +34,3 @@ markdown_extensions:
   - pymdownx.mark
   - pymdownx.tilde
   - attr_list
-  
-  
-
