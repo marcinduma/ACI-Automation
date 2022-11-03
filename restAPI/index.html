@@ -812,7 +812,7 @@
 
 
 <h1 id="cisco-aci-rest-api">Cisco ACI rest API</h1>
-<p>In this lab section you will create and execute list of API calls to configure ACI managed objects as well as read data from existing polices and devices. After this section you should feel comfortable with runing simple automation tasks and build your own tasks for further customizations. You will be familiar with Postman dashboard and general idea of runing request individualy or as a collection defined. </p>
+<p>In this lab section you will create and execute list of API calls to configure ACI managed objects as well as read data from existing polices and devices. After this section you should feel comfortable with running simple automation tasks and build your own tasks for further customizations. You will be familiar with Postman dashboard and general idea of running request individually or as a collection defined. </p>
 <h2 id="1-define-restapi-calls-under-collection">1 Define restAPI calls under Collection</h2>
 <p>Now is a time to work with our requests to GET or POST restAPI. You will define couple of them during the LAB. Figure below shows where to navigate to create new request in your collection.</p>
 <p><img src="https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/images/postman-request-1.png" width = 800></p>
@@ -904,7 +904,7 @@ Try to delete part of URI <mark><strong>?query-target=subtree&amp;target-subtree
 <p>Usually Interface Polices are configured once and re-used like LLDP, LACP, CDP, etc. However our LAB is empty and you need to start from zero. Following sections will help you to prepare your API requests.</p>
 <h3 id="21-interface-policies">2.1 Interface Policies</h3>
 <p>You will configure LACP Policy, LLDP_ON, LINK-10G. Copy each of the Policy json definition to individual POST requests under your ACI Collection in Postman.</p>
-<p>Use URI to POST: </p>
+<p>Use URI to POST:</p>
 <div class="highlight"><pre><span></span><code>    https://{{apic}}/api/node/mo/uni.json
 </code></pre></div>
 <div class="highlight"><span class="filename">LACP_ACTIVE</span><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="p">{</span><span class="w"></span>
@@ -992,7 +992,7 @@ Now you will change an approach. Your task is to create VLAN Pool with APIC GUI 
 <a id="__codelineno-4-27" name="__codelineno-4-27" href="#__codelineno-4-27"></a><span class="p">}</span><span class="w"></span>
 </code></pre></div>
 <p>Now it's time to build a request from data captured. You will use that request in the future for adding more vlan pools.</p>
-<p>First, copy URL and place it in Postman URL. Replace apic1.dcloud.cisco.com with our variable {{apic}}. Next replace vlanpool name in [ ] brakets. 
+<p>First, copy URL and place it in Postman URL. Replace apic1.dcloud.cisco.com with our variable {{apic}}. Next replace vlanpool name in [ ] brakets.
 New URI looks like that:</p>
 <div class="highlight"><pre><span></span><code>    https://{{apic}}/api/node/mo/uni/infra/vlanns-[{{vlanpoolname}}]-static.json
 </code></pre></div>
@@ -1179,7 +1179,7 @@ Interesting fact about domain to AAEP association. Domain is sub-object to AAEP,
 <p><img src="https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/images/dcloud-tenant-1.PNG" width = 800></p>
 <p>You need to define Tenant, VRF, Bridge-Domains, Application-Profile, EPGs with Domain association and static binding under EPG. Quite many of Requests to do in Postman. You can define all of them under one Request.
 Please, download a JSON file from <mark><strong><a href="https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/docs/tn-dcloud-tenant-1.json" target="_blank">JSON Tenant Ready</a>.</strong></mark></p>
-<p>Once you have it on dcloud workstation, please create new Request under ACI Collection: 
+<p>Once you have it on dcloud workstation, please create new Request under ACI Collection:
 NAME:</p>
 <div class="highlight"><pre><span></span><code>    CREATE TENANT-1
 </code></pre></div>
