@@ -31,5 +31,6 @@ The first step is to create a directory called *ACI* for the terraform files. Us
     <img src="https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/images/visual-new-folder.png" width = 800>
     <img src="https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/images/visual-new-folder2.png" width = 800>
 
+In that directory create the first terraform file called `access_policies.tf`
 
 ## 2. Second section
