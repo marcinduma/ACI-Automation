@@ -126,9 +126,35 @@ Customer place network components in ACI shared tenant *common* as well as Custo
 
 <img src="https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/images/use-case-2.png" width = 800>
 
+How would you start preparation of such JSON Use-case definition?
+
+Try to build the JSON code yourself, prepare CSV file for input data. You can reuse existing JSON files you did so far.
+
+How to start the process:
+
+1.	Identify components you want to include in your use-case
+2.	Understand dependencies to not forget some objects (cross-tenant object model or security-policy, etc)
+3.	Define where and how to connect external components (servers, routers, etc)
+
+Reuse done so far API calls, which from them suite most?
+
+
+!!! Note
+	If it's difficult or you would like to compare it, Solution for the Use-Case2 can be found under the link 
+	
+	-- [DoWnLoAd JSON](https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/docs/use-case-2-tenant-epg.json){target=_blank}
+
+	-- [DoWnLoAd CSV](https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/docs/var-data-uc2.csv){target=_blank}
+
+
+
 ## Use-Case no.3
 
 
 Customer place SHARED network component in ACI shared tenant *common*. Custom tenants contain dedicated VRF, BDs and EPGs, Domain associations and static-bindings for particular department. L3out configuration for routing with external networks.
 
 <img src="https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/images/use-case-3.png" width = 800>
+
+Based on experience  gained, build yourself another use-case in JSON.
+
+New thing in the Use-case, comparing to previous is L3out located in Custom Tenant. Please use API Inspector or Save manually created L3out object to understand MIT of it.

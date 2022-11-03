@@ -12,9 +12,17 @@ In this section you can find necessary files used during the Lab to download.
 
 [tenant-create.csv - used for deployment of 22 BDs/EPGs in new Tenant](https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/docs/tenant-create.csv){target=_blank}
 
+#### Use-Case 1
+
 [tenant-common.csv - used for use-cases, configuration of Common Tenant](https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/docs/tenant-common.csv){target=_blank}
 
 [var-data-uc1 - used for Use-Case1 custom tenant definition](https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/docs/var-data-uc1.csv){target=_blank}
+
+#### Use-Case 2
+
+[tenant-use-case-2.json - Tenant definition](https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/docs/use-case-2-tenant-epg.json){target=_blank}
+
+[var-data-uc2 - used for Use-Case2 custom tenant definition](https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/docs/var-data-uc2.csv){target=_blank}
 
 ### JSON additional files to deploy ACI configuration
 
