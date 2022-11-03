@@ -11,7 +11,7 @@
       
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.16">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-8.5.7">
     
     
       
@@ -19,12 +19,14 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.1c3799f8.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.20d9efc8.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.cc9b2e1e.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.cbb835fc.min.css">
         
       
+      
+
     
     
     
@@ -37,10 +39,11 @@
       
     
     
-    <script>__md_scope=new URL("..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
+    
     
     
   </head>
@@ -117,7 +120,7 @@
       </label>
       <nav class="md-search__options" aria-label="Search">
         
-        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
         </button>
       </nav>
@@ -409,22 +412,29 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-first-section" class="md-nav__link">
-    1. first section
+  <a href="#1-install-visual-studio-code" class="md-nav__link">
+    1. Install Visual Studio Code
   </a>
   
-    <nav class="md-nav" aria-label="1. first section">
+    <nav class="md-nav" aria-label="1. Install Visual Studio Code">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#11-sub-section" class="md-nav__link">
-    1.1 sub-section
+  <a href="#11-open-a-new-terminal-in-the-ide" class="md-nav__link">
+    1.1 Open a new terminal in the IDE
   </a>
   
 </li>
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-create-the-working-directory" class="md-nav__link">
+    2 Create the working directory
+  </a>
   
 </li>
       
@@ -539,22 +549,29 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-first-section" class="md-nav__link">
-    1. first section
+  <a href="#1-install-visual-studio-code" class="md-nav__link">
+    1. Install Visual Studio Code
   </a>
   
-    <nav class="md-nav" aria-label="1. first section">
+    <nav class="md-nav" aria-label="1. Install Visual Studio Code">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#11-sub-section" class="md-nav__link">
-    1.1 sub-section
+  <a href="#11-open-a-new-terminal-in-the-ide" class="md-nav__link">
+    1.1 Open a new terminal in the IDE
   </a>
   
 </li>
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-create-the-working-directory" class="md-nav__link">
+    2 Create the working directory
+  </a>
   
 </li>
       
@@ -573,28 +590,54 @@
               </div>
             
           
-          <div class="md-content" data-md-component="content">
-            <article class="md-content__inner md-typeset">
-              
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
                 
+                  
 
 
 <h1 id="customer-use-cases-with-terraform">Customer use-cases with Terraform</h1>
-<p>blablabla</p>
-<h2 id="1-first-section">1. first section</h2>
-<h3 id="11-sub-section">1.1 sub-section</h3>
+<p>In this lab the focus will be on using Terraform as a way to provide operational rigor to your network device configurations. You will learn how to install and use Terraform on Cisco network solutions like ACI.</p>
+<h2 id="1-install-visual-studio-code">1. Install Visual Studio Code</h2>
+<p>Terraform uses structured files that require editing. To assist you in this process the best tool is some editor that understands the Terraform semantics. For this lab you will be using a web based integrated development environment that uses the code that is inside Microsofts Visual Studio Code. When Microsoft wrote Visual Studio Code it built the IDE on top of a platform called electron. This allowed for cross platform development and is based on javascript.</p>
+<p>Visual Studio Code can be installed on variety of operating systems, please download the package suitable for your environment and follow the installation process in the wizard:</p>
+<div class="highlight"><pre><span></span><code>https://code.visualstudio.com/
+</code></pre></div>
+<p>Visual Studio Code has three panes that you will be using:
+- The left pane with the files
+- The right pane with the file contents
+- The bottom pane will be leveraging the Terminal to issue commands</p>
+<h3 id="11-open-a-new-terminal-in-the-ide">1.1 Open a new terminal in the IDE</h3>
+<p>To get started, first you have to open a terminal windows in the IDE to access the underlying operating system and work the lab. On the menu bar click the <em>Terminal</em> tab to open <em>New Terminal</em></p>
+<div class="highlight"><pre><span></span><code>&lt;img src=&quot;https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/images/visual-terminal.png&quot; width = 800&gt;
+</code></pre></div>
+<p>Terminal will open at the bottom of the screen. This will be the area that you will execute all the terraform commands after making changes to terraform files.</p>
+<h2 id="2-create-the-working-directory">2 Create the working directory</h2>
+<p>Terraform uses directory structures as a way to organize its automation structure. This is due to the fact that Terraform treats everything in a directory as a unit and reads all the <code>.tf</code> files before execution.
+The first step is to create a directory called <em>ACI</em> for the terraform files. Using the IDE you can create folders. This directory will live under the ACI folder. There are various ways to create these in visual studio code: using the contextual menu (1a and 1b) or using the icons (2):</p>
+<div class="highlight"><pre><span></span><code>&lt;img src=&quot;https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/images/visual-new-folder.png&quot; width = 800&gt;
+&lt;img src=&quot;https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/images/visual-new-folder2.png&quot; width = 800&gt;
+</code></pre></div>
 <h2 id="2-second-section">2. Second section</h2>
 
-              
-            </article>
-          </div>
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
         </div>
         
       </main>
       
         <footer class="md-footer">
   
-    <nav class="md-footer__inner md-grid" aria-label="Footer">
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
       
         
         <a href="../terraform-basis/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Terraform setup" rel="prev">
@@ -649,10 +692,11 @@
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.16e2a7d4.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.3a4b43e5.min.js"></script>
+      <script src="../assets/javascripts/bundle.8492ddcf.min.js"></script>
       
     
   </body>

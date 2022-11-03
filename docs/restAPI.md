@@ -1,6 +1,6 @@
 # Cisco ACI rest API
 
-In this lab section you will create and execute list of API calls to configure ACI managed objects as well as read data from existing polices and devices. After this section you should feel comfortable with runing simple automation tasks and build your own tasks for further customizations. You will be familiar with Postman dashboard and general idea of runing request individualy or as a collection defined. 
+In this lab section you will create and execute list of API calls to configure ACI managed objects as well as read data from existing polices and devices. After this section you should feel comfortable with running simple automation tasks and build your own tasks for further customizations. You will be familiar with Postman dashboard and general idea of running request individually or as a collection defined. 
 
 ## 1 Define restAPI calls under Collection
 
@@ -111,7 +111,7 @@ POST is not only one request type. You can configure your ACI fabric, but you ca
 Name your new Request
 
 		Node-101-topsystem check
-		
+
 Copy the URI to GET request:
 
 		https://{{apic}}/api/mo/topology/pod-1/node-101/sys.json
@@ -121,7 +121,7 @@ Save new Request and Click **Send** .
 
 !!! Note
 	It may happen that your API Token expired - remember its valid only 10 minutes. If you experience it, go to *ACI Login* Request and Send it again to re-authenticate.
-	
+
 
 
 In the Body responce you can verify topsystem information about Leaf in your Fabric.
@@ -133,7 +133,7 @@ Please Create another Request under your Collection with following setup:
 Name of Request:
 
 		Get Running Firmware
-		
+
 GET request URI:
 
 		https://{{apic}}/api/mo/topology/pod-1/node-1/sys/ctrlrfwstatuscont.json?query-target=subtree&target-subtree-class=firmwareCtrlrRunning
@@ -155,7 +155,7 @@ Usually Interface Polices are configured once and re-used like LLDP, LACP, CDP, 
 
 You will configure LACP Policy, LLDP_ON, LINK-10G. Copy each of the Policy json definition to individual POST requests under your ACI Collection in Postman.
 
-Use URI to POST: 
+Use URI to POST:
 
 		https://{{apic}}/api/node/mo/uni.json
 
@@ -269,7 +269,7 @@ payload
 
 Now it's time to build a request from data captured. You will use that request in the future for adding more vlan pools.
 
-First, copy URL and place it in Postman URL. Replace apic1.dcloud.cisco.com with our variable {{apic}}. Next replace vlanpool name in [ ] brakets. 
+First, copy URL and place it in Postman URL. Replace apic1.dcloud.cisco.com with our variable {{apic}}. Next replace vlanpool name in [ ] brakets.
 New URI looks like that:
 
 		https://{{apic}}/api/node/mo/uni/infra/vlanns-[{{vlanpoolname}}]-static.json
@@ -461,11 +461,11 @@ Replace **intpolgrp-vpc-server1** with **intpolgrp-vpc-server2** to observe how 
 
 !!! Warning
 	Download two files to your dcloud workstation and using **post** in APIC GUI upload it to access-polices. Without, your VPC won't instanciate and cannot be used in later stage of lab.
-	
+
 	==**[JSON interface leaf profile](https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/docs/interface-leafprofile.json){target=_blank}.**==
-	
+
 	==**[JSON switch leaf profile](https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/docs/switch-leafprofile.json){target=_blank}.**==
-	
+
 	Ask instructor for assistance if not clear.
 
 
@@ -482,7 +482,7 @@ Figure below shows our Logical Tenant.
 You need to define Tenant, VRF, Bridge-Domains, Application-Profile, EPGs with Domain association and static binding under EPG. Quite many of Requests to do in Postman. You can define all of them under one Request.
 Please, download a JSON file from ==**[JSON Tenant Ready](https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/docs/tn-dcloud-tenant-1.json){target=_blank}.**==
 
-Once you have it on dcloud workstation, please create new Request under ACI Collection: 
+Once you have it on dcloud workstation, please create new Request under ACI Collection:
 NAME:
 
 		CREATE TENANT-1
@@ -497,7 +497,7 @@ COPY now content from downloaded file to Body of the new request, Save and Send 
 
 !!! Note
 	Please check your authentication token if still valid.
-	
+
 Tenant-1 will be created with all structure shown in figure above.
 
 ### 3.1 Tenant components
@@ -708,7 +708,7 @@ Confirm that your file is selected as on the figure above. You can confirm amoun
 
 !!! Note
 	Do not forget to authenticate your Postman session using ACI Login request. I recommend to do it out of collection Run -- beforehand.
-	
+
 Click ** Run ACI dCloud ** Blue button.
 
 <img src="https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/images/postman-coll-run-5.png" width = 800>
