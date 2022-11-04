@@ -1,4 +1,4 @@
-# Customer use-cases with Terraform
+# Basic use-cases with Terraform
 
 In this lab the focus will be on using Terraform as a way to provide operational rigor to your network device configurations. You will learn how to install and use Terraform on Cisco network solutions like ACI.
 
