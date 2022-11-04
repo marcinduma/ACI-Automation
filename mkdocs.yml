@@ -20,6 +20,7 @@ nav:
   - Appendixes:
     - dCloudGuacamole: guacamole.md
     - Resources: resources.md
+    - Collection of RestAPI: URL-restAPI.md
 theme:
   name: material
 markdown_extensions:

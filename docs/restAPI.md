@@ -460,7 +460,9 @@ Lets now create one of the Interface policy group and use all created policy.
 Replace **intpolgrp-vpc-server1** with **intpolgrp-vpc-server2** to observe how simple you can add new VPC policy group using Postman.
 
 !!! Warning
-	Download two files to your dcloud workstation and using **post** in APIC GUI upload it to access-polices. Without, your VPC won't instanciate and cannot be used in later stage of lab.
+	Download three files to your dcloud workstation and using **post** in Postman or in APIC GUI upload it to access-polices. Without them, your VPC won't instanciate and cannot be used in later stage of the lab.
+	
+	==**[JSON VPC Policy](https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/docs/vpc-policy.json){target=_blank}.**==
 
 	==**[JSON interface leaf profile](https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/docs/interface-leafprofile.json){target=_blank}.**==
 
