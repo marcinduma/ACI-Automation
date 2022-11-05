@@ -22,7 +22,7 @@ nav:
     - dCloudGuacamole: guacamole.md
     - Resources: resources.md
     - Collection of RestAPI: URL-restAPI.md
-    - PRINT version: print_page/
+    - PRINT version: ACI-Automation/print_page/
 theme:
   name: material
 markdown_extensions:
