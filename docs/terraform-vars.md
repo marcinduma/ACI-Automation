@@ -772,3 +772,85 @@ scope            = each.value.scope
 ```
 
 If you run `terraform plan` and `apply` now, you will see that only one `aci_subnet` resource is being created for "bd01".
+
+
+## 4. Data sources
+
+Terraform data sources let you dynamically fetch data from APIs or other Terraform state backends. This allows to fetch data from APIC that was already created, and this data source is always read-only. We can use it to read objects in ACI that were already created before either manually or by default like a common tenant in ACI. Those data sources can then be used to create relations with different resources that we want to deploy.
+Data sources have separate documentation in the Terraform Registry
+As an example we will try to deploy new bridge domain with VRF that will be placed in the common tenant. In ACI from day-0 there is *common* tenant deployed with *default* VRF. We will reference it for our new bridge domain. First we have to create two data sources that will reflect our tenant and VRF:
+
+```
+data "aci_tenant" "common-tenant" {
+    name = "common"
+}
+data "aci_vrf" "common-vrf" {
+    tenant_dn   = data.aci_tenant.common-tenant.id
+    name        = "default"
+}
+```
+
+Then we can start using references inside our new bridge domain:
+
+```
+resource "aci_bridge_domain" "bd-common" {
+  tenant_dn                   = aci_tenant.tenant.id
+  name                        = "bd-common"
+  arp_flood                   = "yes"
+  unicast_route               = "no"
+  unk_mac_ucast_act           = "flood"
+  unk_mcast_act               = "flood"
+  relation_fv_rs_ctx          = data.aci_vrf.common-vrf.id
+}
+```
+
+The difference in a way we make references to data sources, instead of normal resource, is by adding `data.` before the data source name.
+If we run `terraform plan` and `apply` now, we will see that Terraform tries to create new bridge domain:
+
+```
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # aci_bridge_domain.bd-common will be created
+  + resource "aci_bridge_domain" "bd-common" {
+      + annotation                  = "orchestrator:terraform"
+      + arp_flood                   = "yes"
+      + bridge_domain_type          = (known after apply)
+      + description                 = (known after apply)
+      + ep_clear                    = (known after apply)
+      + ep_move_detect_mode         = (known after apply)
+      + host_based_routing          = (known after apply)
+      + id                          = (known after apply)
+      + intersite_bum_traffic_allow = (known after apply)
+      + intersite_l2_stretch        = (known after apply)
+      + ip_learning                 = (known after apply)
+      + ipv6_mcast_allow            = (known after apply)
+      + limit_ip_learn_to_subnets   = (known after apply)
+      + ll_addr                     = (known after apply)
+      + mac                         = (known after apply)
+      + mcast_allow                 = (known after apply)
+      + multi_dst_pkt_act           = (known after apply)
+      + name                        = "bd-common"
+      + name_alias                  = (known after apply)
+      + optimize_wan_bandwidth      = (known after apply)
+      + relation_fv_rs_bd_to_ep_ret = (known after apply)
+      + relation_fv_rs_bd_to_nd_p   = (known after apply)
+      + relation_fv_rs_ctx          = "uni/tn-common/ctx-default"
+      + relation_fv_rs_igmpsn       = (known after apply)
+      + relation_fv_rs_mldsn        = (known after apply)
+      + tenant_dn                   = "uni/tn-dcloud-tenant-4"
+      + unicast_route               = "no"
+      + unk_mac_ucast_act           = "flood"
+      + unk_mcast_act               = "flood"
+      + v6unk_mcast_act             = (known after apply)
+      + vmac                        = (known after apply)
+    }
+
+Plan: 1 to add, 0 to change, 0 to destroy.
+```
+
+
+[aci_tenant data source](https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/data-sources/tenant){target=_blank}
+[aci_vrf data source](https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/data-sources/vrf){target=_blank}
