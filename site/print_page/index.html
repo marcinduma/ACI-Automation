@@ -439,7 +439,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../terraform-custom.md" class="md-nav__link">
+      <a href="../terraform-custom/" class="md-nav__link">
         Terraform use-cases
       </a>
     </li>
@@ -686,8 +686,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#terraform-custom" class="md-nav__link">
+    11. Terraform use-cases
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#terraform-modules" class="md-nav__link">
-    11. Terraform modules
+    12. Terraform modules
   </a>
   
 </li>
@@ -707,21 +714,21 @@
         
           <li class="md-nav__item">
   <a href="#guacamole" class="md-nav__link">
-    12. dCloudGuacamole
+    13. dCloudGuacamole
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#resources" class="md-nav__link">
-    13. Resources
+    14. Resources
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#url-restapi" class="md-nav__link">
-    14. Collection of RestAPI
+    15. Collection of RestAPI
   </a>
   
 </li>
@@ -2946,7 +2953,76 @@ If we wanted to take a look at those values, we would have our bridge_domains ma
 <a id="__codelineno-25-2" name="__codelineno-25-2" href="#terraform-vars-__codelineno-25-2"></a>ip               = each.value.gateway
 <a id="__codelineno-25-3" name="__codelineno-25-3" href="#terraform-vars-__codelineno-25-3"></a>scope            = each.value.scope
 </code></pre></div>
-<p>If you run <code>terraform plan</code> and <code>apply</code> now, you will see that only one <code>aci_subnet</code> resource is being created for "bd01".</p></section><section class="print-page" id="terraform-state"><h1 id="terraform-state-terraform-state">Terraform State</h1>
+<p>If you run <code>terraform plan</code> and <code>apply</code> now, you will see that only one <code>aci_subnet</code> resource is being created for "bd01".</p>
+<h2 id="terraform-vars-4-data-sources">4. Data sources</h2>
+<p>Terraform data sources let you dynamically fetch data from APIs or other Terraform state backends. This allows to fetch data from APIC that was already created, and this data source is always read-only. We can use it to read objects in ACI that were already created before either manually or by default like a common tenant in ACI. Those data sources can then be used to create relations with different resources that we want to deploy.
+Data sources have separate documentation in the Terraform Registry
+As an example we will try to deploy new bridge domain with VRF that will be placed in the common tenant. In ACI from day-0 there is <em>common</em> tenant deployed with <em>default</em> VRF. We will reference it for our new bridge domain. First we have to create two data sources that will reflect our tenant and VRF:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#terraform-vars-__codelineno-26-1"></a>data &quot;aci_tenant&quot; &quot;common-tenant&quot; {
+<a id="__codelineno-26-2" name="__codelineno-26-2" href="#terraform-vars-__codelineno-26-2"></a>    name = &quot;common&quot;
+<a id="__codelineno-26-3" name="__codelineno-26-3" href="#terraform-vars-__codelineno-26-3"></a>}
+<a id="__codelineno-26-4" name="__codelineno-26-4" href="#terraform-vars-__codelineno-26-4"></a>data &quot;aci_vrf&quot; &quot;common-vrf&quot; {
+<a id="__codelineno-26-5" name="__codelineno-26-5" href="#terraform-vars-__codelineno-26-5"></a>    tenant_dn   = data.aci_tenant.common-tenant.id
+<a id="__codelineno-26-6" name="__codelineno-26-6" href="#terraform-vars-__codelineno-26-6"></a>    name        = &quot;default&quot;
+<a id="__codelineno-26-7" name="__codelineno-26-7" href="#terraform-vars-__codelineno-26-7"></a>}
+</code></pre></div>
+<p>Then we can start using references inside our new bridge domain:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#terraform-vars-__codelineno-27-1"></a>resource &quot;aci_bridge_domain&quot; &quot;bd-common&quot; {
+<a id="__codelineno-27-2" name="__codelineno-27-2" href="#terraform-vars-__codelineno-27-2"></a>  tenant_dn                   = aci_tenant.tenant.id
+<a id="__codelineno-27-3" name="__codelineno-27-3" href="#terraform-vars-__codelineno-27-3"></a>  name                        = &quot;bd-common&quot;
+<a id="__codelineno-27-4" name="__codelineno-27-4" href="#terraform-vars-__codelineno-27-4"></a>  arp_flood                   = &quot;yes&quot;
+<a id="__codelineno-27-5" name="__codelineno-27-5" href="#terraform-vars-__codelineno-27-5"></a>  unicast_route               = &quot;no&quot;
+<a id="__codelineno-27-6" name="__codelineno-27-6" href="#terraform-vars-__codelineno-27-6"></a>  unk_mac_ucast_act           = &quot;flood&quot;
+<a id="__codelineno-27-7" name="__codelineno-27-7" href="#terraform-vars-__codelineno-27-7"></a>  unk_mcast_act               = &quot;flood&quot;
+<a id="__codelineno-27-8" name="__codelineno-27-8" href="#terraform-vars-__codelineno-27-8"></a>  relation_fv_rs_ctx          = data.aci_vrf.common-vrf.id
+<a id="__codelineno-27-9" name="__codelineno-27-9" href="#terraform-vars-__codelineno-27-9"></a>}
+</code></pre></div>
+<p>The difference in a way we make references to data sources, instead of normal resource, is by adding <code>data.</code> before the data source name.
+If we run <code>terraform plan</code> and <code>apply</code> now, we will see that Terraform tries to create new bridge domain:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#terraform-vars-__codelineno-28-1"></a>Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+<a id="__codelineno-28-2" name="__codelineno-28-2" href="#terraform-vars-__codelineno-28-2"></a>  + create
+<a id="__codelineno-28-3" name="__codelineno-28-3" href="#terraform-vars-__codelineno-28-3"></a>
+<a id="__codelineno-28-4" name="__codelineno-28-4" href="#terraform-vars-__codelineno-28-4"></a>Terraform will perform the following actions:
+<a id="__codelineno-28-5" name="__codelineno-28-5" href="#terraform-vars-__codelineno-28-5"></a>
+<a id="__codelineno-28-6" name="__codelineno-28-6" href="#terraform-vars-__codelineno-28-6"></a>  # aci_bridge_domain.bd-common will be created
+<a id="__codelineno-28-7" name="__codelineno-28-7" href="#terraform-vars-__codelineno-28-7"></a>  + resource &quot;aci_bridge_domain&quot; &quot;bd-common&quot; {
+<a id="__codelineno-28-8" name="__codelineno-28-8" href="#terraform-vars-__codelineno-28-8"></a>      + annotation                  = &quot;orchestrator:terraform&quot;
+<a id="__codelineno-28-9" name="__codelineno-28-9" href="#terraform-vars-__codelineno-28-9"></a>      + arp_flood                   = &quot;yes&quot;
+<a id="__codelineno-28-10" name="__codelineno-28-10" href="#terraform-vars-__codelineno-28-10"></a>      + bridge_domain_type          = (known after apply)
+<a id="__codelineno-28-11" name="__codelineno-28-11" href="#terraform-vars-__codelineno-28-11"></a>      + description                 = (known after apply)
+<a id="__codelineno-28-12" name="__codelineno-28-12" href="#terraform-vars-__codelineno-28-12"></a>      + ep_clear                    = (known after apply)
+<a id="__codelineno-28-13" name="__codelineno-28-13" href="#terraform-vars-__codelineno-28-13"></a>      + ep_move_detect_mode         = (known after apply)
+<a id="__codelineno-28-14" name="__codelineno-28-14" href="#terraform-vars-__codelineno-28-14"></a>      + host_based_routing          = (known after apply)
+<a id="__codelineno-28-15" name="__codelineno-28-15" href="#terraform-vars-__codelineno-28-15"></a>      + id                          = (known after apply)
+<a id="__codelineno-28-16" name="__codelineno-28-16" href="#terraform-vars-__codelineno-28-16"></a>      + intersite_bum_traffic_allow = (known after apply)
+<a id="__codelineno-28-17" name="__codelineno-28-17" href="#terraform-vars-__codelineno-28-17"></a>      + intersite_l2_stretch        = (known after apply)
+<a id="__codelineno-28-18" name="__codelineno-28-18" href="#terraform-vars-__codelineno-28-18"></a>      + ip_learning                 = (known after apply)
+<a id="__codelineno-28-19" name="__codelineno-28-19" href="#terraform-vars-__codelineno-28-19"></a>      + ipv6_mcast_allow            = (known after apply)
+<a id="__codelineno-28-20" name="__codelineno-28-20" href="#terraform-vars-__codelineno-28-20"></a>      + limit_ip_learn_to_subnets   = (known after apply)
+<a id="__codelineno-28-21" name="__codelineno-28-21" href="#terraform-vars-__codelineno-28-21"></a>      + ll_addr                     = (known after apply)
+<a id="__codelineno-28-22" name="__codelineno-28-22" href="#terraform-vars-__codelineno-28-22"></a>      + mac                         = (known after apply)
+<a id="__codelineno-28-23" name="__codelineno-28-23" href="#terraform-vars-__codelineno-28-23"></a>      + mcast_allow                 = (known after apply)
+<a id="__codelineno-28-24" name="__codelineno-28-24" href="#terraform-vars-__codelineno-28-24"></a>      + multi_dst_pkt_act           = (known after apply)
+<a id="__codelineno-28-25" name="__codelineno-28-25" href="#terraform-vars-__codelineno-28-25"></a>      + name                        = &quot;bd-common&quot;
+<a id="__codelineno-28-26" name="__codelineno-28-26" href="#terraform-vars-__codelineno-28-26"></a>      + name_alias                  = (known after apply)
+<a id="__codelineno-28-27" name="__codelineno-28-27" href="#terraform-vars-__codelineno-28-27"></a>      + optimize_wan_bandwidth      = (known after apply)
+<a id="__codelineno-28-28" name="__codelineno-28-28" href="#terraform-vars-__codelineno-28-28"></a>      + relation_fv_rs_bd_to_ep_ret = (known after apply)
+<a id="__codelineno-28-29" name="__codelineno-28-29" href="#terraform-vars-__codelineno-28-29"></a>      + relation_fv_rs_bd_to_nd_p   = (known after apply)
+<a id="__codelineno-28-30" name="__codelineno-28-30" href="#terraform-vars-__codelineno-28-30"></a>      + relation_fv_rs_ctx          = &quot;uni/tn-common/ctx-default&quot;
+<a id="__codelineno-28-31" name="__codelineno-28-31" href="#terraform-vars-__codelineno-28-31"></a>      + relation_fv_rs_igmpsn       = (known after apply)
+<a id="__codelineno-28-32" name="__codelineno-28-32" href="#terraform-vars-__codelineno-28-32"></a>      + relation_fv_rs_mldsn        = (known after apply)
+<a id="__codelineno-28-33" name="__codelineno-28-33" href="#terraform-vars-__codelineno-28-33"></a>      + tenant_dn                   = &quot;uni/tn-dcloud-tenant-4&quot;
+<a id="__codelineno-28-34" name="__codelineno-28-34" href="#terraform-vars-__codelineno-28-34"></a>      + unicast_route               = &quot;no&quot;
+<a id="__codelineno-28-35" name="__codelineno-28-35" href="#terraform-vars-__codelineno-28-35"></a>      + unk_mac_ucast_act           = &quot;flood&quot;
+<a id="__codelineno-28-36" name="__codelineno-28-36" href="#terraform-vars-__codelineno-28-36"></a>      + unk_mcast_act               = &quot;flood&quot;
+<a id="__codelineno-28-37" name="__codelineno-28-37" href="#terraform-vars-__codelineno-28-37"></a>      + v6unk_mcast_act             = (known after apply)
+<a id="__codelineno-28-38" name="__codelineno-28-38" href="#terraform-vars-__codelineno-28-38"></a>      + vmac                        = (known after apply)
+<a id="__codelineno-28-39" name="__codelineno-28-39" href="#terraform-vars-__codelineno-28-39"></a>    }
+<a id="__codelineno-28-40" name="__codelineno-28-40" href="#terraform-vars-__codelineno-28-40"></a>
+<a id="__codelineno-28-41" name="__codelineno-28-41" href="#terraform-vars-__codelineno-28-41"></a>Plan: 1 to add, 0 to change, 0 to destroy.
+</code></pre></div>
+<p><a href="https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/data-sources/tenant" target="_blank">aci_tenant data source</a>
+<a href="https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/data-sources/vrf" target="_blank">aci_vrf data source</a></p></section><section class="print-page" id="terraform-state"><h1 id="terraform-state-terraform-state">Terraform State</h1>
 <h3 id="terraform-state-1-view-terraform-state">1. View Terraform State</h3>
 <p>Let's focus now on the state of our deployments. By now you should have three folders with different Terraform configuration.
 Please change to <code>ACI</code> folder in terraform terminal and run <code>terraform state list</code> command. The output should list all the objects that were deployed by Terraform modules and will look similar to this:</p>
@@ -3179,7 +3255,167 @@ The current state is that our bridge domain has manually set "flood" option, and
 <a id="__codelineno-10-16" name="__codelineno-10-16" href="#terraform-state-__codelineno-10-16"></a>Plan: 0 to add, 1 to change, 0 to destroy.
 </code></pre></div>
 <p>This is because attribute has been set in Terraform, so Terraform detects this drift and tries to revert it its expected condition.</p>
-<p>If we would like now to not revert it, but update Terraform state to reflect this change to "flood", we would require to change Terraform config to "flood" under resource block, and run <code>terraform apply -refresh-only</code>.</p></section><h1 class='nav-section-title-end'>Ended: Day2 LAB sections</h1>
+<p>If we would like now to not revert it, but update Terraform state to reflect this change to "flood", we would require to change Terraform config to "flood" under resource block, and run <code>terraform apply -refresh-only</code>.</p></section><section class="print-page" id="terraform-custom"><h1 id="terraform-custom-create-sample-use-cases-with-terraform">Create sample use-cases with terraform</h1>
+<h2 id="terraform-custom-use-case-no1">Use-Case no.1</h2>
+<p>Customer place SHARED network component in ACI shared tenant <em>common</em>. Custom tenants contain dedicated VRF, BDs and EPGs, Domain associations and static-bindings for particular department. L3out configuration for routing with external networks.</p>
+<p>Use existing PHYSDOM_1 physical domain and existing EXTRTDOM_1 routed domain (TIP: you can use data sources for this)
+Use following static-bindings for devices:</p>
+<p>WAN router:</p>
+<ul>
+<li>node 101, interface eth1/5, vlan 250</li>
+</ul>
+<p>INTERNET router:</p>
+<ul>
+<li>topology/pod-1/protpaths-101-102/pathep-[IntPolGrp_Router1], vlan 251</li>
+</ul>
+<p>UCS/vmware server:</p>
+<ul>
+<li>topology/pod-1/protpaths-101-102/pathep-[IntPolGrp_VPC_server1]</li>
+<li>EPG_HA - vlan 152</li>
+<li>EPG_UC - vlan 150</li>
+<li>EPG_DMZ - vlan 151</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/images/terraform-usecase.png" width = 800></p>
+<p>Based on experience gained, build yourself a use-case in Terraform. You can specify each resource directly, or you can use variable file.</p></section><section class="print-page" id="terraform-modules"><h1 id="terraform-modules-terraform-modules">Terraform modules</h1>
+<p>As you can see deploying objects like L3out require a lot of repeatable configuration. Such configs can be simplified by using Terraform modules. In such module we can write source configuration and re-use it multiple times, with standardized configuration.</p>
+<p>In this lab we will use existing module for L3out configuration.
+This module consists of three files:</p>
+<ul>
+<li>main.tf with the resource configuration</li>
+<li>variables.tf with th variables definition</li>
+<li>outputs.tf with the output ID value that this module would return</li>
+</ul>
+<p>Each three files should be placed under <em>modules/aci_l3out/</em> folder structure.</p>
+<p>Apart from those files, we still require our own configuration, so again we will create <code>main.tf</code>, <code>variables.tf</code> and <code>terraform.tfvars</code> under main folder. The whole structure should look like this:</p>
+<ul>
+<li>
+<p>ACI-4/</p>
+<ul>
+<li>main.tf</li>
+<li>variables.tf</li>
+<li>terraform.tfvars</li>
+<li>
+<p>modules/</p>
+<ul>
+<li>
+<p>aci_l3out/</p>
+<ul>
+<li>main.tf</li>
+<li>variables.tf</li>
+<li>outputs.tf</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>The complete folder can be downloaded here:</p>
+<p>We will walk over the config files.</p>
+<p><strong>Module files</strong></p>
+<p>Inside the module folder we have three files.</p>
+<p>In the <em>variables.tf</em> we define every variable that we will be using. In case of this module those variables don't have any default values assigned, they mostly specify the type of parameters to be used in maps.</p>
+<p>In the <em>main.tf</em> file we create our complex l3out configuration and relations between multiple objects. This configuration looks similar to your manual L3out configuration, but this time it is reusable and you wouldn't have to write it multiple times for multiple L3outs.
+We have set of resources like <code>aci_l3out</code>, <code>aci_logical_node_profile</code>, <code>aci_logical_interface_profile</code> etc. This module adds also BGP peer connectivity which is something we haven't done yet in the previous labs.</p>
+<p>The new thing you can spot in this module is the initial part with the <code>locals</code> block. This block defined a local value. Local value is a temporary variable that is constructed with an expression on other variables. If you run expressions on variables, for example loops, you would always get some temporary variable that you can use. However, what a local value does, is that it assigns a name to that expression and you will be able to reuse it multiple times within your module, instead of repeating the expression. You can treat it similarly to a function in programming which returns some value.
+In case of local value <code>external_epg_subnets</code> it is performing <code>flatten</code> function. (Flatten function)[https://developer.hashicorp.com/terraform/language/functions/flatten] is useful for us when we want to run loops inside a map of map. The result of this flatten function would be a list of all subnets that need to be configured under external EPG with their parameters.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#terraform-modules-__codelineno-0-1"></a>locals {
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#terraform-modules-__codelineno-0-2"></a>  external_epg_subnets = flatten([
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#terraform-modules-__codelineno-0-3"></a>    for l3epg_key, l3epg in var.external_epgs : [
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#terraform-modules-__codelineno-0-4"></a>      for subnet_key, subnet in l3epg.subnets : {
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#terraform-modules-__codelineno-0-5"></a>        external_epg_key = l3epg_key
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#terraform-modules-__codelineno-0-6"></a>        external_epg_name = l3epg.name
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#terraform-modules-__codelineno-0-7"></a>        subnet_key = subnet_key
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#terraform-modules-__codelineno-0-8"></a>        subnet_ip = subnet.ip
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#terraform-modules-__codelineno-0-9"></a>        subnet_scope = subnet.scope
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#terraform-modules-__codelineno-0-10"></a>      }
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#terraform-modules-__codelineno-0-11"></a>    ]
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#terraform-modules-__codelineno-0-12"></a>  ])
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#terraform-modules-__codelineno-0-13"></a>}
+</code></pre></div>
+<p>Later in the code we can see that this is used with <code>for</code> function in <code>aci_l3_ext_subnet</code> resource:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#terraform-modules-__codelineno-1-1"></a>resource &quot;aci_l3_ext_subnet&quot; &quot;l3instp_subnet&quot; {
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#terraform-modules-__codelineno-1-2"></a>  for_each       = {
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#terraform-modules-__codelineno-1-3"></a>    for subnet in local.external_epg_subnets : &quot;${subnet.external_epg_key}.${subnet.subnet_key}&quot; =&gt; subnet
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#terraform-modules-__codelineno-1-4"></a>  }
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#terraform-modules-__codelineno-1-5"></a>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#terraform-modules-__codelineno-1-6"></a>  external_network_instance_profile_dn  = aci_external_network_instance_profile.l3instp[each.value.external_epg_key].id
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#terraform-modules-__codelineno-1-7"></a>  ip                                    = each.value.subnet_ip
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#terraform-modules-__codelineno-1-8"></a>  scope                                 = each.value.subnet_scope
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#terraform-modules-__codelineno-1-9"></a>}
+</code></pre></div>
+<p>In the <em>value.tf</em> file we specify the output value for this module. Output values are similar to return values in programming languages. In this case they will return ID of L3out we created, and that ID in ACI will be the path of this object.
+As you may remember, our standard resources from official ACI provider also return ID value of this resource in ACI, and it is always the path to the object.</p>
+<p><strong>Main folder files</strong></p>
+<p>In the main folder the files use same configuration as in previous labs, so you should be already familiar with the way we configure objects using variables and how we configure  bridge domains with conditionals and for_each loop. The new part is the way we configure L3Out using module.</p>
+<p>As first part you can see that we are using data source to import existing configuration of Routed Domain. It would have to be used for configuration of L3out, so we need to have a way to reference it in our files.</p>
+<p>Next we have our block for configuring the L3out itself. The highlithed lines show how we can write configuration and reference the module. Instead of a <code>resource</code> block, we are using <code>module</code> block and then in second line we have to reference the source path where this module is located <code>./modules/aci_l3out</code>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#terraform-modules-__codelineno-2-1"></a><span class="hll"><span class="err">module</span><span class="w"> </span><span class="s2">&quot;l3out_core&quot;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+</span><a id="__codelineno-2-2" name="__codelineno-2-2" href="#terraform-modules-__codelineno-2-2"></a><span class="hll"><span class="w">    </span><span class="err">source</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="s2">&quot;./modules/aci_l3out&quot;</span><span class="w"></span>
+</span><a id="__codelineno-2-3" name="__codelineno-2-3" href="#terraform-modules-__codelineno-2-3"></a>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#terraform-modules-__codelineno-2-4"></a><span class="w">    </span><span class="kc">tenant</span><span class="err">_id</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="err">aci_</span><span class="kc">tenant</span><span class="err">.</span><span class="kc">tenant</span><span class="err">.id</span><span class="w"></span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#terraform-modules-__codelineno-2-5"></a><span class="w">    </span><span class="kc">na</span><span class="err">me</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="s2">&quot;core_l3out&quot;</span><span class="w"></span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#terraform-modules-__codelineno-2-6"></a><span class="w">    </span><span class="err">vr</span><span class="kc">f</span><span class="err">_id</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="err">aci_vr</span><span class="kc">f</span><span class="err">.mai</span><span class="kc">n</span><span class="err">.id</span><span class="w"></span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#terraform-modules-__codelineno-2-7"></a><span class="w">    </span><span class="err">l</span><span class="mi">3</span><span class="err">_ex</span><span class="kc">t</span><span class="err">_domai</span><span class="kc">n</span><span class="err">_id</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="err">da</span><span class="kc">ta</span><span class="err">.aci_l</span><span class="mi">3</span><span class="err">_domai</span><span class="kc">n</span><span class="err">_pro</span><span class="kc">f</span><span class="err">ile.EXTRTDOM_</span><span class="mf">1.</span><span class="err">id</span><span class="w"></span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#terraform-modules-__codelineno-2-8"></a><span class="w">    </span><span class="kc">n</span><span class="err">odes</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#terraform-modules-__codelineno-2-9"></a><span class="w">        </span><span class="mi">101</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#terraform-modules-__codelineno-2-10"></a><span class="w">            </span><span class="err">pod_id</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="w"></span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#terraform-modules-__codelineno-2-11"></a><span class="w">            </span><span class="kc">n</span><span class="err">ode_id</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="s2">&quot;101&quot;</span><span class="w"></span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#terraform-modules-__codelineno-2-12"></a><span class="w">            </span><span class="err">r</span><span class="kc">tr</span><span class="err">_id</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="s2">&quot;51.1.1.1&quot;</span><span class="w"></span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#terraform-modules-__codelineno-2-13"></a><span class="w">            </span><span class="err">r</span><span class="kc">tr</span><span class="err">_id_loopback</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="s2">&quot;no&quot;</span><span class="w"></span>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#terraform-modules-__codelineno-2-14"></a><span class="w">        </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#terraform-modules-__codelineno-2-15"></a><span class="w">    </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#terraform-modules-__codelineno-2-16"></a><span class="w">    </span><span class="err">pa</span><span class="kc">t</span><span class="err">hs</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#terraform-modules-__codelineno-2-17"></a><span class="w">        </span><span class="s2">&quot;101.1.10&quot;</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-2-18" name="__codelineno-2-18" href="#terraform-modules-__codelineno-2-18"></a><span class="w">            </span><span class="err">pod_id</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="w"></span>
+<a id="__codelineno-2-19" name="__codelineno-2-19" href="#terraform-modules-__codelineno-2-19"></a><span class="w">            </span><span class="kc">n</span><span class="err">ode_id</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="s2">&quot;101&quot;</span><span class="w"></span>
+<a id="__codelineno-2-20" name="__codelineno-2-20" href="#terraform-modules-__codelineno-2-20"></a><span class="w">            </span><span class="err">por</span><span class="kc">t</span><span class="err">_id</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="s2">&quot;eth1/10&quot;</span><span class="w"></span>
+<a id="__codelineno-2-21" name="__codelineno-2-21" href="#terraform-modules-__codelineno-2-21"></a><span class="w">            </span><span class="err">ip_addr</span><span class="w">  </span><span class="err">=</span><span class="w"> </span><span class="s2">&quot;5.5.1.2/24&quot;</span><span class="w"></span>
+<a id="__codelineno-2-22" name="__codelineno-2-22" href="#terraform-modules-__codelineno-2-22"></a><span class="w">            </span><span class="err">mode</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="s2">&quot;regular&quot;</span><span class="w"></span>
+<a id="__codelineno-2-23" name="__codelineno-2-23" href="#terraform-modules-__codelineno-2-23"></a><span class="w">            </span><span class="err">m</span><span class="kc">tu</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="s2">&quot;inherit&quot;</span><span class="w"></span>
+<a id="__codelineno-2-24" name="__codelineno-2-24" href="#terraform-modules-__codelineno-2-24"></a><span class="w">        </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-2-25" name="__codelineno-2-25" href="#terraform-modules-__codelineno-2-25"></a><span class="w">    </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-2-26" name="__codelineno-2-26" href="#terraform-modules-__codelineno-2-26"></a><span class="w">    </span><span class="err">bgp_peers</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-2-27" name="__codelineno-2-27" href="#terraform-modules-__codelineno-2-27"></a><span class="w">        </span><span class="err">asa</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-2-28" name="__codelineno-2-28" href="#terraform-modules-__codelineno-2-28"></a><span class="w">            </span><span class="err">peer_addr</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="s2">&quot;5.5.1.1&quot;</span><span class="w"></span>
+<a id="__codelineno-2-29" name="__codelineno-2-29" href="#terraform-modules-__codelineno-2-29"></a><span class="w">            </span><span class="err">peer_as</span><span class="kc">n</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="s2">&quot;65099&quot;</span><span class="w"></span>
+<a id="__codelineno-2-30" name="__codelineno-2-30" href="#terraform-modules-__codelineno-2-30"></a><span class="w">            </span><span class="err">local_as</span><span class="kc">n</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="s2">&quot;65001&quot;</span><span class="w"></span>
+<a id="__codelineno-2-31" name="__codelineno-2-31" href="#terraform-modules-__codelineno-2-31"></a><span class="w">        </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-2-32" name="__codelineno-2-32" href="#terraform-modules-__codelineno-2-32"></a><span class="w">    </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-2-33" name="__codelineno-2-33" href="#terraform-modules-__codelineno-2-33"></a><span class="w">    </span><span class="err">ex</span><span class="kc">ternal</span><span class="err">_epgs</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-2-34" name="__codelineno-2-34" href="#terraform-modules-__codelineno-2-34"></a><span class="w">        </span><span class="err">de</span><span class="kc">fault</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-2-35" name="__codelineno-2-35" href="#terraform-modules-__codelineno-2-35"></a><span class="w">            </span><span class="kc">na</span><span class="err">me</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="s2">&quot;default_l3epg&quot;</span><span class="w"></span>
+<a id="__codelineno-2-36" name="__codelineno-2-36" href="#terraform-modules-__codelineno-2-36"></a><span class="w">            </span><span class="err">pre</span><span class="kc">f</span><span class="err">Grp</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="s2">&quot;exclude&quot;</span><span class="w"></span>
+<a id="__codelineno-2-37" name="__codelineno-2-37" href="#terraform-modules-__codelineno-2-37"></a><span class="w">            </span><span class="err">provided_co</span><span class="kc">ntra</span><span class="err">c</span><span class="kc">ts</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;default&quot;</span><span class="p">]</span><span class="w"></span>
+<a id="__codelineno-2-38" name="__codelineno-2-38" href="#terraform-modules-__codelineno-2-38"></a><span class="w">            </span><span class="err">co</span><span class="kc">nsu</span><span class="err">med_co</span><span class="kc">ntra</span><span class="err">c</span><span class="kc">ts</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="p">[]</span><span class="w"></span>
+<a id="__codelineno-2-39" name="__codelineno-2-39" href="#terraform-modules-__codelineno-2-39"></a><span class="w">            </span><span class="err">sub</span><span class="kc">nets</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-2-40" name="__codelineno-2-40" href="#terraform-modules-__codelineno-2-40"></a><span class="w">              </span><span class="s2">&quot;0.0.0.0&quot;</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-2-41" name="__codelineno-2-41" href="#terraform-modules-__codelineno-2-41"></a><span class="w">                </span><span class="err">ip</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="s2">&quot;0.0.0.0/0&quot;</span><span class="w"></span>
+<a id="__codelineno-2-42" name="__codelineno-2-42" href="#terraform-modules-__codelineno-2-42"></a><span class="w">                </span><span class="err">scope</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;import-security&quot;</span><span class="p">]</span><span class="w"></span>
+<a id="__codelineno-2-43" name="__codelineno-2-43" href="#terraform-modules-__codelineno-2-43"></a><span class="w">              </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-2-44" name="__codelineno-2-44" href="#terraform-modules-__codelineno-2-44"></a><span class="w">            </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-2-45" name="__codelineno-2-45" href="#terraform-modules-__codelineno-2-45"></a><span class="w">        </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-2-46" name="__codelineno-2-46" href="#terraform-modules-__codelineno-2-46"></a><span class="w">    </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-2-47" name="__codelineno-2-47" href="#terraform-modules-__codelineno-2-47"></a><span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<p>The remaining part is the actual config parameters that we want to use for our L3out. Each of the parameters that we are assigning is defined in the module itself. In this file we simply assign values to them, either manually by typing it (i.e. name = "core_l3out") or by referencing other variables and objects (i.e tenant_id = aci_tenant.tenant.id).</p>
+<h3 id="terraform-modules-lab">Lab</h3>
+<p>Customer creates Custom2 tenant with dedicated VRF, bridge domains, EPGs, domain associations and static-bindings for particular departaments. There are also two L3outs for MPLS and Internet connectivity. Use existing PHYSDOM_1 physcial domain and existing EXTRTDOM_1 routed domain. Use following static bindings:</p>
+<p>WAN Router:</p>
+<ul>
+<li>node 101, interface eth1/10, routed interface</li>
+</ul>
+<p>INTERNET Router:</p>
+<ul>
+<li>node 102, interface eth1/11, routed interface</li>
+</ul>
+<p>UCS/vmware server:</p>
+<ul>
+<li>topology/pod-1/protpaths-101-102/pathep-[IntPolGrp_VPC_server1]</li>
+<li>EPG_UC - vlan 160</li>
+<li>EPG_DMZ - vlan 161</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/images/terraform-usecase-module.png" width = 800></p></section><h1 class='nav-section-title-end'>Ended: Day2 LAB sections</h1>
                         <h1 class='nav-section-title' id='section-appendixes'>
                             Appendixes <a class='headerlink' href='#section-appendixes' title='Permanent link'>↵</a>
                         </h1>
