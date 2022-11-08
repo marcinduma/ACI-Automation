@@ -26,7 +26,7 @@ Apart from those files, we still require our own configuration, so again we will
             - variables.tf
             - outputs.tf
 
-The complete folder can be downloaded here:
+The complete folder can be downloaded: **[here](https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/docs/modules-demo.zip){target=_blank}**
 
 We will walk over the config files.
 
@@ -155,4 +155,4 @@ UCS/vmware server:
 - EPG_UC - vlan 160
 - EPG_DMZ - vlan 161
 
-<img src="https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/images/terraform-usecase-module.png" width = 800>
+<img src="https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/images/terraform-usecase-module.png" width = 400>
