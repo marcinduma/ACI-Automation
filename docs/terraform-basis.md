@@ -329,7 +329,7 @@ For VLAN pool there are two resources that need to be created: VLAN Pool and VLA
 
 ```
 resource "aci_vlan_pool" "VLAN_POOL_L2" {
-  name  = "VLAN_POOL_STATIC"
+  name  = "VLAN_POOL_L2"
   alloc_mode  = "static"
 }
 
@@ -341,7 +341,7 @@ resource "aci_ranges" "RANGE_100-200" {
 }
 
 resource "aci_vlan_pool" "VLAN_POOL_L3" {
-  name  = "VLAN_POOL_STATIC"
+  name  = "VLAN_POOL_L3"
   alloc_mode  = "static"
 }
 
