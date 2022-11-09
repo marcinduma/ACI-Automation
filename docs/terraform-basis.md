@@ -391,6 +391,8 @@ resource "aci_attachable_access_entity_profile" "AEP_L3" {
 }
 ```
 
+You can plan and apply to see the result on ACI.
+
 Documentation of resources:
 
 [aci_vlan_pool resource](https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/vlan_pool){target=_blank}
@@ -420,7 +422,7 @@ resource "aci_leaf_access_bundle_policy_group" "IntPolGrp_VPC_server1" {
   lag_t       = "node"
   relation_infra_rs_lldp_if_pol = aci_lldp_interface_policy.LLDP_ON.id
   relation_infra_rs_lacp_pol = aci_lacp_policy.LACP_ACTIVE.id
-  relation_infra_rs_h_if_pol    = aci_fabric_if_pol.LINK_10G.id
+  relation_infra_rs_h_if_pol    = aci_fabric_if_pol.LINK-10G.id
   relation_infra_rs_att_ent_p   = aci_attachable_access_entity_profile.AEP_L2.id
 }
 
@@ -429,10 +431,12 @@ resource "aci_leaf_access_bundle_policy_group" "IntPolGrp_Router1" {
     lag_t       = "node"
     relation_infra_rs_lldp_if_pol = aci_lldp_interface_policy.LLDP_ON.id
     relation_infra_rs_lacp_pol = aci_lacp_policy.LACP_ACTIVE.id
-    relation_infra_rs_h_if_pol    = aci_fabric_if_pol.LINK_10G.id
+    relation_infra_rs_h_if_pol    = aci_fabric_if_pol.LINK-10G.id
     relation_infra_rs_att_ent_p   = aci_attachable_access_entity_profile.AEP_L3.id
 }
 ```
+
+You can plan and apply to see the result on ACI.
 
 Documentation of resources:
 
@@ -514,6 +518,21 @@ resource "aci_node_block" "Sel-101-102-Block" {
 }
 ```
 
+You can plan and apply to see the result on ACI.
+
+### 4.6 VPC Protection Groups
+
+For a pair of switches that are expected to work as VPC it is required to configure a VPC protection group.
+
+```
+resource "aci_vpc_explicit_protection_group" "vpc-101-102" {
+  name                              = "vpc-101-102"
+  switch1                           = "101"
+  switch2                           = "102"
+  vpc_explicit_protection_group_id  = "101"
+}
+```
+
 ## 5 ACI Tenant
 
 Upon now you created ACI AccessPolicies for your Tenant.
@@ -564,6 +583,7 @@ resource "aci_subnet" "subnet-1" {
 }
 ```
 
+You can plan and apply to see the result on ACI.
 
 ### 5.1.3 Application Profile with EPG and static bindings
 
@@ -594,6 +614,8 @@ resource "aci_epg_to_static_path" "static-binding-1" {
   mode  = "regular"
 }
 ```
+
+You can plan and apply to see the result on ACI.
 
 ### 5.1.4 L3Out
 
@@ -653,6 +675,7 @@ resource "aci_l3_ext_subnet" "extepg-subnet" {
 }
 ```
 
+You can plan and apply to see the result on ACI.
 
 Documentation of resources:
 
