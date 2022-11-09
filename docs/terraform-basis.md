@@ -11,6 +11,7 @@ Visual Studio Code can be installed on variety of operating systems, please down
     https://code.visualstudio.com/
 
 Visual Studio Code has three panes that you will be using:
+
 - The left pane with the files
 - The right pane with the file contents
 - The bottom pane will be leveraging the Terminal to issue commands
@@ -115,6 +116,7 @@ Terraform has compared your real infrastructure against your configuration and f
 
 At this point leaf and spine switches should be registered in the lab using Postman the day before.
 Registration of switch is possible to be done using resource *aci_fabric_node_member*. Documentation of this resource is present in the official [Terraform Registry documentation](https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/fabric_node_member){target=_blank}.
+
 - In the Example Usage section you can find example code to register new node
 - In the Argument Reference you will see possible arguments/parameters that can be used for switch registration with indication if argument is required or optional and additional information about it
 - In the Attribute Reference you will see what is the attribute that this resource exports, and in case of ACI resources it will be always `id` set to the DN of the VLAN Pool.
@@ -319,6 +321,7 @@ No changes. Your infrastructure matches the configuration.
 
 Create VLAN pool with vlan-range, associate it with Physical Domain and AAEP. Let's put these policies in a separate, new file called `access-policies.tf`
 We will create two VLAN pools, one for L2 Physical Domain, and second one for L3 Routed Domain. In the same way we will create two AEP, one for L2 connections and second one for L3 connections. Each AEP will map one domain:
+
 - VLAN_POOL_L2 <-- PHYSDOM_1 <-- AEP_L2
 - VLAN_POOL_L3 <-- EXTRTDOM_1 <-- AEP_L3
 
@@ -443,8 +446,9 @@ Let's assign our created interface policy groups to the newly created switch and
 
 - switch profile
 - interface profile *IntProf-101-102* with two interface selectors
-  - eth1/1 connecting server
-  - eth1/2 connecting router
+
+    - eth1/1 connecting server
+    - eth1/2 connecting router
 
 First we create interface profile within this profile two interface selectors. Interface selectors need to have reference to the Interface Profile (*IntProf-101-102*) and relation to the interface policy groups created for our end devices:
 

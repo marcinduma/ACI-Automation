@@ -48,8 +48,9 @@ The next variable is used for specifying the ARP flooding behaviour of a bridge 
 - description of variable
 - default value to be used if no other is specfied
 - validation mechanism with:
-  - condition - variable can be set to either "yes" or "no" value
-  - error message to be displayed if specified value doesn't pass the validation test
+
+    - condition - variable can be set to either "yes" or "no" value
+    - error message to be displayed if specified value doesn't pass the validation test
 
 ```
 variable "bd_arp_flood" {
