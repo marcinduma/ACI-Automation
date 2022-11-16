@@ -1770,10 +1770,12 @@ First, install the HashiCorp tap, a repository of all our Homebrew packages.</p>
 <p>Visual Studio Code can be installed on variety of operating systems, please download the package suitable for your environment and follow the installation process in the wizard:</p>
 <div class="highlight"><pre><span></span><code>https://code.visualstudio.com/
 </code></pre></div>
-<p>Visual Studio Code has three panes that you will be using:
-- The left pane with the files
-- The right pane with the file contents
-- The bottom pane will be leveraging the Terminal to issue commands</p>
+<p>Visual Studio Code has three panes that you will be using:</p>
+<ul>
+<li>The left pane with the files</li>
+<li>The right pane with the file contents</li>
+<li>The bottom pane will be leveraging the Terminal to issue commands</li>
+</ul>
 <h3 id="terraform-basis-11-open-a-new-terminal-in-the-ide">1.1 Open a new terminal in the IDE</h3>
 <p>To get started, first you have to open a terminal windows in the IDE to access the underlying operating system and work the lab. On the menu bar click the <em>Terminal</em> tab to open <em>New Terminal</em></p>
 <p><img src="https://raw.githubusercontent.com/marcinduma/ACI-Automation/main/images/visual-terminal.png" width = 800></p>
@@ -1847,11 +1849,13 @@ In also includes instruction on how to use this provider. After clicking on "Use
 </code></pre></div>
 <h3 id="terraform-basis-32-optional-switch-registration">3.2 (Optional) Switch registration</h3>
 <p>At this point leaf and spine switches should be registered in the lab using Postman the day before.
-Registration of switch is possible to be done using resource <em>aci_fabric_node_member</em>. Documentation of this resource is present in the official <a href="https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/fabric_node_member" target="_blank">Terraform Registry documentation</a>.
-- In the Example Usage section you can find example code to register new node
-- In the Argument Reference you will see possible arguments/parameters that can be used for switch registration with indication if argument is required or optional and additional information about it
-- In the Attribute Reference you will see what is the attribute that this resource exports, and in case of ACI resources it will be always <code>id</code> set to the DN of the VLAN Pool.
-- Importing describes how to import existing object to the terraform resource</p>
+Registration of switch is possible to be done using resource <em>aci_fabric_node_member</em>. Documentation of this resource is present in the official <a href="https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/fabric_node_member" target="_blank">Terraform Registry documentation</a>.</p>
+<ul>
+<li>In the Example Usage section you can find example code to register new node</li>
+<li>In the Argument Reference you will see possible arguments/parameters that can be used for switch registration with indication if argument is required or optional and additional information about it</li>
+<li>In the Attribute Reference you will see what is the attribute that this resource exports, and in case of ACI resources it will be always <code>id</code> set to the DN of the VLAN Pool.</li>
+<li>Importing describes how to import existing object to the terraform resource</li>
+</ul>
 <p>For reference the following resource configuration in Terraform would register new switch.
 If the switches are already registered, this task can be skipped</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#terraform-basis-__codelineno-3-1"></a>resource &quot;aci_fabric_node_member&quot; &quot;Leaf-101&quot; {
@@ -2013,12 +2017,14 @@ As the Note says at the bottom, this plan was not saved to a file, but only disp
 </code></pre></div>
 <h3 id="terraform-basis-43-vlans-domains-and-aaeps">4.3 VLANs, Domains and AAEPs</h3>
 <p>Create VLAN pool with vlan-range, associate it with Physical Domain and AAEP. Let's put these policies in a separate, new file called <code>access-policies.tf</code>
-We will create two VLAN pools, one for L2 Physical Domain, and second one for L3 Routed Domain. In the same way we will create two AEP, one for L2 connections and second one for L3 connections. Each AEP will map one domain:
-- VLAN_POOL_L2 &lt;-- PHYSDOM_1 &lt;-- AEP_L2
-- VLAN_POOL_L3 &lt;-- EXTRTDOM_1 &lt;-- AEP_L3</p>
+We will create two VLAN pools, one for L2 Physical Domain, and second one for L3 Routed Domain. In the same way we will create two AEP, one for L2 connections and second one for L3 connections. Each AEP will map one domain:</p>
+<ul>
+<li>VLAN_POOL_L2 &lt;-- PHYSDOM_1 &lt;-- AEP_L2</li>
+<li>VLAN_POOL_L3 &lt;-- EXTRTDOM_1 &lt;-- AEP_L3</li>
+</ul>
 <p>For VLAN pool there are two resources that need to be created: VLAN Pool and VLAN Range. In this case VLAN Range object is a child of VLAN Pool object, which means that the Range resource needs to have a reference to the VLAN Pool resource. This reference can be done in terraform by using the resource name followed by the attribute, in this case <code>id</code>.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#terraform-basis-__codelineno-10-1"></a>resource &quot;aci_vlan_pool&quot; &quot;VLAN_POOL_L2&quot; {
-<a id="__codelineno-10-2" name="__codelineno-10-2" href="#terraform-basis-__codelineno-10-2"></a>  name  = &quot;VLAN_POOL_STATIC&quot;
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#terraform-basis-__codelineno-10-2"></a>  name  = &quot;VLAN_POOL_L2&quot;
 <a id="__codelineno-10-3" name="__codelineno-10-3" href="#terraform-basis-__codelineno-10-3"></a>  alloc_mode  = &quot;static&quot;
 <a id="__codelineno-10-4" name="__codelineno-10-4" href="#terraform-basis-__codelineno-10-4"></a>}
 <a id="__codelineno-10-5" name="__codelineno-10-5" href="#terraform-basis-__codelineno-10-5"></a>
@@ -2030,7 +2036,7 @@ We will create two VLAN pools, one for L2 Physical Domain, and second one for L3
 <a id="__codelineno-10-11" name="__codelineno-10-11" href="#terraform-basis-__codelineno-10-11"></a>}
 <a id="__codelineno-10-12" name="__codelineno-10-12" href="#terraform-basis-__codelineno-10-12"></a>
 <a id="__codelineno-10-13" name="__codelineno-10-13" href="#terraform-basis-__codelineno-10-13"></a>resource &quot;aci_vlan_pool&quot; &quot;VLAN_POOL_L3&quot; {
-<a id="__codelineno-10-14" name="__codelineno-10-14" href="#terraform-basis-__codelineno-10-14"></a>  name  = &quot;VLAN_POOL_STATIC&quot;
+<a id="__codelineno-10-14" name="__codelineno-10-14" href="#terraform-basis-__codelineno-10-14"></a>  name  = &quot;VLAN_POOL_L3&quot;
 <a id="__codelineno-10-15" name="__codelineno-10-15" href="#terraform-basis-__codelineno-10-15"></a>  alloc_mode  = &quot;static&quot;
 <a id="__codelineno-10-16" name="__codelineno-10-16" href="#terraform-basis-__codelineno-10-16"></a>}
 <a id="__codelineno-10-17" name="__codelineno-10-17" href="#terraform-basis-__codelineno-10-17"></a>
@@ -2074,6 +2080,7 @@ Between AAEP and Domains there is also relationship. AEP needs to be related to 
 <a id="__codelineno-12-14" name="__codelineno-12-14" href="#terraform-basis-__codelineno-12-14"></a>  relation_infra_rs_dom_p = [aci_l3_domain_profile.EXTRTDOM_1.id]
 <a id="__codelineno-12-15" name="__codelineno-12-15" href="#terraform-basis-__codelineno-12-15"></a>}
 </code></pre></div>
+<p>You can plan and apply to see the result on ACI.</p>
 <p>Documentation of resources:</p>
 <p><a href="https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/vlan_pool" target="_blank">aci_vlan_pool resource</a></p>
 <p><a href="https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/ranges" target="_blank">aci_ranges resource</a></p>
@@ -2093,7 +2100,7 @@ Between AAEP and Domains there is also relationship. AEP needs to be related to 
 <a id="__codelineno-13-3" name="__codelineno-13-3" href="#terraform-basis-__codelineno-13-3"></a>  lag_t       = &quot;node&quot;
 <a id="__codelineno-13-4" name="__codelineno-13-4" href="#terraform-basis-__codelineno-13-4"></a>  relation_infra_rs_lldp_if_pol = aci_lldp_interface_policy.LLDP_ON.id
 <a id="__codelineno-13-5" name="__codelineno-13-5" href="#terraform-basis-__codelineno-13-5"></a>  relation_infra_rs_lacp_pol = aci_lacp_policy.LACP_ACTIVE.id
-<a id="__codelineno-13-6" name="__codelineno-13-6" href="#terraform-basis-__codelineno-13-6"></a>  relation_infra_rs_h_if_pol    = aci_fabric_if_pol.LINK_10G.id
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#terraform-basis-__codelineno-13-6"></a>  relation_infra_rs_h_if_pol    = aci_fabric_if_pol.LINK-10G.id
 <a id="__codelineno-13-7" name="__codelineno-13-7" href="#terraform-basis-__codelineno-13-7"></a>  relation_infra_rs_att_ent_p   = aci_attachable_access_entity_profile.AEP_L2.id
 <a id="__codelineno-13-8" name="__codelineno-13-8" href="#terraform-basis-__codelineno-13-8"></a>}
 <a id="__codelineno-13-9" name="__codelineno-13-9" href="#terraform-basis-__codelineno-13-9"></a>
@@ -2102,10 +2109,11 @@ Between AAEP and Domains there is also relationship. AEP needs to be related to 
 <a id="__codelineno-13-12" name="__codelineno-13-12" href="#terraform-basis-__codelineno-13-12"></a>    lag_t       = &quot;node&quot;
 <a id="__codelineno-13-13" name="__codelineno-13-13" href="#terraform-basis-__codelineno-13-13"></a>    relation_infra_rs_lldp_if_pol = aci_lldp_interface_policy.LLDP_ON.id
 <a id="__codelineno-13-14" name="__codelineno-13-14" href="#terraform-basis-__codelineno-13-14"></a>    relation_infra_rs_lacp_pol = aci_lacp_policy.LACP_ACTIVE.id
-<a id="__codelineno-13-15" name="__codelineno-13-15" href="#terraform-basis-__codelineno-13-15"></a>    relation_infra_rs_h_if_pol    = aci_fabric_if_pol.LINK_10G.id
+<a id="__codelineno-13-15" name="__codelineno-13-15" href="#terraform-basis-__codelineno-13-15"></a>    relation_infra_rs_h_if_pol    = aci_fabric_if_pol.LINK-10G.id
 <a id="__codelineno-13-16" name="__codelineno-13-16" href="#terraform-basis-__codelineno-13-16"></a>    relation_infra_rs_att_ent_p   = aci_attachable_access_entity_profile.AEP_L3.id
 <a id="__codelineno-13-17" name="__codelineno-13-17" href="#terraform-basis-__codelineno-13-17"></a>}
 </code></pre></div>
+<p>You can plan and apply to see the result on ACI.</p>
 <p>Documentation of resources:</p>
 <p><a href="https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/leaf_access_bundle_policy_group" target="_blank">aci_leaf_access_bundle_policy_group resource</a></p>
 <p><a href="https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/leaf_access_port_policy_group" target="_blank">aci_leaf_access_port_policy_group resource</a></p>
@@ -2113,9 +2121,13 @@ Between AAEP and Domains there is also relationship. AEP needs to be related to 
 <p>Let's assign our created interface policy groups to the newly created switch and interface profiles. We will create:</p>
 <ul>
 <li>switch profile</li>
-<li>interface profile <em>IntProf-101-102</em> with two interface selectors</li>
+<li>
+<p>interface profile <em>IntProf-101-102</em> with two interface selectors</p>
+<ul>
 <li>eth1/1 connecting server</li>
 <li>eth1/2 connecting router</li>
+</ul>
+</li>
 </ul>
 <p>First we create interface profile within this profile two interface selectors. Interface selectors need to have reference to the Interface Profile (<em>IntProf-101-102</em>) and relation to the interface policy groups created for our end devices:</p>
 <ul>
@@ -2177,6 +2189,16 @@ Between AAEP and Domains there is also relationship. AEP needs to be related to 
 <a id="__codelineno-15-16" name="__codelineno-15-16" href="#terraform-basis-__codelineno-15-16"></a>    to_                   = &quot;102&quot;
 <a id="__codelineno-15-17" name="__codelineno-15-17" href="#terraform-basis-__codelineno-15-17"></a>}
 </code></pre></div></p>
+<p>You can plan and apply to see the result on ACI.</p>
+<h3 id="terraform-basis-46-vpc-protection-groups">4.6 VPC Protection Groups</h3>
+<p>For a pair of switches that are expected to work as VPC it is required to configure a VPC protection group.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#terraform-basis-__codelineno-16-1"></a>resource &quot;aci_vpc_explicit_protection_group&quot; &quot;vpc-101-102&quot; {
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#terraform-basis-__codelineno-16-2"></a>  name                              = &quot;vpc-101-102&quot;
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#terraform-basis-__codelineno-16-3"></a>  switch1                           = &quot;101&quot;
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#terraform-basis-__codelineno-16-4"></a>  switch2                           = &quot;102&quot;
+<a id="__codelineno-16-5" name="__codelineno-16-5" href="#terraform-basis-__codelineno-16-5"></a>  vpc_explicit_protection_group_id  = &quot;101&quot;
+<a id="__codelineno-16-6" name="__codelineno-16-6" href="#terraform-basis-__codelineno-16-6"></a>}
+</code></pre></div>
 <h2 id="terraform-basis-5-aci-tenant">5 ACI Tenant</h2>
 <p>Upon now you created ACI AccessPolicies for your Tenant.
 Now is time to create your tenant using Terraform. It will be simple Tenant definition with one VRF, one bridge domains associated with one EPG and one L3out. EPG will be associated with L2 domain and statically binded to VPC created, with VLAN from L2 VLAN pool done by you perviously. The L3out will be associated to L3 domain and router interface, with VLAN from L3 VLAN pool.</p>
@@ -2188,107 +2210,110 @@ Please, download a terraform file from <mark><strong><a href="https://raw.github
 <p>This section contains Terraform codes necessary to create Tenant objects</p>
 <h3 id="terraform-basis-511-tenant-and-vrf">5.1.1 Tenant and VRF</h3>
 <p>Following code can be used to create new Tenant and VRFs. The VRF resource needs to reference its parent object - tenant id.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#terraform-basis-__codelineno-16-1"></a>resource &quot;aci_tenant&quot; &quot;dcloud-tenant-1&quot; {
-<a id="__codelineno-16-2" name="__codelineno-16-2" href="#terraform-basis-__codelineno-16-2"></a>  name             = &quot;dcloud-tenant-1&quot;
-<a id="__codelineno-16-3" name="__codelineno-16-3" href="#terraform-basis-__codelineno-16-3"></a>}
-<a id="__codelineno-16-4" name="__codelineno-16-4" href="#terraform-basis-__codelineno-16-4"></a>
-<a id="__codelineno-16-5" name="__codelineno-16-5" href="#terraform-basis-__codelineno-16-5"></a>resource &quot;aci_vrf&quot; &quot;vrf1&quot; {
-<a id="__codelineno-16-6" name="__codelineno-16-6" href="#terraform-basis-__codelineno-16-6"></a>  tenant_dn         = aci_tenant.dcloud-tenant-1.id
-<a id="__codelineno-16-7" name="__codelineno-16-7" href="#terraform-basis-__codelineno-16-7"></a>  name              = &quot;vrf1&quot;
-<a id="__codelineno-16-8" name="__codelineno-16-8" href="#terraform-basis-__codelineno-16-8"></a>}
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#terraform-basis-__codelineno-17-1"></a>resource &quot;aci_tenant&quot; &quot;dcloud-tenant-1&quot; {
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#terraform-basis-__codelineno-17-2"></a>  name             = &quot;dcloud-tenant-1&quot;
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#terraform-basis-__codelineno-17-3"></a>}
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#terraform-basis-__codelineno-17-4"></a>
+<a id="__codelineno-17-5" name="__codelineno-17-5" href="#terraform-basis-__codelineno-17-5"></a>resource &quot;aci_vrf&quot; &quot;vrf1&quot; {
+<a id="__codelineno-17-6" name="__codelineno-17-6" href="#terraform-basis-__codelineno-17-6"></a>  tenant_dn         = aci_tenant.dcloud-tenant-1.id
+<a id="__codelineno-17-7" name="__codelineno-17-7" href="#terraform-basis-__codelineno-17-7"></a>  name              = &quot;vrf1&quot;
+<a id="__codelineno-17-8" name="__codelineno-17-8" href="#terraform-basis-__codelineno-17-8"></a>}
 </code></pre></div>
 <h3 id="terraform-basis-512-bd-in-existing-tenant">5.1.2 BD in existing tenant</h3>
 <p>Following code can be used to create new Bridge Domain in existing Tenant. Bridge Domain needs to have a reference to parent objects: tenant ID and VRF ID. There is also a child object of bridge domain which is a Subnet with reference to bridge domain ID.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#terraform-basis-__codelineno-17-1"></a>resource &quot;aci_bridge_domain&quot; &quot;bd-network-1&quot; {
-<a id="__codelineno-17-2" name="__codelineno-17-2" href="#terraform-basis-__codelineno-17-2"></a>    tenant_dn             = aci_tenant.dcloud-tenant-1.id
-<a id="__codelineno-17-3" name="__codelineno-17-3" href="#terraform-basis-__codelineno-17-3"></a>    relation_fv_rs_ctx    = aci_vrf.vrf1.id
-<a id="__codelineno-17-4" name="__codelineno-17-4" href="#terraform-basis-__codelineno-17-4"></a>    name                  = &quot;bd-network-1&quot;
-<a id="__codelineno-17-5" name="__codelineno-17-5" href="#terraform-basis-__codelineno-17-5"></a>}
-<a id="__codelineno-17-6" name="__codelineno-17-6" href="#terraform-basis-__codelineno-17-6"></a>
-<a id="__codelineno-17-7" name="__codelineno-17-7" href="#terraform-basis-__codelineno-17-7"></a>resource &quot;aci_subnet&quot; &quot;subnet-1&quot; {
-<a id="__codelineno-17-8" name="__codelineno-17-8" href="#terraform-basis-__codelineno-17-8"></a>    parent_dn            = aci_bridge_domain.bd-network-1.id
-<a id="__codelineno-17-9" name="__codelineno-17-9" href="#terraform-basis-__codelineno-17-9"></a>    ip                   = &quot;10.0.0.1/24&quot;
-<a id="__codelineno-17-10" name="__codelineno-17-10" href="#terraform-basis-__codelineno-17-10"></a>    scope                = [&quot;public&quot;]
-<a id="__codelineno-17-11" name="__codelineno-17-11" href="#terraform-basis-__codelineno-17-11"></a>}
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#terraform-basis-__codelineno-18-1"></a>resource &quot;aci_bridge_domain&quot; &quot;bd-network-1&quot; {
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#terraform-basis-__codelineno-18-2"></a>    tenant_dn             = aci_tenant.dcloud-tenant-1.id
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#terraform-basis-__codelineno-18-3"></a>    relation_fv_rs_ctx    = aci_vrf.vrf1.id
+<a id="__codelineno-18-4" name="__codelineno-18-4" href="#terraform-basis-__codelineno-18-4"></a>    name                  = &quot;bd-network-1&quot;
+<a id="__codelineno-18-5" name="__codelineno-18-5" href="#terraform-basis-__codelineno-18-5"></a>}
+<a id="__codelineno-18-6" name="__codelineno-18-6" href="#terraform-basis-__codelineno-18-6"></a>
+<a id="__codelineno-18-7" name="__codelineno-18-7" href="#terraform-basis-__codelineno-18-7"></a>resource &quot;aci_subnet&quot; &quot;subnet-1&quot; {
+<a id="__codelineno-18-8" name="__codelineno-18-8" href="#terraform-basis-__codelineno-18-8"></a>    parent_dn            = aci_bridge_domain.bd-network-1.id
+<a id="__codelineno-18-9" name="__codelineno-18-9" href="#terraform-basis-__codelineno-18-9"></a>    ip                   = &quot;10.0.0.1/24&quot;
+<a id="__codelineno-18-10" name="__codelineno-18-10" href="#terraform-basis-__codelineno-18-10"></a>    scope                = [&quot;public&quot;]
+<a id="__codelineno-18-11" name="__codelineno-18-11" href="#terraform-basis-__codelineno-18-11"></a>}
 </code></pre></div>
+<p>You can plan and apply to see the result on ACI.</p>
 <h3 id="terraform-basis-513-application-profile-with-epg-and-static-bindings">5.1.3 Application Profile with EPG and static bindings</h3>
 <p>Following code can be used to create new Application Profile with EPG. Application Profile needs a reference to parent object tenant ID, while EPG needs reference to AP ID ad Bridge Domain ID. The next two resources reflect the physical domain PHYSDOM_1 attached to that EPG, and one static binding towards our server1 with encapsulation of vlan 100.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#terraform-basis-__codelineno-18-1"></a>resource &quot;aci_application_profile&quot; &quot;ap1&quot; {
-<a id="__codelineno-18-2" name="__codelineno-18-2" href="#terraform-basis-__codelineno-18-2"></a>  tenant_dn  = aci_tenant.dcloud-tenant-1.id
-<a id="__codelineno-18-3" name="__codelineno-18-3" href="#terraform-basis-__codelineno-18-3"></a>  name       = &quot;ap1&quot;
-<a id="__codelineno-18-4" name="__codelineno-18-4" href="#terraform-basis-__codelineno-18-4"></a>}
-<a id="__codelineno-18-5" name="__codelineno-18-5" href="#terraform-basis-__codelineno-18-5"></a>
-<a id="__codelineno-18-6" name="__codelineno-18-6" href="#terraform-basis-__codelineno-18-6"></a>resource &quot;aci_application_epg&quot; &quot;epg1&quot; {
-<a id="__codelineno-18-7" name="__codelineno-18-7" href="#terraform-basis-__codelineno-18-7"></a>    application_profile_dn  = aci_application_profile.ap1.id
-<a id="__codelineno-18-8" name="__codelineno-18-8" href="#terraform-basis-__codelineno-18-8"></a>    name                    = &quot;epg1&quot;
-<a id="__codelineno-18-9" name="__codelineno-18-9" href="#terraform-basis-__codelineno-18-9"></a>    relation_fv_rs_bd       = aci_bridge_domain.bd-network-1.id
-<a id="__codelineno-18-10" name="__codelineno-18-10" href="#terraform-basis-__codelineno-18-10"></a>}
-<a id="__codelineno-18-11" name="__codelineno-18-11" href="#terraform-basis-__codelineno-18-11"></a>
-<a id="__codelineno-18-12" name="__codelineno-18-12" href="#terraform-basis-__codelineno-18-12"></a>resource &quot;aci_epg_to_domain&quot; &quot;epg1-to-physdom_1&quot; {
-<a id="__codelineno-18-13" name="__codelineno-18-13" href="#terraform-basis-__codelineno-18-13"></a>    application_epg_dn = aci_application_epg.epg1.id
-<a id="__codelineno-18-14" name="__codelineno-18-14" href="#terraform-basis-__codelineno-18-14"></a>    tdn = aci_physical_domain.PHYSDOM_1.id
-<a id="__codelineno-18-15" name="__codelineno-18-15" href="#terraform-basis-__codelineno-18-15"></a>    }
-<a id="__codelineno-18-16" name="__codelineno-18-16" href="#terraform-basis-__codelineno-18-16"></a>
-<a id="__codelineno-18-17" name="__codelineno-18-17" href="#terraform-basis-__codelineno-18-17"></a>resource &quot;aci_epg_to_static_path&quot; &quot;static-binding-1&quot; {
-<a id="__codelineno-18-18" name="__codelineno-18-18" href="#terraform-basis-__codelineno-18-18"></a>  application_epg_dn  = aci_application_epg.epg1.id
-<a id="__codelineno-18-19" name="__codelineno-18-19" href="#terraform-basis-__codelineno-18-19"></a>  tdn  = &quot;topology/pod-1/protpaths-101-102/pathep-[IntPolGrp_VPC_server1]&quot;
-<a id="__codelineno-18-20" name="__codelineno-18-20" href="#terraform-basis-__codelineno-18-20"></a>  encap  = &quot;vlan-100&quot;
-<a id="__codelineno-18-21" name="__codelineno-18-21" href="#terraform-basis-__codelineno-18-21"></a>  mode  = &quot;regular&quot;
-<a id="__codelineno-18-22" name="__codelineno-18-22" href="#terraform-basis-__codelineno-18-22"></a>}
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#terraform-basis-__codelineno-19-1"></a>resource &quot;aci_application_profile&quot; &quot;ap1&quot; {
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#terraform-basis-__codelineno-19-2"></a>  tenant_dn  = aci_tenant.dcloud-tenant-1.id
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#terraform-basis-__codelineno-19-3"></a>  name       = &quot;ap1&quot;
+<a id="__codelineno-19-4" name="__codelineno-19-4" href="#terraform-basis-__codelineno-19-4"></a>}
+<a id="__codelineno-19-5" name="__codelineno-19-5" href="#terraform-basis-__codelineno-19-5"></a>
+<a id="__codelineno-19-6" name="__codelineno-19-6" href="#terraform-basis-__codelineno-19-6"></a>resource &quot;aci_application_epg&quot; &quot;epg1&quot; {
+<a id="__codelineno-19-7" name="__codelineno-19-7" href="#terraform-basis-__codelineno-19-7"></a>    application_profile_dn  = aci_application_profile.ap1.id
+<a id="__codelineno-19-8" name="__codelineno-19-8" href="#terraform-basis-__codelineno-19-8"></a>    name                    = &quot;epg1&quot;
+<a id="__codelineno-19-9" name="__codelineno-19-9" href="#terraform-basis-__codelineno-19-9"></a>    relation_fv_rs_bd       = aci_bridge_domain.bd-network-1.id
+<a id="__codelineno-19-10" name="__codelineno-19-10" href="#terraform-basis-__codelineno-19-10"></a>}
+<a id="__codelineno-19-11" name="__codelineno-19-11" href="#terraform-basis-__codelineno-19-11"></a>
+<a id="__codelineno-19-12" name="__codelineno-19-12" href="#terraform-basis-__codelineno-19-12"></a>resource &quot;aci_epg_to_domain&quot; &quot;epg1-to-physdom_1&quot; {
+<a id="__codelineno-19-13" name="__codelineno-19-13" href="#terraform-basis-__codelineno-19-13"></a>    application_epg_dn = aci_application_epg.epg1.id
+<a id="__codelineno-19-14" name="__codelineno-19-14" href="#terraform-basis-__codelineno-19-14"></a>    tdn = aci_physical_domain.PHYSDOM_1.id
+<a id="__codelineno-19-15" name="__codelineno-19-15" href="#terraform-basis-__codelineno-19-15"></a>    }
+<a id="__codelineno-19-16" name="__codelineno-19-16" href="#terraform-basis-__codelineno-19-16"></a>
+<a id="__codelineno-19-17" name="__codelineno-19-17" href="#terraform-basis-__codelineno-19-17"></a>resource &quot;aci_epg_to_static_path&quot; &quot;static-binding-1&quot; {
+<a id="__codelineno-19-18" name="__codelineno-19-18" href="#terraform-basis-__codelineno-19-18"></a>  application_epg_dn  = aci_application_epg.epg1.id
+<a id="__codelineno-19-19" name="__codelineno-19-19" href="#terraform-basis-__codelineno-19-19"></a>  tdn  = &quot;topology/pod-1/protpaths-101-102/pathep-[IntPolGrp_VPC_server1]&quot;
+<a id="__codelineno-19-20" name="__codelineno-19-20" href="#terraform-basis-__codelineno-19-20"></a>  encap  = &quot;vlan-100&quot;
+<a id="__codelineno-19-21" name="__codelineno-19-21" href="#terraform-basis-__codelineno-19-21"></a>  mode  = &quot;regular&quot;
+<a id="__codelineno-19-22" name="__codelineno-19-22" href="#terraform-basis-__codelineno-19-22"></a>}
 </code></pre></div>
+<p>You can plan and apply to see the result on ACI.</p>
 <h3 id="terraform-basis-514-l3out">5.1.4 L3Out</h3>
 <p>Following code can be used to create new L3out. As you can see there are plenty of resources which reflect node profile and node mapping, interface profile and path used for it, external EPG with subnet.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#terraform-basis-__codelineno-19-1"></a>resource &quot;aci_l3_outside&quot; &quot;l3out-1&quot; {
-<a id="__codelineno-19-2" name="__codelineno-19-2" href="#terraform-basis-__codelineno-19-2"></a>        tenant_dn      = aci_tenant.dcloud-tenant-1.id
-<a id="__codelineno-19-3" name="__codelineno-19-3" href="#terraform-basis-__codelineno-19-3"></a>        name           = &quot;l3out-1&quot;
-<a id="__codelineno-19-4" name="__codelineno-19-4" href="#terraform-basis-__codelineno-19-4"></a>        relation_l3ext_rs_l3_dom_att = aci_l3_domain_profile.EXTRTDOM_1.id
-<a id="__codelineno-19-5" name="__codelineno-19-5" href="#terraform-basis-__codelineno-19-5"></a>        relation_l3ext_rs_ectx = aci_vrf.vrf1.id
-<a id="__codelineno-19-6" name="__codelineno-19-6" href="#terraform-basis-__codelineno-19-6"></a>    }
-<a id="__codelineno-19-7" name="__codelineno-19-7" href="#terraform-basis-__codelineno-19-7"></a>
-<a id="__codelineno-19-8" name="__codelineno-19-8" href="#terraform-basis-__codelineno-19-8"></a>resource &quot;aci_logical_node_profile&quot; &quot;np-101-102&quot; {
-<a id="__codelineno-19-9" name="__codelineno-19-9" href="#terraform-basis-__codelineno-19-9"></a>        l3_outside_dn = aci_l3_outside.l3out-1.id
-<a id="__codelineno-19-10" name="__codelineno-19-10" href="#terraform-basis-__codelineno-19-10"></a>        name          = &quot;np-101-102&quot;
-<a id="__codelineno-19-11" name="__codelineno-19-11" href="#terraform-basis-__codelineno-19-11"></a>      }
-<a id="__codelineno-19-12" name="__codelineno-19-12" href="#terraform-basis-__codelineno-19-12"></a>
-<a id="__codelineno-19-13" name="__codelineno-19-13" href="#terraform-basis-__codelineno-19-13"></a>resource &quot;aci_logical_node_to_fabric_node&quot; &quot;np-101-102-to-node-101&quot; {
-<a id="__codelineno-19-14" name="__codelineno-19-14" href="#terraform-basis-__codelineno-19-14"></a>  logical_node_profile_dn  = aci_logical_node_profile.np-101-102.id
-<a id="__codelineno-19-15" name="__codelineno-19-15" href="#terraform-basis-__codelineno-19-15"></a>  tdn               = &quot;topology/pod-1/node-101&quot;
-<a id="__codelineno-19-16" name="__codelineno-19-16" href="#terraform-basis-__codelineno-19-16"></a>  rtr_id            = &quot;1.1.1.1&quot;
-<a id="__codelineno-19-17" name="__codelineno-19-17" href="#terraform-basis-__codelineno-19-17"></a>}
-<a id="__codelineno-19-18" name="__codelineno-19-18" href="#terraform-basis-__codelineno-19-18"></a>
-<a id="__codelineno-19-19" name="__codelineno-19-19" href="#terraform-basis-__codelineno-19-19"></a>resource &quot;aci_logical_node_to_fabric_node&quot; &quot;np-101-102-to-node-102&quot; {
-<a id="__codelineno-19-20" name="__codelineno-19-20" href="#terraform-basis-__codelineno-19-20"></a>  logical_node_profile_dn  = aci_logical_node_profile.np-101-102.id
-<a id="__codelineno-19-21" name="__codelineno-19-21" href="#terraform-basis-__codelineno-19-21"></a>  tdn               = &quot;topology/pod-1/node-102&quot;
-<a id="__codelineno-19-22" name="__codelineno-19-22" href="#terraform-basis-__codelineno-19-22"></a>  rtr_id            = &quot;1.1.1.2&quot;
-<a id="__codelineno-19-23" name="__codelineno-19-23" href="#terraform-basis-__codelineno-19-23"></a>}
-<a id="__codelineno-19-24" name="__codelineno-19-24" href="#terraform-basis-__codelineno-19-24"></a>
-<a id="__codelineno-19-25" name="__codelineno-19-25" href="#terraform-basis-__codelineno-19-25"></a>resource &quot;aci_logical_interface_profile&quot; &quot;ip-101-102&quot; {
-<a id="__codelineno-19-26" name="__codelineno-19-26" href="#terraform-basis-__codelineno-19-26"></a>        logical_node_profile_dn = aci_logical_node_profile.np-101-102.id
-<a id="__codelineno-19-27" name="__codelineno-19-27" href="#terraform-basis-__codelineno-19-27"></a>        name                    = &quot;ip-101-102&quot;
-<a id="__codelineno-19-28" name="__codelineno-19-28" href="#terraform-basis-__codelineno-19-28"></a>  }
-<a id="__codelineno-19-29" name="__codelineno-19-29" href="#terraform-basis-__codelineno-19-29"></a>
-<a id="__codelineno-19-30" name="__codelineno-19-30" href="#terraform-basis-__codelineno-19-30"></a>resource &quot;aci_l3out_path_attachment&quot; &quot;l3ip-path&quot; {
-<a id="__codelineno-19-31" name="__codelineno-19-31" href="#terraform-basis-__codelineno-19-31"></a>  logical_interface_profile_dn  = aci_logical_interface_profile.ip-101-102.id
-<a id="__codelineno-19-32" name="__codelineno-19-32" href="#terraform-basis-__codelineno-19-32"></a>  target_dn  = &quot;topology/pod-1/protpaths-101-102/pathep-[IntPolGrp_Router1]&quot;
-<a id="__codelineno-19-33" name="__codelineno-19-33" href="#terraform-basis-__codelineno-19-33"></a>  if_inst_t = &quot;ext-svi&quot;
-<a id="__codelineno-19-34" name="__codelineno-19-34" href="#terraform-basis-__codelineno-19-34"></a>  addr  = &quot;10.1.1.1/24&quot;
-<a id="__codelineno-19-35" name="__codelineno-19-35" href="#terraform-basis-__codelineno-19-35"></a>  encap  = &quot;vlan-201&quot;
-<a id="__codelineno-19-36" name="__codelineno-19-36" href="#terraform-basis-__codelineno-19-36"></a>  encap_scope = &quot;ctx&quot;
-<a id="__codelineno-19-37" name="__codelineno-19-37" href="#terraform-basis-__codelineno-19-37"></a>  mode = &quot;regular&quot;
-<a id="__codelineno-19-38" name="__codelineno-19-38" href="#terraform-basis-__codelineno-19-38"></a>  mtu = &quot;inherit&quot;
-<a id="__codelineno-19-39" name="__codelineno-19-39" href="#terraform-basis-__codelineno-19-39"></a>}
-<a id="__codelineno-19-40" name="__codelineno-19-40" href="#terraform-basis-__codelineno-19-40"></a>
-<a id="__codelineno-19-41" name="__codelineno-19-41" href="#terraform-basis-__codelineno-19-41"></a>resource &quot;aci_external_network_instance_profile&quot; &quot;extepg&quot; {
-<a id="__codelineno-19-42" name="__codelineno-19-42" href="#terraform-basis-__codelineno-19-42"></a>  l3_outside_dn  = aci_l3_outside.l3out-1.id
-<a id="__codelineno-19-43" name="__codelineno-19-43" href="#terraform-basis-__codelineno-19-43"></a>  name           = &quot;extepg&quot;
-<a id="__codelineno-19-44" name="__codelineno-19-44" href="#terraform-basis-__codelineno-19-44"></a>}
-<a id="__codelineno-19-45" name="__codelineno-19-45" href="#terraform-basis-__codelineno-19-45"></a>
-<a id="__codelineno-19-46" name="__codelineno-19-46" href="#terraform-basis-__codelineno-19-46"></a>resource &quot;aci_l3_ext_subnet&quot; &quot;extepg-subnet&quot; {
-<a id="__codelineno-19-47" name="__codelineno-19-47" href="#terraform-basis-__codelineno-19-47"></a>  external_network_instance_profile_dn  = aci_external_network_instance_profile.extepg.id
-<a id="__codelineno-19-48" name="__codelineno-19-48" href="#terraform-basis-__codelineno-19-48"></a>  ip                                    = &quot;0.0.0.0/0&quot;
-<a id="__codelineno-19-49" name="__codelineno-19-49" href="#terraform-basis-__codelineno-19-49"></a>  scope                                 = [&quot;import-security&quot;,&quot;export-rtctrl&quot;]
-<a id="__codelineno-19-50" name="__codelineno-19-50" href="#terraform-basis-__codelineno-19-50"></a>}
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#terraform-basis-__codelineno-20-1"></a>resource &quot;aci_l3_outside&quot; &quot;l3out-1&quot; {
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#terraform-basis-__codelineno-20-2"></a>        tenant_dn      = aci_tenant.dcloud-tenant-1.id
+<a id="__codelineno-20-3" name="__codelineno-20-3" href="#terraform-basis-__codelineno-20-3"></a>        name           = &quot;l3out-1&quot;
+<a id="__codelineno-20-4" name="__codelineno-20-4" href="#terraform-basis-__codelineno-20-4"></a>        relation_l3ext_rs_l3_dom_att = aci_l3_domain_profile.EXTRTDOM_1.id
+<a id="__codelineno-20-5" name="__codelineno-20-5" href="#terraform-basis-__codelineno-20-5"></a>        relation_l3ext_rs_ectx = aci_vrf.vrf1.id
+<a id="__codelineno-20-6" name="__codelineno-20-6" href="#terraform-basis-__codelineno-20-6"></a>    }
+<a id="__codelineno-20-7" name="__codelineno-20-7" href="#terraform-basis-__codelineno-20-7"></a>
+<a id="__codelineno-20-8" name="__codelineno-20-8" href="#terraform-basis-__codelineno-20-8"></a>resource &quot;aci_logical_node_profile&quot; &quot;np-101-102&quot; {
+<a id="__codelineno-20-9" name="__codelineno-20-9" href="#terraform-basis-__codelineno-20-9"></a>        l3_outside_dn = aci_l3_outside.l3out-1.id
+<a id="__codelineno-20-10" name="__codelineno-20-10" href="#terraform-basis-__codelineno-20-10"></a>        name          = &quot;np-101-102&quot;
+<a id="__codelineno-20-11" name="__codelineno-20-11" href="#terraform-basis-__codelineno-20-11"></a>      }
+<a id="__codelineno-20-12" name="__codelineno-20-12" href="#terraform-basis-__codelineno-20-12"></a>
+<a id="__codelineno-20-13" name="__codelineno-20-13" href="#terraform-basis-__codelineno-20-13"></a>resource &quot;aci_logical_node_to_fabric_node&quot; &quot;np-101-102-to-node-101&quot; {
+<a id="__codelineno-20-14" name="__codelineno-20-14" href="#terraform-basis-__codelineno-20-14"></a>  logical_node_profile_dn  = aci_logical_node_profile.np-101-102.id
+<a id="__codelineno-20-15" name="__codelineno-20-15" href="#terraform-basis-__codelineno-20-15"></a>  tdn               = &quot;topology/pod-1/node-101&quot;
+<a id="__codelineno-20-16" name="__codelineno-20-16" href="#terraform-basis-__codelineno-20-16"></a>  rtr_id            = &quot;1.1.1.1&quot;
+<a id="__codelineno-20-17" name="__codelineno-20-17" href="#terraform-basis-__codelineno-20-17"></a>}
+<a id="__codelineno-20-18" name="__codelineno-20-18" href="#terraform-basis-__codelineno-20-18"></a>
+<a id="__codelineno-20-19" name="__codelineno-20-19" href="#terraform-basis-__codelineno-20-19"></a>resource &quot;aci_logical_node_to_fabric_node&quot; &quot;np-101-102-to-node-102&quot; {
+<a id="__codelineno-20-20" name="__codelineno-20-20" href="#terraform-basis-__codelineno-20-20"></a>  logical_node_profile_dn  = aci_logical_node_profile.np-101-102.id
+<a id="__codelineno-20-21" name="__codelineno-20-21" href="#terraform-basis-__codelineno-20-21"></a>  tdn               = &quot;topology/pod-1/node-102&quot;
+<a id="__codelineno-20-22" name="__codelineno-20-22" href="#terraform-basis-__codelineno-20-22"></a>  rtr_id            = &quot;1.1.1.2&quot;
+<a id="__codelineno-20-23" name="__codelineno-20-23" href="#terraform-basis-__codelineno-20-23"></a>}
+<a id="__codelineno-20-24" name="__codelineno-20-24" href="#terraform-basis-__codelineno-20-24"></a>
+<a id="__codelineno-20-25" name="__codelineno-20-25" href="#terraform-basis-__codelineno-20-25"></a>resource &quot;aci_logical_interface_profile&quot; &quot;ip-101-102&quot; {
+<a id="__codelineno-20-26" name="__codelineno-20-26" href="#terraform-basis-__codelineno-20-26"></a>        logical_node_profile_dn = aci_logical_node_profile.np-101-102.id
+<a id="__codelineno-20-27" name="__codelineno-20-27" href="#terraform-basis-__codelineno-20-27"></a>        name                    = &quot;ip-101-102&quot;
+<a id="__codelineno-20-28" name="__codelineno-20-28" href="#terraform-basis-__codelineno-20-28"></a>  }
+<a id="__codelineno-20-29" name="__codelineno-20-29" href="#terraform-basis-__codelineno-20-29"></a>
+<a id="__codelineno-20-30" name="__codelineno-20-30" href="#terraform-basis-__codelineno-20-30"></a>resource &quot;aci_l3out_path_attachment&quot; &quot;l3ip-path&quot; {
+<a id="__codelineno-20-31" name="__codelineno-20-31" href="#terraform-basis-__codelineno-20-31"></a>  logical_interface_profile_dn  = aci_logical_interface_profile.ip-101-102.id
+<a id="__codelineno-20-32" name="__codelineno-20-32" href="#terraform-basis-__codelineno-20-32"></a>  target_dn  = &quot;topology/pod-1/protpaths-101-102/pathep-[IntPolGrp_Router1]&quot;
+<a id="__codelineno-20-33" name="__codelineno-20-33" href="#terraform-basis-__codelineno-20-33"></a>  if_inst_t = &quot;ext-svi&quot;
+<a id="__codelineno-20-34" name="__codelineno-20-34" href="#terraform-basis-__codelineno-20-34"></a>  addr  = &quot;10.1.1.1/24&quot;
+<a id="__codelineno-20-35" name="__codelineno-20-35" href="#terraform-basis-__codelineno-20-35"></a>  encap  = &quot;vlan-201&quot;
+<a id="__codelineno-20-36" name="__codelineno-20-36" href="#terraform-basis-__codelineno-20-36"></a>  encap_scope = &quot;ctx&quot;
+<a id="__codelineno-20-37" name="__codelineno-20-37" href="#terraform-basis-__codelineno-20-37"></a>  mode = &quot;regular&quot;
+<a id="__codelineno-20-38" name="__codelineno-20-38" href="#terraform-basis-__codelineno-20-38"></a>  mtu = &quot;inherit&quot;
+<a id="__codelineno-20-39" name="__codelineno-20-39" href="#terraform-basis-__codelineno-20-39"></a>}
+<a id="__codelineno-20-40" name="__codelineno-20-40" href="#terraform-basis-__codelineno-20-40"></a>
+<a id="__codelineno-20-41" name="__codelineno-20-41" href="#terraform-basis-__codelineno-20-41"></a>resource &quot;aci_external_network_instance_profile&quot; &quot;extepg&quot; {
+<a id="__codelineno-20-42" name="__codelineno-20-42" href="#terraform-basis-__codelineno-20-42"></a>  l3_outside_dn  = aci_l3_outside.l3out-1.id
+<a id="__codelineno-20-43" name="__codelineno-20-43" href="#terraform-basis-__codelineno-20-43"></a>  name           = &quot;extepg&quot;
+<a id="__codelineno-20-44" name="__codelineno-20-44" href="#terraform-basis-__codelineno-20-44"></a>}
+<a id="__codelineno-20-45" name="__codelineno-20-45" href="#terraform-basis-__codelineno-20-45"></a>
+<a id="__codelineno-20-46" name="__codelineno-20-46" href="#terraform-basis-__codelineno-20-46"></a>resource &quot;aci_l3_ext_subnet&quot; &quot;extepg-subnet&quot; {
+<a id="__codelineno-20-47" name="__codelineno-20-47" href="#terraform-basis-__codelineno-20-47"></a>  external_network_instance_profile_dn  = aci_external_network_instance_profile.extepg.id
+<a id="__codelineno-20-48" name="__codelineno-20-48" href="#terraform-basis-__codelineno-20-48"></a>  ip                                    = &quot;0.0.0.0/0&quot;
+<a id="__codelineno-20-49" name="__codelineno-20-49" href="#terraform-basis-__codelineno-20-49"></a>  scope                                 = [&quot;import-security&quot;,&quot;export-rtctrl&quot;]
+<a id="__codelineno-20-50" name="__codelineno-20-50" href="#terraform-basis-__codelineno-20-50"></a>}
 </code></pre></div>
+<p>You can plan and apply to see the result on ACI.</p>
 <p>Documentation of resources:</p>
 <p><a href="https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/tenant" target="_blank">aci_tenant resource</a></p>
 <p><a href="https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/bridge_domain" target="_blank">aci_bridge_domain</a></p>
@@ -2334,9 +2359,13 @@ Please, download a terraform file from <mark><strong><a href="https://raw.github
 <ul>
 <li>description of variable</li>
 <li>default value to be used if no other is specfied</li>
-<li>validation mechanism with:</li>
+<li>
+<p>validation mechanism with:</p>
+<ul>
 <li>condition - variable can be set to either "yes" or "no" value</li>
 <li>error message to be displayed if specified value doesn't pass the validation test</li>
+</ul>
+</li>
 </ul>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#terraform-vars-__codelineno-1-1"></a>variable &quot;bd_arp_flood&quot; {
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#terraform-vars-__codelineno-1-2"></a>  description = &quot;Specify whether ARP flooding is enabled. If flooding is disabled, unicast routing will be performed on the target IP address.&quot;
